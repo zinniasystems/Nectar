@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import jline.ConsoleReader;
+
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -34,16 +36,18 @@ import com.zinnia.nectar.regression.antlr.language.parser.PrimitiveGrammarParser
  *
  */
 public class CommandShell {
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
 		
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		ConsoleReader consoleReader = new ConsoleReader();
+		consoleReader.setDefaultPrompt("nectar>");
 		String command;
 		while(true)
 		{
 			try {
-				System.out.print("nectar>");
-				command=bufferedReader.readLine();
+				
+				command=consoleReader.readLine();
 				if(command.equals("exit"))
 				{
 					System.exit(0);
@@ -51,6 +55,10 @@ public class CommandShell {
 				else if(command.equals("help"))
 				{
 					System.out.println("See command shell manual for available functions");
+				}
+				else if(command.equals("version"))
+				{
+					System.out.println("Nectar version 0.0.1");
 				}
 				else{
 					ByteArrayInputStream byteArray = new ByteArrayInputStream(command.getBytes(Charset.defaultCharset()));
