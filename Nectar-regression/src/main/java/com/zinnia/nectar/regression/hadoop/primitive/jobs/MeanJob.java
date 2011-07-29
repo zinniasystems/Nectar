@@ -16,8 +16,11 @@
 
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -30,18 +33,18 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.MeanMapper;
-import com.zinnia.nectar.regression.language.primitive.Preferences;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class MeanJob {
+public class MeanJob implements Callable<Double>{
 
 	private String inputFilePath;
-	private String column;
+	private int column;
 	private int n;
 	private String outputFilePath; 
-	public MeanJob(String inputFilePath ,String outputFilePath,String column,int n) {
+	public MeanJob(String inputFilePath ,String outputFilePath,int column,int n) {
 		
 		super();
 		
@@ -51,9 +54,8 @@ public class MeanJob {
 		this.inputFilePath = inputFilePath;
 	}
 	
-	
-	public void createRunHadoop() throws IOException, InterruptedException
-	{
+	@Override
+	public Double call() throws Exception {
 		JobControl jobControl = new JobControl("mean job");
 
 		Job job = new Job();
@@ -62,8 +64,7 @@ public class MeanJob {
 		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());	
 		ChainMapper.addMapper(job, MeanMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
 		
-		
-		job.getConfiguration().set("fields.spec", column);
+		job.getConfiguration().set("fields.spec", ""+column);
 		job.getConfiguration().setInt("n",n);
 		
 		job.setReducerClass(DoubleSumReducer.class);
@@ -81,26 +82,18 @@ public class MeanJob {
 		{
 			Thread.sleep(10000);
 		}
-		
+		jobControl.stop();
 		FileSystem fs = FileSystem.get(job.getConfiguration());
-		fs.copyToLocalFile(new Path(outputFilePath),new Path("/tmp/"+outputFilePath)); //makes available the output of the file to API
-		System.exit(0);
-	}
-	public static void main(String args[])
-	{
 		
-		int n=Integer.parseInt(args[3]);
-		MeanJob meanJob = new MeanJob(args[0],args[1],args[2],n);
-		try {
-			meanJob.createRunHadoop();
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+		String valueLine = bufferedReader.readLine();
+		String [] fields = valueLine.split("\t");
+		double value = Double.parseDouble(fields[1]);
+		bufferedReader.close();
+		in.close();
+		return value;
 	}
-}
+	
+	}
+

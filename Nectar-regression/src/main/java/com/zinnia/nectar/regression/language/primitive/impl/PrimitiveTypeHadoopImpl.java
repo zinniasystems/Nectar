@@ -16,79 +16,58 @@
 
 package com.zinnia.nectar.regression.language.primitive.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaSqJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaXYJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.YDiffJob;
 import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 import com.zinnia.nectar.regression.language.primitive.Preferences;
 
 
 public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
-	public String HADOOP_HOME;
-	public static String JAR_NAME="Nectar-regression-0.0.1-SNAPSHOT.jar";
-	
 	Random random = new Random(400);
-	CommandExecutor commandExecutor;
-	final private int MAX_THREADS=30;
-	public static BlockingQueue<Object> processQueue;
-	private int NO_OF_PROCESS;
+	private int MAX_THREADS;
+	final String inputDirectory = "input/";
 	private ExecutorService executorService;
-	private void initializeProcessQueue()
-	{
-		for(int i=0;i<NO_OF_PROCESS;i++)
-		{
-			try {
-				processQueue.put(new Object());
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+
 	public PrimitiveTypeHadoopImpl()
 	{
 		Preferences.init();
-		HADOOP_HOME=Preferences.HADOOP_HOME;
-		NO_OF_PROCESS=Preferences.NO_OF_PARALLEL_JOBS;
-		processQueue= new ArrayBlockingQueue<Object>(NO_OF_PROCESS);
-		initializeProcessQueue();
+		MAX_THREADS=Preferences.NO_OF_PARALLEL_JOBS;
 		executorService = Executors.newFixedThreadPool(MAX_THREADS);
+		
+		
 	}
-	
+
 
 
 
 	public Future<Double> sigmax(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
+		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
-		String command=HADOOP_HOME+"bin/hadoop jar "+HADOOP_HOME+JAR_NAME+" "+
-		" com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob input/"+inputFilePath+" "+outputFilePath+" "+column;
-		commandExecutor= new CommandExecutor(command,outputFilePath);
-		Future<Double> value=executorService.submit(commandExecutor);
-
-
-
+		SigmaJob sigmaJob = new SigmaJob(completeInputFilePath,outputFilePath,column);
+		Future<Double> value=executorService.submit(sigmaJob);
 		return value;
 	}
 
 
 	public Future<Double> sigmaxSquare(String inputFilePath,
 			int column) {
-		// TODO Auto-generated method stub
+		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
-
-		String command=HADOOP_HOME+"bin/hadoop jar "+HADOOP_HOME+JAR_NAME+" "+
-		"com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaSqJob input/"+inputFilePath+" "+outputFilePath+" "+column;
-		commandExecutor= new CommandExecutor(command,outputFilePath);
-		Future<Double> value=executorService.submit(commandExecutor);
-
+		SigmaSqJob sigmaSqJob = new SigmaSqJob(completeInputFilePath,outputFilePath,column);
+		Future<Double> value = executorService.submit(sigmaSqJob);
 
 		return value;
 	}
@@ -96,57 +75,44 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 
 	public Future<Double> mean(String inputFilePath, int column,
 			int n) {
+		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
-		String command=HADOOP_HOME+"bin/hadoop jar "+HADOOP_HOME+JAR_NAME+" "+
-		" com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob input/"+inputFilePath+" "+outputFilePath+" "+column+" "+n;
-		commandExecutor= new CommandExecutor(command,outputFilePath);
-		Future<Double> value=executorService.submit(commandExecutor);
-
-
+		MeanJob meanJob = new MeanJob(completeInputFilePath,outputFilePath,column,n);
+		Future<Double> value = executorService.submit(meanJob);
 		return value;
 	}
 
 
 	public Future<Double> sigmaxy(String inputFilePath,int x,
 			int y) {
-		// TODO Auto-generated method stub
+		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
-		String command=HADOOP_HOME+"bin/hadoop jar "+HADOOP_HOME+JAR_NAME+" "+
-		" com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaXYJob input/"+inputFilePath+" "+outputFilePath+" "+x+" "+y;
-		commandExecutor= new CommandExecutor(command,outputFilePath);
-		Future<Double> value=executorService.submit(commandExecutor);
-
-
+		SigmaXYJob sigmaxyJob = new SigmaXYJob(completeInputFilePath,outputFilePath,x,y);
+		Future<Double> value = executorService.submit(sigmaxyJob);
 		return value;
 	}
 	public Future<Double> ydiffjob(String inputFilePath, List<Integer> columns,
 			Map<Integer,Double> paramValues) {
+		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
-		String command=HADOOP_HOME+"bin/hadoop jar "+HADOOP_HOME+JAR_NAME+" "+
-		" com.zinnia.nectar.regression.hadoop.primitive.jobs.YDiffJob input/"+inputFilePath+" "+outputFilePath+" ";
-		String params = new String();
-		StringBuilder columnString = new StringBuilder();
-		StringBuilder paramValsString = new StringBuilder();
-		paramValsString.append(paramValues.get(0)+",");
-		for(int column : columns)
+		/* Prepare column list */
+		String [] columnStringArray = new String[columns.size()]; 
+		List<String> paramValueStringList = new ArrayList<String>();
+		for(int i=0;i<columns.size();i++)
 		{
-			columnString.append(column);
-			columnString.append(",");
+			int column = columns.get(i);
+			columnStringArray[i]=""+column;
+			
 			if(column!=columns.get(columns.size()-1)) //last column will be output column
 			{
-				paramValsString.append(paramValues.get(column));
-				paramValsString.append(",");
+				paramValueStringList.add(""+paramValues.get(column));
+				
 			}
 		}
-		columnString.deleteCharAt(columnString.lastIndexOf(","));
-		paramValsString.deleteCharAt(paramValsString.lastIndexOf(","));
-		params = params+" "+columnString.toString();
-		params = params+" "+paramValsString.toString();
-		command = command+" "+params;
-		commandExecutor= new CommandExecutor(command,outputFilePath);
-		Future<Double> value=executorService.submit(commandExecutor);
-
-
+        String [] paramValueArray = paramValueStringList.toArray(new String[paramValueStringList.size()]);    
+		YDiffJob yDiffJob = new YDiffJob(completeInputFilePath,outputFilePath,columnStringArray,paramValueArray);
+		Future<Double> value=executorService.submit(yDiffJob);
+		
 		return value;
 	}
 

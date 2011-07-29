@@ -16,8 +16,12 @@
 
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -34,10 +38,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaXYMapper;
-import com.zinnia.nectar.regression.language.primitive.Preferences;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class SigmaXYJob {
+public class SigmaXYJob implements Callable<Double>{
 
 	private String inputFilePath;
 	private String outputFilePath; 
@@ -49,8 +52,10 @@ public class SigmaXYJob {
 		this.x=x;
 		this.y=y;
 	}
-	public void createRunHadoop() throws IOException, InterruptedException
-	{
+	
+	
+	@Override
+	public Double call() throws Exception {
 		JobControl jobControl = new JobControl("sigmajob");
 
 		Job job = new Job();
@@ -62,8 +67,6 @@ public class SigmaXYJob {
 		ChainMapper.addMapper(job, SigmaXYMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
 		
 		job.getConfiguration().set("fields.spec",x + "," +y);
-				
-		
 		
 		job.setReducerClass(DoubleSumReducer.class);
 		FileInputFormat.addInputPath(job, new Path(inputFilePath));
@@ -80,28 +83,16 @@ public class SigmaXYJob {
 		{
 			Thread.sleep(10000);
 		}
-		
+		jobControl.stop();
 		FileSystem fs = FileSystem.get(job.getConfiguration());
-		fs.copyToLocalFile(new Path(outputFilePath),new Path("/tmp/"+outputFilePath));
-		System.exit(0);
-
+		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+		String valueLine = bufferedReader.readLine();
+		String [] fields = valueLine.split("\t");
+		double value = Double.parseDouble(fields[1]);
+		bufferedReader.close();
+		in.close();
+		return value;
 		
-
-	}
-	public static void main(String args[])
-	{
-		int x= Integer.parseInt(args[2]);
-		int y=Integer.parseInt(args[3]);
-		
-		SigmaXYJob sigmaJob = new SigmaXYJob(args[0],args[1],x,y);
-		try {
-			sigmaJob.createRunHadoop();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

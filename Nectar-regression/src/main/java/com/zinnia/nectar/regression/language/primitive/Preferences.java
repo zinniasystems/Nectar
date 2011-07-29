@@ -26,8 +26,6 @@ import java.util.Properties;
  *
  */
 public class Preferences {
-	
-	public static String HADOOP_HOME;
 	public static int NO_OF_PARALLEL_JOBS;
 	public static void init()
 	{
@@ -36,14 +34,13 @@ public class Preferences {
 			FileInputStream fis = new FileInputStream("configuration.cfg");
 			try {
 				properties.load(fis);
-				HADOOP_HOME=properties.getProperty("HADOOP_HOME");
 				if(properties.getProperty("NO_OF_PARALLEL_JOBS")!=null)
 				{
 					NO_OF_PARALLEL_JOBS=Integer.parseInt(properties.getProperty("NO_OF_PARALLEL_JOBS"));
 				}
 				else
 				{
-					NO_OF_PARALLEL_JOBS=4;
+					NO_OF_PARALLEL_JOBS=10;
 				}
 				
 			} catch (IOException e) {

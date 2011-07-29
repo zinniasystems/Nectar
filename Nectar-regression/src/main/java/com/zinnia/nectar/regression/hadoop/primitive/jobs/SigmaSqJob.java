@@ -16,8 +16,12 @@
 
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -33,15 +37,14 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaSqMapper;
-import com.zinnia.nectar.regression.language.primitive.Preferences;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class SigmaSqJob {
+public class SigmaSqJob implements Callable<Double>{
 
 	private String inputFilePath;
-	private String column;
+	private int column;
 	private String outputFilePath; 
-	public SigmaSqJob(String inputFilePath,String outputFilePath ,String column) {
+	public SigmaSqJob(String inputFilePath,String outputFilePath ,int column) {
 		
 		super();
 		
@@ -50,22 +53,20 @@ public class SigmaSqJob {
 		this.column=column;
 	}
 	
-	
-	public void createRunHadoop() throws IOException, InterruptedException
-	{
+	@Override
+	public Double call() throws Exception {
+		// TODO Auto-generated method stub
 		JobControl jobControl = new JobControl("sigmajob");
 
 		Job job = new Job();
 		job.setJarByClass(SigmaSqJob.class);
-		
-	
 		
 		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 		
 		ChainMapper.addMapper(job, SigmaSqMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
 		
 		
-		job.getConfiguration().set("fields.spec", column);
+		job.getConfiguration().set("fields.spec", ""+column);
 		job.setReducerClass(DoubleSumReducer.class);
 		FileInputFormat.addInputPath(job, new Path(inputFilePath));
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
@@ -81,25 +82,17 @@ public class SigmaSqJob {
 		{
 			Thread.sleep(10000);
 		}
+		jobControl.stop();
 		
 		FileSystem fs = FileSystem.get(job.getConfiguration());
-		fs.copyToLocalFile(new Path(outputFilePath),new Path("/tmp/"+outputFilePath));
-		System.exit(0);
-
+		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+		String valueLine = bufferedReader.readLine();
+		String [] fields = valueLine.split("\t");
+		double value = Double.parseDouble(fields[1]);
+		bufferedReader.close();
+		in.close();
+		return value;
 		
-
-	}
-	public static void main(String args[])
-	{
-		SigmaSqJob sigmaJob = new SigmaSqJob(args[0],args[1],args[2]);		
-		try {
-			sigmaJob.createRunHadoop();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

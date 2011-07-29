@@ -16,8 +16,11 @@
 
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.concurrent.Callable;
 
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -35,7 +38,7 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.YDiffMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class YDiffJob {
+public class YDiffJob implements Callable<Double>{
 
 	private String inputFilePath;
 	private String[] columns;
@@ -50,9 +53,22 @@ public class YDiffJob {
 		this.inputFilePath = inputFilePath;
 	}
 	
+	 private String getFieldSpecForColumns()
+	 {
+		 StringBuilder fieldSpec = new StringBuilder();
+		  for(String column : columns)
+		  {
+			  fieldSpec.append(column);
+			  fieldSpec.append(",");
+		  }
+		  fieldSpec.deleteCharAt(fieldSpec.lastIndexOf(","));
+		return fieldSpec.toString();
+	 }
 	
-	public void createRunHadoop() throws IOException, InterruptedException
-	{
+
+
+	@Override
+	public Double call() throws Exception {
 		JobControl jobControl = new JobControl("YDiff job");
 
 		Job job = new Job();
@@ -82,38 +98,15 @@ public class YDiffJob {
 		{
 			Thread.sleep(10000);
 		}
-		
+		jobControl.stop();
 		FileSystem fs = FileSystem.get(job.getConfiguration());
-		fs.copyToLocalFile(new Path(outputFilePath),new Path("/tmp/"+outputFilePath));
-		System.exit(0);
-
-	}
-	 private String getFieldSpecForColumns()
-	 {
-		 StringBuilder fieldSpec = new StringBuilder();
-		  for(String column : columns)
-		  {
-			  fieldSpec.append(column);
-			  fieldSpec.append(",");
-		  }
-		  fieldSpec.deleteCharAt(fieldSpec.lastIndexOf(","));
-		return fieldSpec.toString();
-	 }
-	public static void main(String args[])
-	{
-		String inputFilePath = args[0];
-		String outputFilePath = args[1];
-		String[] columns = args[2].split(",");
-		String [] paramValues = args[3].split(",");
-		YDiffJob ydiffJob = new YDiffJob(inputFilePath,outputFilePath,columns,paramValues);
-		try {
-			ydiffJob.createRunHadoop();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+		String valueLine = bufferedReader.readLine();
+		String [] fields = valueLine.split("\t");
+		double value = Double.parseDouble(fields[1]);
+		bufferedReader.close();
+		in.close();
+		return value;
 	}
 }
