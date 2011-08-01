@@ -25,13 +25,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaSqJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaXYJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.YDiffJob;
 import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
-import com.zinnia.nectar.regression.language.primitive.Preferences;
 
 
 public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
@@ -48,10 +48,6 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		
 		
 	}
-
-
-
-
 	public Future<Double> sigmax(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
 		String completeInputFilePath = inputDirectory+inputFilePath;
