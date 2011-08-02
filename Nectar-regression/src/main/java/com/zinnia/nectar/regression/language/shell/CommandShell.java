@@ -52,10 +52,10 @@ public class CommandShell {
 				{
 					System.exit(0);
 				}
-				else if(command.equals("help"))
-				{
-					System.out.println("See command shell manual for available functions");
-				}
+//				else if(command.equals("help"))
+//				{
+//					System.out.println("See command shell manual for available functions");
+//				}
 				else if(command.equals("version"))
 				{
 					System.out.println("Nectar version 0.0.1");

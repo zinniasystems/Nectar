@@ -25,7 +25,6 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class DoubleSumReducer extends Reducer<Text,DoubleWritable,Text,DoubleWritable> {
 
-	
 	protected void reduce(Text key, Iterable<DoubleWritable> valueSet,
 			Context context)
 			throws IOException, InterruptedException {

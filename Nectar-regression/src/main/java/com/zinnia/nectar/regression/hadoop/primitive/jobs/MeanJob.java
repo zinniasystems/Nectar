@@ -33,17 +33,12 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
-
-import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.MeanMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
 public class MeanJob implements Callable<Double>{
 
-	Logger logger=Logger.getLogger(MeanJob.class);
 	private String inputFilePath;
 	private int column;
 	private int n;
@@ -61,9 +56,7 @@ public class MeanJob implements Callable<Double>{
 	@Override
 	public Double call() throws Exception {
 		JobControl jobControl = new JobControl("mean job");
-		DOMConfigurator.configure(Preferences.LOG_PATH);
 		Job job = new Job();
-		logger.info("Mean JOB started");
 		job.setJarByClass(MeanJob.class);
 	
 		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());	
@@ -74,7 +67,6 @@ public class MeanJob implements Callable<Double>{
 		
 		job.setReducerClass(DoubleSumReducer.class);
 		FileInputFormat.addInputPath(job, new Path(inputFilePath));
-		logger.warn("Processing...Do not terminate/close");
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(DoubleWritable.class);
@@ -89,7 +81,6 @@ public class MeanJob implements Callable<Double>{
 			Thread.sleep(10000);
 		}
 		jobControl.stop();
-		logger.info("Mean JOB ended");
 		FileSystem fs = FileSystem.get(job.getConfiguration());
 		
 		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));

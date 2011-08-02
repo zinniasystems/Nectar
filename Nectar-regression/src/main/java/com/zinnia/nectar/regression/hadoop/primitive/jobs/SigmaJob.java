@@ -20,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -33,18 +35,14 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 
-
-import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
 public class SigmaJob implements Callable<Double>{
 
-	Logger logger=Logger.getLogger(SigmaJob.class);
+	Log log=LogFactory.getLog(SigmaJob.class);
 	private String inputFilePath;
 	private int column;
 	private String outputFilePath;				
@@ -58,21 +56,18 @@ public class SigmaJob implements Callable<Double>{
 	@Override
 	public Double call() throws Exception {
 		// TODO Auto-generated method stub
-		DOMConfigurator.configure(Preferences.LOG_PATH);
 		JobControl jobControl = new JobControl("sigmajob");
 		Job job = new Job();
-		logger.info("Sigma JOB started");
 		job.setJarByClass(SigmaJob.class);
-
+		log.info("Sigma Job initialized");
 		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 		
 		ChainMapper.addMapper(job, SigmaMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
 		
 		job.getConfiguration().set("fields.spec", ""+column);
 		job.setReducerClass(DoubleSumReducer.class);
-		
+		log.warn("Processing...Do not terminate/close");
 		FileInputFormat.addInputPath(job, new Path(inputFilePath));
-		logger.warn("Processing...Do not terminate/close");
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setMapOutputValueClass(DoubleWritable.class);
 		job.setMapOutputKeyClass(Text.class);
@@ -87,7 +82,7 @@ public class SigmaJob implements Callable<Double>{
 			Thread.sleep(10000);
 		}
 		jobControl.stop();
-		logger.info("Sigma JOB ended");
+		log.info("Sigma Job completed");
 		FileSystem fs = FileSystem.get(job.getConfiguration());
 		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));

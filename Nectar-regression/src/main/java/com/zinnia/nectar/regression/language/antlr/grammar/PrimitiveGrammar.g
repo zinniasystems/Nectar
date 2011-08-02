@@ -29,12 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.zinnia.nectar.regression.language.complex.impl.ComplexTypeImpl ;
+//import com.zinnia.hpm.regression.language.complex.impl.ComplexTypeImpl ;
 }
 
 
 @lexer::header
 {
-package com.zinnia.antlr.language.parser;
+package com.zinnia.nectar.regression.antlr.language.parser;
 }
 
 @members
@@ -44,245 +45,320 @@ List<Integer> list = new ArrayList<Integer>();
 int n,cn,x,y,nn;     //n=no. cn=colno. x=xval y=yval nn= corr no.  
 int k=0; // index
 double level;
-IPrimitiveType primitiveImpl;	
+IPrimitiveType primitiveImpl; 
 ComplexTypeImpl complexTypeImpl = new ComplexTypeImpl();  
+
+
+//error handling
+Stack paraphrases = new Stack();
+public String getErrorMessage(RecognitionException e,
+String[] tokenNames)
+{
+String msg = super.getErrorMessage(e, tokenNames);
+if ( paraphrases.size()>0 ) {
+String paraphrase = (String)paraphrases.peek();
+msg = msg+" "+paraphrase;
+}
+return msg;
+}
+
+
 }
 
 
 
-start 	: ('sigmax') '(' INT ')' '<<' input		{ n=Integer.parseInt($INT.text);
-												
-											
-												
-										        primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-						                        Future<Double> value=primitiveImpl.sigmax(ip,n);
-						                        
-						                  try
-						                  {
-      						                 System.out.println("Sigmax is "+value.get());
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						                 }
-								
-		| ('sigmaxsquare') '(' INT ')' '<<' input  { 	 n=Integer.parseInt($INT.text);
-									  
-								
-								             primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-								             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
-											 try
-						                  {
-      						                  System.out.println("Sigmax square is "+value.get());  
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						                 }
-								
-		| ('sigmaxy') '(' INT			{   x=Integer.parseInt($INT.text);}
-					xypart				{
-										     primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-					                        Future<Double> value=primitiveImpl.sigmaxy(ip,x,y); 
-											 try
-						                  {
-      						                  System.out.println("Sigmaxy is "+value.get());  
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						                 }
-									
-		| ('mean') '(' INT 				 {   cn=Integer.parseInt($INT.text);}
-				 ')' 
-				  idpart                  {
-				  					       primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-				                            Future<Double> value=primitiveImpl.mean(ip,cn,n);
-				  										 try
-						                  {
-      						                  System.out.println("mean is "+value.get());  
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						                 }
-				  
-		 | ( 'corr') '(' INT 		{ x=Integer.parseInt($INT.text);}
-					xypart				
-				'(' npart	')'			{
-					
-					
-					                       Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn); 
-											 try
-						                  {
-      						                 System.out.println("correlation is "+value.get());  
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						                 }
-						                
-												                 
+start   
+@init { paraphrases.push("\n"+"USAGE :sigmax(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+  : ('sigmax') '(' INT ')' '<<' input   { n=Integer.parseInt($INT.text);
+                        
+                      
+                        
+                     primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                     Future<Double> value=primitiveImpl.sigmax(ip,n);
+                                    
+                              try
+                              {
+                                   System.out.println("Sigmax is "+value.get());
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                             }
+                
+    | sigmaxsquare
+    ;
+
+
+
+sigmaxsquare
+@init { paraphrases.push("\n"+"USAGE :sigmaxsquare(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+  :('sigmaxsquare') '(' INT ')' '<<' input  {    n=Integer.parseInt($INT.text);
+                    
+                
+                             primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
+                       try
+                              {
+                                    System.out.println("Sigmax square is "+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                             }
+                
+    | sigmaxy
+    ;
+sigmaxy
+@init { paraphrases.push("\n"+"USAGE :sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+  :('sigmaxy') '(' INT      {   x=Integer.parseInt($INT.text);}
+            xypart    {
+                         primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                  Future<Double> value=primitiveImpl.sigmaxy(ip,x,y); 
+                       try
+                              {
+                                    System.out.println("Sigmaxy is "+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                             }
+                  
+    |mean
+    ;
+mean
+@init { paraphrases.push("\n"+"USAGE :mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+  : ('mean') '(' INT         {   cn=Integer.parseInt($INT.text);}
+         ')' 
+          idpart                  {
+                           primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                    Future<Double> value=primitiveImpl.mean(ip,cn,n);
+                               try
+                              {
+                                    System.out.println("mean is "+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                             }
+          
+     | corr
+    ;
+
+
+corr
+@init { paraphrases.push("\n"+"USAGE :corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+  :( 'corr') '(' INT    { x=Integer.parseInt($INT.text);}
+          xypart        
+        '(' npart ')'     {
+          
+          
+                                 Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn); 
+                       try
+                              {
+                                   System.out.println("correlation is "+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                             }
+                            
+                                         
      
-    			| ( 'corrmatrix' )  			
-    	
-    			  	'('   INT 				{ list.add(Integer.parseInt($INT.text));   }
-     	 		
-  		  	 		 ','
-     	
-     			ofpart
-     			
-     			
-     			| ( 'multiplereg')     
-     				
-     				'('  INT					  { list.add(Integer.parseInt($INT.text));   }
-     	 		
-     	 		','
-     	 		
-     	 		mulregpart
-     	 		
-     	 		| ( 'forwardselection')
-     	 			'(' INT						 { list.add(Integer.parseInt($INT.text));   }
-     	 				','
-     	 		forwardpart
-     	 		;
-     			
-     			
-     			
-   ofpart :  		  INT		{  list.add(Integer.parseInt($INT.text));}
-     	  
-     				  morecol
-     	  
-     				  idpart               { 
-     	                                    
-     	  									Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n); 
-											 try
-						                  {
-						             
-						                  
-      						              Double[][] matrix=value.get(); 
-      						             
-      						                System.out.println("Correlation matrix is"); 
-      						                for(int i=0;i<list.size();i++)
-      						                 {
-      						                 for(int j=0;j<list.size();j++)
-      						                 {
-      						                 	
-      						                 System.out.print(matrix[i][j] + "\t");
-      						                 }
-      						                  System.out.println();
-      						                }  
-      						                 }
-      						                 catch(Exception e)
-      						                 {
-      						                 }
-						         }
-     	
-				  	;		 
-					
-					 
-mulregpart	:		  INT		{  list.add(Integer.parseInt($INT.text));}
-     	  
-     				  morecol
-     	  
-     				  idpart             {
-     	  
-     				                       
-     	                                    
-     	  									Future<Map<Integer,Double>> values=complexTypeImpl.multipleregression(ip,list,n);
-     	  									try{
-     	  									 System.out.println("Regression Equation is ");
-     	  									  System.out.println("Constant = "+values.get(0));
-     	  									  for( int i=0;i<list.size()-1;i++)
-     	  									   {
-     	  									   	int column = list.get(i);
-     	  									   	System.out.println(column+" variable value = "+values.get(column);
-     	  									   	
-     	  									   }
-     	  									 
-     	  									}
-     	  									catch(Exception e)
-     	  									{
-     	  									
-     	  									}
-     	  									 
-      						  		      }       
-      				;
-					
-					 
-forwardpart	:		  INT		{  list.add(Integer.parseInt($INT.text));}
-					     	  
-					     				  morecol
-					     	  
-					     				  levelofsignificance  {
-					     	  
-					     				                        
-					     	                                    
-					     	  									complexTypeImpl.forwardSelection(ip,list,n,level);
-					     	  									 
-					      						  		      }       
-					      						          
-					     ;
-
-morecol 	:	')'
-				
-				|
-				
-				','
-				
-				INT			{ list.add(Integer.parseInt($INT.text)); }
-				
-				morecol
-				;				 
-			
-		  
-xypart 	:  ',' INT  ')' '<<' input			{   y=Integer.parseInt($INT.text);
-								  
-								}
-	;
-	
-	
-npart	: INT 				{  nn=Integer.parseInt($INT.text); }
-	;						  
-				  
-				  
-idpart	:	 '<<' input  '(' INT ')' 					{  n=Integer.parseInt($INT.text);
-											//  
-								
-				}
-				;
-	
-levelofsignificance : '<<' input  '(' INT  ',' 					{  n=Integer.parseInt($INT.text); }
-				 DOUBLE  ')'				{ level = Double.parseDouble($DOUBLE.text);  }
-				 ;
-
-out		:	'>>' 	ID  		{  		op= $ID.text;  }
-		;
-	
-	
+          | corrmatrix
+      ;
+corrmatrix  
+@init { paraphrases.push("\n"+"USAGE :corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
 
 
-ext		: 	 ID 			{  extn = $ID.text; }
-		;
-		
-		
-input 		: ID     {		ip=$ID.text;}
-			|
-			ID   '.'		{  ip=$ID.text;}
-			
-			ext
-			;
-		
-		
-ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'.'|'a'..'z'|'A'..'Z')*
+  :( 'corrmatrix' )       
+      
+              '('   INT         { list.add(Integer.parseInt($INT.text));   }
+          
+               ','
+      
+          ofpart
+          
+          
+          |multiplereg
+      ;
+
+multiplereg 
+@init { paraphrases.push("\n"+"USAGE :multiplereg(column_nos)<<input_file(total_no_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+
+  : ( 'multiplereg')     
+            
+            '('  INT            { list.add(Integer.parseInt($INT.text));   }
+          
+          ','
+          
+          mulregpart
+          
+          | forwardselection
+      ;
+
+
+forwardselection
+@init { paraphrases.push("\n"+"USAGE :forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"Type HELP or help for usage of all commands"); }
+@after { paraphrases.pop(); }
+
+
+  :( 'forwardselection')
+            '(' INT            { list.add(Integer.parseInt($INT.text));   }
+              ','
+          forwardpart
+      |
+      help
+          ;
+          
+  
+
+help
+
+  
+
+  :  ('HELP' |'help')    {
+    System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n \n"); 
+            } 
+  ;         
+          
+
+
+ofpart :        INT   {  list.add(Integer.parseInt($INT.text));}
+        
+              morecol
+        
+              idpart               { 
+                                          
+                          Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n); 
+                       try
+                              {
+                         
+                              
+                                Double[][] matrix=value.get(); 
+                               
+                                  System.out.println("Correlation matrix is"); 
+                                  for(int i=0;i<list.size();i++)
+                                   {
+                                   for(int j=0;j<list.size();j++)
+                                   {
+                                    
+                                   System.out.print(matrix[i][j] + "\t");
+                                   }
+                                    System.out.println();
+                                  }  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                   }
+                     }
+      
+            ;    
+          
+           
+mulregpart  :     INT   {  list.add(Integer.parseInt($INT.text));}
+        
+              morecol
+        
+              idpart             {
+                                  
+                                  Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
+                          try{
+                          System.out.print(value.get().values());
+                          }
+                          catch(Exception e)
+                          {
+                          
+                          }
+                                   
+                                          
+                                 }       
+              ;
+          
+           
+forwardpart :     INT   {  list.add(Integer.parseInt($INT.text));}
+                  
+                        morecol
+                  
+                        levelofsignificance  {
+                  
+                                              
+                                                    
+                      complexTypeImpl.forwardSelection(ip,list,n,level);
+                                     
+                                        }       
+                                      
+               ;
+
+morecol   : ')'
+        
+        |
+        
+        ','
+        
+        INT     { list.add(Integer.parseInt($INT.text)); }
+        
+        morecol
+        ;        
+      
+      
+xypart  :  ',' INT  ')' '<<' input      {   y=Integer.parseInt($INT.text);
+                  
+                }
+  ;
+  
+  
+npart : INT         {  nn=Integer.parseInt($INT.text); }
+  ;             
+          
+          
+idpart  :  '<<' input  '(' INT ')'          {  n=Integer.parseInt($INT.text);
+                    
+        }
+        ;
+  
+levelofsignificance : '<<' input  '(' INT  ','          {  n=Integer.parseInt($INT.text); }
+         DOUBLE  ')'        { level = Double.parseDouble($DOUBLE.text);  }
+         ;
+
+out   : '>>'  ID      {     op= $ID.text;  }
+    ;
+  
+  
+
+
+ext   :    ID       {  extn = $ID.text; }
+    ;
+    
+    
+input     : ID     {    ip=$ID.text;}
+      |
+      ID   '.'    {  ip=$ID.text;}
+      
+      ext
+      ;
+    
+    
+ID  : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'.'|'a'..'z'|'A'..'Z')*
     ;
 
-INT :	'0'..'9'+
+INT : '0'..'9'+
     ;
 
-			
+      
 DOUBLE : ('0'..'9')* '.' ('0'..'9')+ | ('0'..'9')+
-		;
+    ;
 WS  :   ( ' '
         | '\t'
         | '\r'
