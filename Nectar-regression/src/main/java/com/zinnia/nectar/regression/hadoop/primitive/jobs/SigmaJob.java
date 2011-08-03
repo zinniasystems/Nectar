@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,10 +54,9 @@ public class SigmaJob implements Callable<Double>{
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath=outputFilePath;
 	}
-		
+
 	@Override
-	public Double call() throws Exception{
-		// TODO Auto-generated method stub
+	public Double call() throws Exception {
 		double value = 0;
 		JobControl jobControl = new JobControl("sigmajob");
 		Job job;
@@ -102,8 +102,8 @@ public class SigmaJob implements Callable<Double>{
 			in.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			log.error("Exception occured : "+e1.getMessage());
-			throw new Exception(e1.getMessage());
+			log.debug("Input file not found: "+e1.getMessage());
+			throw new ExecutionException("Input file not found",e1);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

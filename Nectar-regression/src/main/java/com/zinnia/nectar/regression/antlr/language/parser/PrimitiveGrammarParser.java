@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 PrimitiveGrammar.g 2011-08-01 17:15:37
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g 2011-08-03 12:27:36
 
 
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.zinnia.nectar.regression.language.complex.impl.ComplexTypeImpl ;
-//import com.zinnia.hpm.regression.language.complex.impl.ComplexTypeImpl ;
+
 
 
 import org.antlr.runtime.*;
@@ -35,34 +35,36 @@ import java.util.ArrayList;
  */
 public class PrimitiveGrammarParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "INT", "DOUBLE", "ID", "WS", "ESC_SEQ", "STRING", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "'sigmax'", "'('", "')'", "'<<'", "'sigmaxsquare'", "'sigmaxy'", "'mean'", "'corr'", "'corrmatrix'", "','", "'multiplereg'", "'forwardselection'", "'HELP'", "'help'", "'>>'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "INT", "DOUBLE", "ID", "WS", "ESC_SEQ", "STRING", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "'\\n'", "' '", "'sigmax'", "'('", "')'", "'<<'", "'sigmaxsquare'", "'sigmaxy'", "'mean'", "'corr'", "'corrmatrix'", "','", "'multiplereg'", "'forwardselection'", "'HELP'", "'help'", "'>>'", "'.'"
     };
-    public static final int EOF=-1;
-    public static final int T__13=13;
-    public static final int T__14=14;
-    public static final int T__15=15;
-    public static final int T__16=16;
-    public static final int T__17=17;
-    public static final int T__18=18;
-    public static final int T__19=19;
-    public static final int T__20=20;
-    public static final int T__21=21;
-    public static final int T__22=22;
-    public static final int T__23=23;
-    public static final int T__24=24;
-    public static final int T__25=25;
-    public static final int T__26=26;
-    public static final int T__27=27;
+    public static final int T__29=29;
     public static final int T__28=28;
-    public static final int INT=4;
-    public static final int DOUBLE=5;
-    public static final int ID=6;
-    public static final int WS=7;
-    public static final int ESC_SEQ=8;
-    public static final int STRING=9;
-    public static final int HEX_DIGIT=10;
+    public static final int T__27=27;
+    public static final int T__26=26;
+    public static final int T__25=25;
+    public static final int T__24=24;
+    public static final int T__23=23;
+    public static final int T__22=22;
+    public static final int T__21=21;
     public static final int UNICODE_ESC=11;
+    public static final int T__20=20;
     public static final int OCTAL_ESC=12;
+    public static final int HEX_DIGIT=10;
+    public static final int INT=4;
+    public static final int ID=6;
+    public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__19=19;
+    public static final int ESC_SEQ=8;
+    public static final int WS=7;
+    public static final int T__16=16;
+    public static final int T__15=15;
+    public static final int T__18=18;
+    public static final int T__17=17;
+    public static final int T__14=14;
+    public static final int T__13=13;
+    public static final int DOUBLE=5;
+    public static final int STRING=9;
 
     // delegates
     // delegators
@@ -78,7 +80,7 @@ public class PrimitiveGrammarParser extends Parser {
         
 
     public String[] getTokenNames() { return PrimitiveGrammarParser.tokenNames; }
-    public String getGrammarFileName() { return "PrimitiveGrammar.g"; }
+    public String getGrammarFileName() { return "com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g"; }
 
 
     String ip,op,extn;// ip=inputfilepath  op=outputfilepath
@@ -108,20 +110,17 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "start"
-    // PrimitiveGrammar.g:70:1: start : ( ( 'sigmax' ) '(' INT ')' '<<' input | sigmaxsquare );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:69:1: start : ( ( '\\n' | ' ' ) | sigmax );
     public final void start() throws RecognitionException {
-        Token INT1=null;
-
-         paraphrases.push("\n"+"USAGE :sigmax(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:73:3: ( ( 'sigmax' ) '(' INT ')' '<<' input | sigmaxsquare )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:69:7: ( ( '\\n' | ' ' ) | sigmax )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
-            if ( (LA1_0==13) ) {
+            if ( ((LA1_0>=13 && LA1_0<=14)) ) {
                 alt1=1;
             }
-            else if ( ((LA1_0>=17 && LA1_0<=21)||(LA1_0>=23 && LA1_0<=26)) ) {
+            else if ( (LA1_0==15||(LA1_0>=19 && LA1_0<=23)||(LA1_0>=25 && LA1_0<=28)) ) {
                 alt1=2;
             }
             else {
@@ -132,47 +131,119 @@ public class PrimitiveGrammarParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // PrimitiveGrammar.g:73:5: ( 'sigmax' ) '(' INT ')' '<<' input
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:69:8: ( '\\n' | ' ' )
                     {
-                    // PrimitiveGrammar.g:73:5: ( 'sigmax' )
-                    // PrimitiveGrammar.g:73:6: 'sigmax'
+                    if ( (input.LA(1)>=13 && input.LA(1)<=14) ) {
+                        input.consume();
+                        state.errorRecovery=false;
+                    }
+                    else {
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        throw mse;
+                    }
+
+                     System.out.println("Type HELP or help for usage of commands");
+
+                    }
+                    break;
+                case 2 :
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:71:7: sigmax
                     {
-                    match(input,13,FOLLOW_13_in_start55); 
+                    pushFollow(FOLLOW_sigmax_in_start62);
+                    sigmax();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "start"
+
+
+    // $ANTLR start "sigmax"
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:74:1: sigmax : ( ( 'sigmax' ) '(' INT ')' '<<' input | sigmaxsquare );
+    public final void sigmax() throws RecognitionException {
+        Token INT1=null;
+
+         paraphrases.push("\n"+"USAGE :sigmax(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); 
+        try {
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:77:3: ( ( 'sigmax' ) '(' INT ')' '<<' input | sigmaxsquare )
+            int alt2=2;
+            int LA2_0 = input.LA(1);
+
+            if ( (LA2_0==15) ) {
+                alt2=1;
+            }
+            else if ( ((LA2_0>=19 && LA2_0<=23)||(LA2_0>=25 && LA2_0<=28)) ) {
+                alt2=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 2, 0, input);
+
+                throw nvae;
+            }
+            switch (alt2) {
+                case 1 :
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:77:5: ( 'sigmax' ) '(' INT ')' '<<' input
+                    {
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:77:5: ( 'sigmax' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:77:6: 'sigmax'
+                    {
+                    match(input,15,FOLLOW_15_in_sigmax92); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_start58); 
-                    INT1=(Token)match(input,INT,FOLLOW_INT_in_start60); 
-                    match(input,15,FOLLOW_15_in_start62); 
-                    match(input,16,FOLLOW_16_in_start64); 
-                    pushFollow(FOLLOW_input_in_start66);
+                    match(input,16,FOLLOW_16_in_sigmax95); 
+                    INT1=(Token)match(input,INT,FOLLOW_INT_in_sigmax97); 
+                    match(input,17,FOLLOW_17_in_sigmax99); 
+                    match(input,18,FOLLOW_18_in_sigmax101); 
+                    pushFollow(FOLLOW_input_in_sigmax103);
                     input();
 
                     state._fsp--;
 
-                     n=Integer.parseInt((INT1!=null?INT1.getText():null));
-                                            
+                     
+                                                        
+                                                        try {
+                                                        n=Integer.parseInt((INT1!=null?INT1.getText():null));
+                                                        }
+                                                         catch(Exception e)
+                                                       {
+                                                       }
                                           
                                             
-                                         primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                         Future<Double> value;
-										try {
-											value = primitiveImpl.sigmax(ip,n);
-											System.out.println("Sigmax is "+value.get());
-										} catch (Exception e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
+                                        
                                                         
-                                                 
+                                                  try
+                                                  {
+                                                   primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                         Future<Double> value=primitiveImpl.sigmax(ip,n);
+                                                       System.out.println("Sigmax is "+value.get());
+                                                       }
+                                                       catch(Exception e)
+                                                       {
+                                                       
+                                                       }
                                                  
 
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:89:7: sigmaxsquare
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:101:7: sigmaxsquare
                     {
-                    pushFollow(FOLLOW_sigmaxsquare_in_start95);
+                    pushFollow(FOLLOW_sigmaxsquare_in_sigmax132);
                     sigmaxsquare();
 
                     state._fsp--;
@@ -192,59 +263,66 @@ public class PrimitiveGrammarParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end "start"
+    // $ANTLR end "sigmax"
 
 
     // $ANTLR start "sigmaxsquare"
-    // PrimitiveGrammar.g:94:1: sigmaxsquare : ( ( 'sigmaxsquare' ) '(' INT ')' '<<' input | sigmaxy );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:106:1: sigmaxsquare : ( ( 'sigmaxsquare' ) '(' INT ')' '<<' input | sigmaxy );
     public final void sigmaxsquare() throws RecognitionException {
         Token INT2=null;
 
          paraphrases.push("\n"+"USAGE :sigmaxsquare(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:98:3: ( ( 'sigmaxsquare' ) '(' INT ')' '<<' input | sigmaxy )
-            int alt2=2;
-            int LA2_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:110:3: ( ( 'sigmaxsquare' ) '(' INT ')' '<<' input | sigmaxy )
+            int alt3=2;
+            int LA3_0 = input.LA(1);
 
-            if ( (LA2_0==17) ) {
-                alt2=1;
+            if ( (LA3_0==19) ) {
+                alt3=1;
             }
-            else if ( ((LA2_0>=18 && LA2_0<=21)||(LA2_0>=23 && LA2_0<=26)) ) {
-                alt2=2;
+            else if ( ((LA3_0>=20 && LA3_0<=23)||(LA3_0>=25 && LA3_0<=28)) ) {
+                alt3=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 2, 0, input);
+                    new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
             }
-            switch (alt2) {
+            switch (alt3) {
                 case 1 :
-                    // PrimitiveGrammar.g:98:4: ( 'sigmaxsquare' ) '(' INT ')' '<<' input
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:110:4: ( 'sigmaxsquare' ) '(' INT ')' '<<' input
                     {
-                    // PrimitiveGrammar.g:98:4: ( 'sigmaxsquare' )
-                    // PrimitiveGrammar.g:98:5: 'sigmaxsquare'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:110:4: ( 'sigmaxsquare' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:110:5: 'sigmaxsquare'
                     {
-                    match(input,17,FOLLOW_17_in_sigmaxsquare123); 
+                    match(input,19,FOLLOW_19_in_sigmaxsquare160); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_sigmaxsquare126); 
-                    INT2=(Token)match(input,INT,FOLLOW_INT_in_sigmaxsquare128); 
-                    match(input,15,FOLLOW_15_in_sigmaxsquare130); 
-                    match(input,16,FOLLOW_16_in_sigmaxsquare132); 
-                    pushFollow(FOLLOW_input_in_sigmaxsquare134);
+                    match(input,16,FOLLOW_16_in_sigmaxsquare163); 
+                    INT2=(Token)match(input,INT,FOLLOW_INT_in_sigmaxsquare165); 
+                    match(input,17,FOLLOW_17_in_sigmaxsquare167); 
+                    match(input,18,FOLLOW_18_in_sigmaxsquare169); 
+                    pushFollow(FOLLOW_input_in_sigmaxsquare171);
                     input();
 
                     state._fsp--;
 
-                        n=Integer.parseInt((INT2!=null?INT2.getText():null));
+                        
+                                                     try {
+                                                        n=Integer.parseInt((INT2!=null?INT2.getText():null));
+                                                        }
+                                                         catch(Exception e)
+                                                       {
+                                                       }
                                         
                                     
-                                                 primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                                 Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
+                                                 
                                            try
                                                   {
+                                                  primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                                 Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
                                                         System.out.println("Sigmax square is "+value.get());  
                                                        }
                                                        catch(Exception e)
@@ -255,9 +333,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:112:7: sigmaxy
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:131:7: sigmaxy
                     {
-                    pushFollow(FOLLOW_sigmaxy_in_sigmaxsquare162);
+                    pushFollow(FOLLOW_sigmaxy_in_sigmaxsquare199);
                     sigmaxy();
 
                     state._fsp--;
@@ -281,52 +359,60 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "sigmaxy"
-    // PrimitiveGrammar.g:114:1: sigmaxy : ( ( 'sigmaxy' ) '(' INT xypart | mean );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:133:1: sigmaxy : ( ( 'sigmaxy' ) '(' INT xypart | mean );
     public final void sigmaxy() throws RecognitionException {
         Token INT3=null;
 
          paraphrases.push("\n"+"USAGE :sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:118:3: ( ( 'sigmaxy' ) '(' INT xypart | mean )
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:137:3: ( ( 'sigmaxy' ) '(' INT xypart | mean )
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0==18) ) {
-                alt3=1;
+            if ( (LA4_0==20) ) {
+                alt4=1;
             }
-            else if ( ((LA3_0>=19 && LA3_0<=21)||(LA3_0>=23 && LA3_0<=26)) ) {
-                alt3=2;
+            else if ( ((LA4_0>=21 && LA4_0<=23)||(LA4_0>=25 && LA4_0<=28)) ) {
+                alt4=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 3, 0, input);
+                    new NoViableAltException("", 4, 0, input);
 
                 throw nvae;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // PrimitiveGrammar.g:118:4: ( 'sigmaxy' ) '(' INT xypart
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:137:4: ( 'sigmaxy' ) '(' INT xypart
                     {
-                    // PrimitiveGrammar.g:118:4: ( 'sigmaxy' )
-                    // PrimitiveGrammar.g:118:5: 'sigmaxy'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:137:4: ( 'sigmaxy' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:137:5: 'sigmaxy'
                     {
-                    match(input,18,FOLLOW_18_in_sigmaxy187); 
+                    match(input,20,FOLLOW_20_in_sigmaxy224); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_sigmaxy190); 
-                    INT3=(Token)match(input,INT,FOLLOW_INT_in_sigmaxy192); 
-                       x=Integer.parseInt((INT3!=null?INT3.getText():null));
-                    pushFollow(FOLLOW_xypart_in_sigmaxy213);
+                    match(input,16,FOLLOW_16_in_sigmaxy227); 
+                    INT3=(Token)match(input,INT,FOLLOW_INT_in_sigmaxy229); 
+                       
+                                                  
+                                                try {
+                                                x=Integer.parseInt((INT3!=null?INT3.getText():null));
+                                                }
+                                                catch(Exception e) {
+                                                }
+                                                
+                    pushFollow(FOLLOW_xypart_in_sigmaxy250);
                     xypart();
 
                     state._fsp--;
 
 
-                                             primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                                      Future<Double> value=primitiveImpl.sigmaxy(ip,x,y); 
+                                              
                                            try
-                                                  {
+                                                  { 
+                                                  primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                                      Future<Double> value=primitiveImpl.sigmaxy(ip,x,y);
                                                         System.out.println("Sigmaxy is "+value.get());  
                                                        }
                                                        catch(Exception e)
@@ -337,9 +423,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:131:6: mean
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:158:6: mean
                     {
-                    pushFollow(FOLLOW_mean_in_sigmaxy244);
+                    pushFollow(FOLLOW_mean_in_sigmaxy281);
                     mean();
 
                     state._fsp--;
@@ -363,53 +449,54 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "mean"
-    // PrimitiveGrammar.g:133:1: mean : ( ( 'mean' ) '(' INT ')' idpart | corr );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:160:1: mean : ( ( 'mean' ) '(' INT ')' idpart | corr );
     public final void mean() throws RecognitionException {
         Token INT4=null;
 
          paraphrases.push("\n"+"USAGE :mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:137:3: ( ( 'mean' ) '(' INT ')' idpart | corr )
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:164:3: ( ( 'mean' ) '(' INT ')' idpart | corr )
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA4_0==19) ) {
-                alt4=1;
+            if ( (LA5_0==21) ) {
+                alt5=1;
             }
-            else if ( ((LA4_0>=20 && LA4_0<=21)||(LA4_0>=23 && LA4_0<=26)) ) {
-                alt4=2;
+            else if ( ((LA5_0>=22 && LA5_0<=23)||(LA5_0>=25 && LA5_0<=28)) ) {
+                alt5=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 4, 0, input);
+                    new NoViableAltException("", 5, 0, input);
 
                 throw nvae;
             }
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
-                    // PrimitiveGrammar.g:137:5: ( 'mean' ) '(' INT ')' idpart
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:164:5: ( 'mean' ) '(' INT ')' idpart
                     {
-                    // PrimitiveGrammar.g:137:5: ( 'mean' )
-                    // PrimitiveGrammar.g:137:6: 'mean'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:164:5: ( 'mean' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:164:6: 'mean'
                     {
-                    match(input,19,FOLLOW_19_in_mean270); 
+                    match(input,21,FOLLOW_21_in_mean307); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_mean273); 
-                    INT4=(Token)match(input,INT,FOLLOW_INT_in_mean275); 
-                       cn=Integer.parseInt((INT4!=null?INT4.getText():null));
-                    match(input,15,FOLLOW_15_in_mean296); 
-                    pushFollow(FOLLOW_idpart_in_mean309);
+                    match(input,16,FOLLOW_16_in_mean310); 
+                    INT4=(Token)match(input,INT,FOLLOW_INT_in_mean312); 
+                      try { cn=Integer.parseInt((INT4!=null?INT4.getText():null));} catch(Exception e) { } 
+                    match(input,17,FOLLOW_17_in_mean333); 
+                    pushFollow(FOLLOW_idpart_in_mean346);
                     idpart();
 
                     state._fsp--;
 
 
-                                               primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                                        Future<Double> value=primitiveImpl.mean(ip,cn,n);
+                                               
                                                    try
-                                                  {
+                                                  {     
+                                                    primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                                        Future<Double> value=primitiveImpl.mean(ip,cn,n);
                                                         System.out.println("mean is "+value.get());  
                                                        }
                                                        catch(Exception e)
@@ -420,9 +507,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:151:8: corr
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:179:8: corr
                     {
-                    pushFollow(FOLLOW_corr_in_mean348);
+                    pushFollow(FOLLOW_corr_in_mean385);
                     corr();
 
                     state._fsp--;
@@ -446,60 +533,60 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "corr"
-    // PrimitiveGrammar.g:155:1: corr : ( ( 'corr' ) '(' INT xypart '(' npart ')' | corrmatrix );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:183:1: corr : ( ( 'corr' ) '(' INT xypart '(' npart ')' | corrmatrix );
     public final void corr() throws RecognitionException {
         Token INT5=null;
 
          paraphrases.push("\n"+"USAGE :corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:159:3: ( ( 'corr' ) '(' INT xypart '(' npart ')' | corrmatrix )
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:187:3: ( ( 'corr' ) '(' INT xypart '(' npart ')' | corrmatrix )
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA5_0==20) ) {
-                alt5=1;
+            if ( (LA6_0==22) ) {
+                alt6=1;
             }
-            else if ( (LA5_0==21||(LA5_0>=23 && LA5_0<=26)) ) {
-                alt5=2;
+            else if ( (LA6_0==23||(LA6_0>=25 && LA6_0<=28)) ) {
+                alt6=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 5, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
-            switch (alt5) {
+            switch (alt6) {
                 case 1 :
-                    // PrimitiveGrammar.g:159:4: ( 'corr' ) '(' INT xypart '(' npart ')'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:187:4: ( 'corr' ) '(' INT xypart '(' npart ')'
                     {
-                    // PrimitiveGrammar.g:159:4: ( 'corr' )
-                    // PrimitiveGrammar.g:159:6: 'corr'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:187:4: ( 'corr' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:187:6: 'corr'
                     {
-                    match(input,20,FOLLOW_20_in_corr376); 
+                    match(input,22,FOLLOW_22_in_corr413); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_corr379); 
-                    INT5=(Token)match(input,INT,FOLLOW_INT_in_corr381); 
-                     x=Integer.parseInt((INT5!=null?INT5.getText():null));
-                    pushFollow(FOLLOW_xypart_in_corr398);
+                    match(input,16,FOLLOW_16_in_corr416); 
+                    INT5=(Token)match(input,INT,FOLLOW_INT_in_corr418); 
+                     try {x=Integer.parseInt((INT5!=null?INT5.getText():null));} catch(Exception e) { }
+                    pushFollow(FOLLOW_xypart_in_corr435);
                     xypart();
 
                     state._fsp--;
 
-                    match(input,14,FOLLOW_14_in_corr416); 
-                    pushFollow(FOLLOW_npart_in_corr418);
+                    match(input,16,FOLLOW_16_in_corr453); 
+                    pushFollow(FOLLOW_npart_in_corr455);
                     npart();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_corr420); 
+                    match(input,17,FOLLOW_17_in_corr457); 
 
                               
                               
-                                                     Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn); 
+                                                     
                                            try
-                                                  {
+                                                  {  Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn);
                                                        System.out.println("correlation is "+value.get());  
                                                        }
                                                        catch(Exception e)
@@ -510,9 +597,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:176:13: corrmatrix
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:204:13: corrmatrix
                     {
-                    pushFollow(FOLLOW_corrmatrix_in_corr517);
+                    pushFollow(FOLLOW_corrmatrix_in_corr554);
                     corrmatrix();
 
                     state._fsp--;
@@ -536,44 +623,44 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "corrmatrix"
-    // PrimitiveGrammar.g:178:1: corrmatrix : ( ( 'corrmatrix' ) '(' INT ',' ofpart | multiplereg );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:206:1: corrmatrix : ( ( 'corrmatrix' ) '(' INT ',' ofpart | multiplereg );
     public final void corrmatrix() throws RecognitionException {
         Token INT6=null;
 
          paraphrases.push("\n"+"USAGE :corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:183:3: ( ( 'corrmatrix' ) '(' INT ',' ofpart | multiplereg )
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:211:3: ( ( 'corrmatrix' ) '(' INT ',' ofpart | multiplereg )
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0==21) ) {
-                alt6=1;
+            if ( (LA7_0==23) ) {
+                alt7=1;
             }
-            else if ( ((LA6_0>=23 && LA6_0<=26)) ) {
-                alt6=2;
+            else if ( ((LA7_0>=25 && LA7_0<=28)) ) {
+                alt7=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
-                    // PrimitiveGrammar.g:183:4: ( 'corrmatrix' ) '(' INT ',' ofpart
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:211:4: ( 'corrmatrix' ) '(' INT ',' ofpart
                     {
-                    // PrimitiveGrammar.g:183:4: ( 'corrmatrix' )
-                    // PrimitiveGrammar.g:183:6: 'corrmatrix'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:211:4: ( 'corrmatrix' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:211:6: 'corrmatrix'
                     {
-                    match(input,21,FOLLOW_21_in_corrmatrix548); 
+                    match(input,23,FOLLOW_23_in_corrmatrix585); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_corrmatrix580); 
-                    INT6=(Token)match(input,INT,FOLLOW_INT_in_corrmatrix584); 
-                     list.add(Integer.parseInt((INT6!=null?INT6.getText():null)));   
-                    match(input,22,FOLLOW_22_in_corrmatrix622); 
-                    pushFollow(FOLLOW_ofpart_in_corrmatrix641);
+                    match(input,16,FOLLOW_16_in_corrmatrix617); 
+                    INT6=(Token)match(input,INT,FOLLOW_INT_in_corrmatrix621); 
+                     try { list.add(Integer.parseInt((INT6!=null?INT6.getText():null)));   } catch(Exception e) { } 
+                    match(input,24,FOLLOW_24_in_corrmatrix659); 
+                    pushFollow(FOLLOW_ofpart_in_corrmatrix678);
                     ofpart();
 
                     state._fsp--;
@@ -582,9 +669,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:192:12: multiplereg
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:220:12: multiplereg
                     {
-                    pushFollow(FOLLOW_multiplereg_in_corrmatrix676);
+                    pushFollow(FOLLOW_multiplereg_in_corrmatrix713);
                     multiplereg();
 
                     state._fsp--;
@@ -608,44 +695,44 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "multiplereg"
-    // PrimitiveGrammar.g:195:1: multiplereg : ( ( 'multiplereg' ) '(' INT ',' mulregpart | forwardselection );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:223:1: multiplereg : ( ( 'multiplereg' ) '(' INT ',' mulregpart | forwardselection );
     public final void multiplereg() throws RecognitionException {
         Token INT7=null;
 
          paraphrases.push("\n"+"USAGE :multiplereg(column_nos)<<input_file(total_no_rows)"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:200:3: ( ( 'multiplereg' ) '(' INT ',' mulregpart | forwardselection )
-            int alt7=2;
-            int LA7_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:228:3: ( ( 'multiplereg' ) '(' INT ',' mulregpart | forwardselection )
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA7_0==23) ) {
-                alt7=1;
+            if ( (LA8_0==25) ) {
+                alt8=1;
             }
-            else if ( ((LA7_0>=24 && LA7_0<=26)) ) {
-                alt7=2;
+            else if ( ((LA8_0>=26 && LA8_0<=28)) ) {
+                alt8=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 7, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // PrimitiveGrammar.g:200:5: ( 'multiplereg' ) '(' INT ',' mulregpart
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:228:5: ( 'multiplereg' ) '(' INT ',' mulregpart
                     {
-                    // PrimitiveGrammar.g:200:5: ( 'multiplereg' )
-                    // PrimitiveGrammar.g:200:7: 'multiplereg'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:228:5: ( 'multiplereg' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:228:7: 'multiplereg'
                     {
-                    match(input,23,FOLLOW_23_in_multiplereg708); 
+                    match(input,25,FOLLOW_25_in_multiplereg745); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_multiplereg741); 
-                    INT7=(Token)match(input,INT,FOLLOW_INT_in_multiplereg744); 
-                     list.add(Integer.parseInt((INT7!=null?INT7.getText():null)));   
-                    match(input,22,FOLLOW_22_in_multiplereg780); 
-                    pushFollow(FOLLOW_mulregpart_in_multiplereg803);
+                    match(input,16,FOLLOW_16_in_multiplereg778); 
+                    INT7=(Token)match(input,INT,FOLLOW_INT_in_multiplereg781); 
+                     try { list.add(Integer.parseInt((INT7!=null?INT7.getText():null)));   } catch(Exception e) { } 
+                    match(input,24,FOLLOW_24_in_multiplereg817); 
+                    pushFollow(FOLLOW_mulregpart_in_multiplereg840);
                     mulregpart();
 
                     state._fsp--;
@@ -654,9 +741,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:208:13: forwardselection
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:236:13: forwardselection
                     {
-                    pushFollow(FOLLOW_forwardselection_in_multiplereg828);
+                    pushFollow(FOLLOW_forwardselection_in_multiplereg865);
                     forwardselection();
 
                     state._fsp--;
@@ -680,44 +767,44 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "forwardselection"
-    // PrimitiveGrammar.g:212:1: forwardselection : ( ( 'forwardselection' ) '(' INT ',' forwardpart | help );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:240:1: forwardselection : ( ( 'forwardselection' ) '(' INT ',' forwardpart | help );
     public final void forwardselection() throws RecognitionException {
         Token INT8=null;
 
          paraphrases.push("\n"+"USAGE :forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"Type HELP or help for usage of all commands"); 
         try {
-            // PrimitiveGrammar.g:217:3: ( ( 'forwardselection' ) '(' INT ',' forwardpart | help )
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:245:3: ( ( 'forwardselection' ) '(' INT ',' forwardpart | help )
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-            if ( (LA8_0==24) ) {
-                alt8=1;
+            if ( (LA9_0==26) ) {
+                alt9=1;
             }
-            else if ( ((LA8_0>=25 && LA8_0<=26)) ) {
-                alt8=2;
+            else if ( ((LA9_0>=27 && LA9_0<=28)) ) {
+                alt9=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 9, 0, input);
 
                 throw nvae;
             }
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // PrimitiveGrammar.g:217:4: ( 'forwardselection' ) '(' INT ',' forwardpart
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:245:4: ( 'forwardselection' ) '(' INT ',' forwardpart
                     {
-                    // PrimitiveGrammar.g:217:4: ( 'forwardselection' )
-                    // PrimitiveGrammar.g:217:6: 'forwardselection'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:245:4: ( 'forwardselection' )
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:245:6: 'forwardselection'
                     {
-                    match(input,24,FOLLOW_24_in_forwardselection859); 
+                    match(input,26,FOLLOW_26_in_forwardselection896); 
 
                     }
 
-                    match(input,14,FOLLOW_14_in_forwardselection874); 
-                    INT8=(Token)match(input,INT,FOLLOW_INT_in_forwardselection876); 
-                     list.add(Integer.parseInt((INT8!=null?INT8.getText():null)));   
-                    match(input,22,FOLLOW_22_in_forwardselection905); 
-                    pushFollow(FOLLOW_forwardpart_in_forwardselection917);
+                    match(input,16,FOLLOW_16_in_forwardselection911); 
+                    INT8=(Token)match(input,INT,FOLLOW_INT_in_forwardselection913); 
+                     try { list.add(Integer.parseInt((INT8!=null?INT8.getText():null)));   } catch(Exception e) { } 
+                    match(input,24,FOLLOW_24_in_forwardselection942); 
+                    pushFollow(FOLLOW_forwardpart_in_forwardselection954);
                     forwardpart();
 
                     state._fsp--;
@@ -726,9 +813,9 @@ public class PrimitiveGrammarParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:222:7: help
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:250:7: help
                     {
-                    pushFollow(FOLLOW_help_in_forwardselection933);
+                    pushFollow(FOLLOW_help_in_forwardselection970);
                     help();
 
                     state._fsp--;
@@ -752,13 +839,13 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "help"
-    // PrimitiveGrammar.g:227:1: help : ( 'HELP' | 'help' ) ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:255:1: help : ( 'HELP' | 'help' ) ;
     public final void help() throws RecognitionException {
         try {
-            // PrimitiveGrammar.g:231:3: ( ( 'HELP' | 'help' ) )
-            // PrimitiveGrammar.g:231:6: ( 'HELP' | 'help' )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:259:3: ( ( 'HELP' | 'help' ) )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:259:6: ( 'HELP' | 'help' )
             {
-            if ( (input.LA(1)>=25 && input.LA(1)<=26) ) {
+            if ( (input.LA(1)>=27 && input.LA(1)<=28) ) {
                 input.consume();
                 state.errorRecovery=false;
             }
@@ -768,7 +855,7 @@ public class PrimitiveGrammarParser extends Parser {
             }
 
 
-                System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n \n"); 
+                System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n"); 
                         
 
             }
@@ -786,32 +873,33 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "ofpart"
-    // PrimitiveGrammar.g:238:1: ofpart : INT morecol idpart ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:266:1: ofpart : INT morecol idpart ;
     public final void ofpart() throws RecognitionException {
         Token INT9=null;
 
         try {
-            // PrimitiveGrammar.g:238:8: ( INT morecol idpart )
-            // PrimitiveGrammar.g:238:17: INT morecol idpart
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:266:8: ( INT morecol idpart )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:266:17: INT morecol idpart
             {
-            INT9=(Token)match(input,INT,FOLLOW_INT_in_ofpart1024); 
-              list.add(Integer.parseInt((INT9!=null?INT9.getText():null)));
-            pushFollow(FOLLOW_morecol_in_ofpart1053);
+            INT9=(Token)match(input,INT,FOLLOW_INT_in_ofpart1061); 
+             try { list.add(Integer.parseInt((INT9!=null?INT9.getText():null)));} catch(Exception e) { } 
+            pushFollow(FOLLOW_morecol_in_ofpart1090);
             morecol();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_idpart_in_ofpart1078);
+            pushFollow(FOLLOW_idpart_in_ofpart1115);
             idpart();
 
             state._fsp--;
 
              
                                                       
-                                      Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n); 
+                                       
                                    try
                                           {
-                                     
+                                            
+                                            Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n);
                                           
                                             Double[][] matrix=value.get(); 
                                            
@@ -846,30 +934,31 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "mulregpart"
-    // PrimitiveGrammar.g:270:1: mulregpart : INT morecol idpart ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:299:1: mulregpart : INT morecol idpart ;
     public final void mulregpart() throws RecognitionException {
         Token INT10=null;
 
         try {
-            // PrimitiveGrammar.g:270:13: ( INT morecol idpart )
-            // PrimitiveGrammar.g:270:19: INT morecol idpart
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:299:13: ( INT morecol idpart )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:299:19: INT morecol idpart
             {
-            INT10=(Token)match(input,INT,FOLLOW_INT_in_mulregpart1153); 
-              list.add(Integer.parseInt((INT10!=null?INT10.getText():null)));
-            pushFollow(FOLLOW_morecol_in_mulregpart1182);
+            INT10=(Token)match(input,INT,FOLLOW_INT_in_mulregpart1190); 
+             try { list.add(Integer.parseInt((INT10!=null?INT10.getText():null)));} catch(Exception e) { } 
+            pushFollow(FOLLOW_morecol_in_mulregpart1220);
             morecol();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_idpart_in_mulregpart1207);
+            pushFollow(FOLLOW_idpart_in_mulregpart1245);
             idpart();
 
             state._fsp--;
 
 
                                               
-                                              Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
+                                              
                                       try{
+                                      Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
                                       System.out.print(value.get().values());
                                       }
                                       catch(Exception e)
@@ -895,22 +984,22 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "forwardpart"
-    // PrimitiveGrammar.g:290:1: forwardpart : INT morecol levelofsignificance ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:320:1: forwardpart : INT morecol levelofsignificance ;
     public final void forwardpart() throws RecognitionException {
         Token INT11=null;
 
         try {
-            // PrimitiveGrammar.g:290:13: ( INT morecol levelofsignificance )
-            // PrimitiveGrammar.g:290:19: INT morecol levelofsignificance
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:320:13: ( INT morecol levelofsignificance )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:320:19: INT morecol levelofsignificance
             {
-            INT11=(Token)match(input,INT,FOLLOW_INT_in_forwardpart1277); 
-              list.add(Integer.parseInt((INT11!=null?INT11.getText():null)));
-            pushFollow(FOLLOW_morecol_in_forwardpart1326);
+            INT11=(Token)match(input,INT,FOLLOW_INT_in_forwardpart1315); 
+             try { list.add(Integer.parseInt((INT11!=null?INT11.getText():null)));} catch(Exception e) { } 
+            pushFollow(FOLLOW_morecol_in_forwardpart1365);
             morecol();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_levelofsignificance_in_forwardpart1371);
+            pushFollow(FOLLOW_levelofsignificance_in_forwardpart1410);
             levelofsignificance();
 
             state._fsp--;
@@ -938,42 +1027,42 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "morecol"
-    // PrimitiveGrammar.g:304:1: morecol : ( ')' | ',' INT morecol );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:334:1: morecol : ( ')' | ',' INT morecol );
     public final void morecol() throws RecognitionException {
         Token INT12=null;
 
         try {
-            // PrimitiveGrammar.g:304:11: ( ')' | ',' INT morecol )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:334:11: ( ')' | ',' INT morecol )
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA9_0==15) ) {
-                alt9=1;
+            if ( (LA10_0==17) ) {
+                alt10=1;
             }
-            else if ( (LA9_0==22) ) {
-                alt9=2;
+            else if ( (LA10_0==24) ) {
+                alt10=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 10, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt10) {
                 case 1 :
-                    // PrimitiveGrammar.g:304:13: ')'
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:334:13: ')'
                     {
-                    match(input,15,FOLLOW_15_in_morecol1446); 
+                    match(input,17,FOLLOW_17_in_morecol1485); 
 
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:308:9: ',' INT morecol
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:338:9: ',' INT morecol
                     {
-                    match(input,22,FOLLOW_22_in_morecol1484); 
-                    INT12=(Token)match(input,INT,FOLLOW_INT_in_morecol1503); 
-                     list.add(Integer.parseInt((INT12!=null?INT12.getText():null))); 
-                    pushFollow(FOLLOW_morecol_in_morecol1528);
+                    match(input,24,FOLLOW_24_in_morecol1523); 
+                    INT12=(Token)match(input,INT,FOLLOW_INT_in_morecol1542); 
+                     try { list.add(Integer.parseInt((INT12!=null?INT12.getText():null)));} catch(Exception e) { } 
+                    pushFollow(FOLLOW_morecol_in_morecol1568);
                     morecol();
 
                     state._fsp--;
@@ -996,24 +1085,24 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "xypart"
-    // PrimitiveGrammar.g:316:1: xypart : ',' INT ')' '<<' input ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:346:1: xypart : ',' INT ')' '<<' input ;
     public final void xypart() throws RecognitionException {
         Token INT13=null;
 
         try {
-            // PrimitiveGrammar.g:316:9: ( ',' INT ')' '<<' input )
-            // PrimitiveGrammar.g:316:12: ',' INT ')' '<<' input
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:346:9: ( ',' INT ')' '<<' input )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:346:12: ',' INT ')' '<<' input
             {
-            match(input,22,FOLLOW_22_in_xypart1568); 
-            INT13=(Token)match(input,INT,FOLLOW_INT_in_xypart1570); 
-            match(input,15,FOLLOW_15_in_xypart1573); 
-            match(input,16,FOLLOW_16_in_xypart1575); 
-            pushFollow(FOLLOW_input_in_xypart1577);
+            match(input,24,FOLLOW_24_in_xypart1608); 
+            INT13=(Token)match(input,INT,FOLLOW_INT_in_xypart1610); 
+            match(input,17,FOLLOW_17_in_xypart1613); 
+            match(input,18,FOLLOW_18_in_xypart1615); 
+            pushFollow(FOLLOW_input_in_xypart1617);
             input();
 
             state._fsp--;
 
-               y=Integer.parseInt((INT13!=null?INT13.getText():null));
+             try {  y=Integer.parseInt((INT13!=null?INT13.getText():null)); } catch(Exception e) { }
                               
                             
 
@@ -1032,16 +1121,16 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "npart"
-    // PrimitiveGrammar.g:322:1: npart : INT ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:352:1: npart : INT ;
     public final void npart() throws RecognitionException {
         Token INT14=null;
 
         try {
-            // PrimitiveGrammar.g:322:7: ( INT )
-            // PrimitiveGrammar.g:322:9: INT
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:352:7: ( INT )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:352:9: INT
             {
-            INT14=(Token)match(input,INT,FOLLOW_INT_in_npart1600); 
-              nn=Integer.parseInt((INT14!=null?INT14.getText():null)); 
+            INT14=(Token)match(input,INT,FOLLOW_INT_in_npart1640); 
+             try { nn=Integer.parseInt((INT14!=null?INT14.getText():null)); } catch(Exception e) { }
 
             }
 
@@ -1058,24 +1147,24 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "idpart"
-    // PrimitiveGrammar.g:326:1: idpart : '<<' input '(' INT ')' ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:356:1: idpart : '<<' input '(' INT ')' ;
     public final void idpart() throws RecognitionException {
         Token INT15=null;
 
         try {
-            // PrimitiveGrammar.g:326:9: ( '<<' input '(' INT ')' )
-            // PrimitiveGrammar.g:326:12: '<<' input '(' INT ')'
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:356:9: ( '<<' input '(' INT ')' )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:356:12: '<<' input '(' INT ')'
             {
-            match(input,16,FOLLOW_16_in_idpart1657); 
-            pushFollow(FOLLOW_input_in_idpart1659);
+            match(input,18,FOLLOW_18_in_idpart1697); 
+            pushFollow(FOLLOW_input_in_idpart1699);
             input();
 
             state._fsp--;
 
-            match(input,14,FOLLOW_14_in_idpart1662); 
-            INT15=(Token)match(input,INT,FOLLOW_INT_in_idpart1664); 
-            match(input,15,FOLLOW_15_in_idpart1666); 
-              n=Integer.parseInt((INT15!=null?INT15.getText():null));
+            match(input,16,FOLLOW_16_in_idpart1702); 
+            INT15=(Token)match(input,INT,FOLLOW_INT_in_idpart1704); 
+            match(input,17,FOLLOW_17_in_idpart1706); 
+             try { n=Integer.parseInt((INT15!=null?INT15.getText():null)); } catch(Exception e) { }
                                 
                     
 
@@ -1094,28 +1183,28 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "levelofsignificance"
-    // PrimitiveGrammar.g:331:1: levelofsignificance : '<<' input '(' INT ',' DOUBLE ')' ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:361:1: levelofsignificance : '<<' input '(' INT ',' DOUBLE ')' ;
     public final void levelofsignificance() throws RecognitionException {
         Token INT16=null;
         Token DOUBLE17=null;
 
         try {
-            // PrimitiveGrammar.g:331:21: ( '<<' input '(' INT ',' DOUBLE ')' )
-            // PrimitiveGrammar.g:331:23: '<<' input '(' INT ',' DOUBLE ')'
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:361:21: ( '<<' input '(' INT ',' DOUBLE ')' )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:361:23: '<<' input '(' INT ',' DOUBLE ')'
             {
-            match(input,16,FOLLOW_16_in_levelofsignificance1696); 
-            pushFollow(FOLLOW_input_in_levelofsignificance1698);
+            match(input,18,FOLLOW_18_in_levelofsignificance1736); 
+            pushFollow(FOLLOW_input_in_levelofsignificance1738);
             input();
 
             state._fsp--;
 
-            match(input,14,FOLLOW_14_in_levelofsignificance1701); 
-            INT16=(Token)match(input,INT,FOLLOW_INT_in_levelofsignificance1703); 
-            match(input,22,FOLLOW_22_in_levelofsignificance1706); 
-              n=Integer.parseInt((INT16!=null?INT16.getText():null)); 
-            DOUBLE17=(Token)match(input,DOUBLE,FOLLOW_DOUBLE_in_levelofsignificance1728); 
-            match(input,15,FOLLOW_15_in_levelofsignificance1731); 
-             level = Double.parseDouble((DOUBLE17!=null?DOUBLE17.getText():null));  
+            match(input,16,FOLLOW_16_in_levelofsignificance1741); 
+            INT16=(Token)match(input,INT,FOLLOW_INT_in_levelofsignificance1743); 
+            match(input,24,FOLLOW_24_in_levelofsignificance1746); 
+             try { n=Integer.parseInt((INT16!=null?INT16.getText():null)); }catch(Exception e) { } 
+            DOUBLE17=(Token)match(input,DOUBLE,FOLLOW_DOUBLE_in_levelofsignificance1768); 
+            match(input,17,FOLLOW_17_in_levelofsignificance1771); 
+            try { level = Double.parseDouble((DOUBLE17!=null?DOUBLE17.getText():null));  } catch(Exception e) { } 
 
             }
 
@@ -1132,17 +1221,17 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "out"
-    // PrimitiveGrammar.g:335:1: out : '>>' ID ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:365:1: out : '>>' ID ;
     public final void out() throws RecognitionException {
         Token ID18=null;
 
         try {
-            // PrimitiveGrammar.g:335:7: ( '>>' ID )
-            // PrimitiveGrammar.g:335:9: '>>' ID
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:365:7: ( '>>' ID )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:365:9: '>>' ID
             {
-            match(input,27,FOLLOW_27_in_out1760); 
-            ID18=(Token)match(input,ID,FOLLOW_ID_in_out1763); 
-                 op= (ID18!=null?ID18.getText():null);  
+            match(input,29,FOLLOW_29_in_out1800); 
+            ID18=(Token)match(input,ID,FOLLOW_ID_in_out1803); 
+                try { op= (ID18!=null?ID18.getText():null);  } catch(Exception e) { } 
 
             }
 
@@ -1159,16 +1248,16 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "ext"
-    // PrimitiveGrammar.g:341:1: ext : ID ;
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:371:1: ext : ID ;
     public final void ext() throws RecognitionException {
         Token ID19=null;
 
         try {
-            // PrimitiveGrammar.g:341:7: ( ID )
-            // PrimitiveGrammar.g:341:12: ID
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:371:7: ( ID )
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:371:12: ID
             {
-            ID19=(Token)match(input,ID,FOLLOW_ID_in_ext1795); 
-              extn = (ID19!=null?ID19.getText():null); 
+            ID19=(Token)match(input,ID,FOLLOW_ID_in_ext1835); 
+             try { extn = (ID19!=null?ID19.getText():null); } catch(Exception e) { } 
 
             }
 
@@ -1185,54 +1274,54 @@ public class PrimitiveGrammarParser extends Parser {
 
 
     // $ANTLR start "input"
-    // PrimitiveGrammar.g:345:1: input : ( ID | ID '.' ext );
+    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:375:1: input : ( ID | ID '.' ext );
     public final void input() throws RecognitionException {
         Token ID20=null;
         Token ID21=null;
 
         try {
-            // PrimitiveGrammar.g:345:11: ( ID | ID '.' ext )
-            int alt10=2;
-            int LA10_0 = input.LA(1);
+            // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:375:11: ( ID | ID '.' ext )
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( (LA10_0==ID) ) {
-                int LA10_1 = input.LA(2);
+            if ( (LA11_0==ID) ) {
+                int LA11_1 = input.LA(2);
 
-                if ( (LA10_1==28) ) {
-                    alt10=2;
+                if ( (LA11_1==30) ) {
+                    alt11=2;
                 }
-                else if ( (LA10_1==EOF||LA10_1==14) ) {
-                    alt10=1;
+                else if ( (LA11_1==EOF||LA11_1==16) ) {
+                    alt11=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 10, 1, input);
+                        new NoViableAltException("", 11, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 10, 0, input);
+                    new NoViableAltException("", 11, 0, input);
 
                 throw nvae;
             }
-            switch (alt10) {
+            switch (alt11) {
                 case 1 :
-                    // PrimitiveGrammar.g:345:13: ID
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:375:13: ID
                     {
-                    ID20=(Token)match(input,ID,FOLLOW_ID_in_input1829); 
-                        ip=(ID20!=null?ID20.getText():null);
+                    ID20=(Token)match(input,ID,FOLLOW_ID_in_input1869); 
+                      try {  ip=(ID20!=null?ID20.getText():null);} catch(Exception e) { } 
 
                     }
                     break;
                 case 2 :
-                    // PrimitiveGrammar.g:347:7: ID '.' ext
+                    // com/zinnia/nectar/regression/antlr/language/parser/PrimitiveGrammar.g:377:7: ID '.' ext
                     {
-                    ID21=(Token)match(input,ID,FOLLOW_ID_in_input1851); 
-                    match(input,28,FOLLOW_28_in_input1855); 
-                      ip=(ID21!=null?ID21.getText():null);
-                    pushFollow(FOLLOW_ext_in_input1875);
+                    ID21=(Token)match(input,ID,FOLLOW_ID_in_input1891); 
+                    match(input,30,FOLLOW_30_in_input1895); 
+                      try {ip=(ID21!=null?ID21.getText():null);}catch(Exception e) { } 
+                    pushFollow(FOLLOW_ext_in_input1915);
                     ext();
 
                     state._fsp--;
@@ -1258,95 +1347,97 @@ public class PrimitiveGrammarParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_13_in_start55 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_start58 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_start60 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_start62 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_start64 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_input_in_start66 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sigmaxsquare_in_start95 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_sigmaxsquare123 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_sigmaxsquare126 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_sigmaxsquare128 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_sigmaxsquare130 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_sigmaxsquare132 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_input_in_sigmaxsquare134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sigmaxy_in_sigmaxsquare162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_sigmaxy187 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_sigmaxy190 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_sigmaxy192 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_xypart_in_sigmaxy213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_mean_in_sigmaxy244 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_mean270 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_mean273 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_mean275 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_mean296 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_idpart_in_mean309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_corr_in_mean348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_corr376 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_corr379 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_corr381 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_xypart_in_corr398 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_corr416 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_npart_in_corr418 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_corr420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_corrmatrix_in_corr517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_corrmatrix548 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_corrmatrix580 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_corrmatrix584 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_corrmatrix622 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ofpart_in_corrmatrix641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_multiplereg_in_corrmatrix676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_multiplereg708 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_multiplereg741 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_multiplereg744 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_multiplereg780 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_mulregpart_in_multiplereg803 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_forwardselection_in_multiplereg828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_forwardselection859 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_forwardselection874 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_forwardselection876 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_forwardselection905 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_forwardpart_in_forwardselection917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_help_in_forwardselection933 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_help974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_ofpart1024 = new BitSet(new long[]{0x0000000000408000L});
-    public static final BitSet FOLLOW_morecol_in_ofpart1053 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_idpart_in_ofpart1078 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_mulregpart1153 = new BitSet(new long[]{0x0000000000408000L});
-    public static final BitSet FOLLOW_morecol_in_mulregpart1182 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_idpart_in_mulregpart1207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_forwardpart1277 = new BitSet(new long[]{0x0000000000408000L});
-    public static final BitSet FOLLOW_morecol_in_forwardpart1326 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_levelofsignificance_in_forwardpart1371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_morecol1446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_morecol1484 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_morecol1503 = new BitSet(new long[]{0x0000000000408000L});
-    public static final BitSet FOLLOW_morecol_in_morecol1528 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_xypart1568 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_xypart1570 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_xypart1573 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_xypart1575 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_input_in_xypart1577 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_npart1600 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_idpart1657 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_input_in_idpart1659 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_idpart1662 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_idpart1664 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_idpart1666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_levelofsignificance1696 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_input_in_levelofsignificance1698 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_levelofsignificance1701 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_INT_in_levelofsignificance1703 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_levelofsignificance1706 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_DOUBLE_in_levelofsignificance1728 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_levelofsignificance1731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_out1760 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ID_in_out1763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_ext1795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_input1829 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_input1851 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_input1855 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ext_in_input1875 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_start37 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sigmax_in_start62 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_sigmax92 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_sigmax95 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_sigmax97 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_sigmax99 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_sigmax101 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_input_in_sigmax103 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sigmaxsquare_in_sigmax132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_sigmaxsquare160 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_sigmaxsquare163 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_sigmaxsquare165 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_sigmaxsquare167 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_sigmaxsquare169 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_input_in_sigmaxsquare171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sigmaxy_in_sigmaxsquare199 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_sigmaxy224 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_sigmaxy227 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_sigmaxy229 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_xypart_in_sigmaxy250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_mean_in_sigmaxy281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_mean307 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_mean310 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_mean312 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_mean333 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_idpart_in_mean346 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_corr_in_mean385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_corr413 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_corr416 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_corr418 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_xypart_in_corr435 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_corr453 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_npart_in_corr455 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_corr457 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_corrmatrix_in_corr554 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_corrmatrix585 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_corrmatrix617 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_corrmatrix621 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_corrmatrix659 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ofpart_in_corrmatrix678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_multiplereg_in_corrmatrix713 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_multiplereg745 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_multiplereg778 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_multiplereg781 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_multiplereg817 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_mulregpart_in_multiplereg840 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_forwardselection_in_multiplereg865 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_forwardselection896 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_forwardselection911 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_forwardselection913 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_forwardselection942 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_forwardpart_in_forwardselection954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_help_in_forwardselection970 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_help1011 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_ofpart1061 = new BitSet(new long[]{0x0000000001020000L});
+    public static final BitSet FOLLOW_morecol_in_ofpart1090 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_idpart_in_ofpart1115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_mulregpart1190 = new BitSet(new long[]{0x0000000001020000L});
+    public static final BitSet FOLLOW_morecol_in_mulregpart1220 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_idpart_in_mulregpart1245 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_forwardpart1315 = new BitSet(new long[]{0x0000000001020000L});
+    public static final BitSet FOLLOW_morecol_in_forwardpart1365 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_levelofsignificance_in_forwardpart1410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_morecol1485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_morecol1523 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_morecol1542 = new BitSet(new long[]{0x0000000001020000L});
+    public static final BitSet FOLLOW_morecol_in_morecol1568 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_xypart1608 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_xypart1610 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_xypart1613 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_xypart1615 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_input_in_xypart1617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_npart1640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_idpart1697 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_input_in_idpart1699 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_idpart1702 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_idpart1704 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_idpart1706 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_levelofsignificance1736 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_input_in_levelofsignificance1738 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_levelofsignificance1741 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_INT_in_levelofsignificance1743 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_levelofsignificance1746 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_DOUBLE_in_levelofsignificance1768 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_levelofsignificance1771 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_out1800 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ID_in_out1803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_ext1835 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_input1869 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_input1891 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_input1895 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ext_in_input1915 = new BitSet(new long[]{0x0000000000000002L});
 
 }

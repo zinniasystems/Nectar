@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="Nectar-regression/src/main/java/|Nectar-regression/src/main/java/|Nectar-common/src/main/java/|Nectar-common/src/main/java/|doc/|samples/bin/|samples/Covariance/src/com/test/|samples/Covariance/src/com/|samples/|Nectar-analytics/|Nectar-analytics/|Nectar-regression/src/main/antlr3/|Nectar-regression/src/main/antlr3/" kind="src" path=""/>
+	<classpathentry kind="src" path="Nectar-regression/src/main/java"/>
+	<classpathentry kind="src" path="Nectar-common/src/main/java"/>
+	<classpathentry kind="src" path="Nectar-analytics"/>
+	<classpathentry kind="src" path="Nectar-regression/src/main/antlr3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AntlrJar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hadoop"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JLine"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Math"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Commons-log"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

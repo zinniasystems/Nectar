@@ -52,12 +52,13 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		
 		
 	}
-	public Future<Double> sigmax(String inputFilePath, int column)throws Exception {
+	public Future<Double> sigmax(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
 		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		SigmaJob sigmaJob = new SigmaJob(completeInputFilePath,outputFilePath,column);
-		Future<Double> value=executorService.submit(sigmaJob);
+		Future<Double> value;
+		value=executorService.submit(sigmaJob);
 		return value;
 	}
 

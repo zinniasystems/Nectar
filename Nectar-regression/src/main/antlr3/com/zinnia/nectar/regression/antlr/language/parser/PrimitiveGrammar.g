@@ -21,15 +21,16 @@ grammar PrimitiveGrammar;
 @header {
 
 
-package com.zinnia.antlr.language.parser;
+package com.zinnia.nectar.regression.antlr.language.parser;
 import com.zinnia.nectar.regression.language.primitive.PrimitiveTypeImplFactory;
 import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 import java.util.concurrent.Future;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import com.zinnia.nectar.regression.language.complex.impl.ComplexTypeImpl ;
-//import com.zinnia.hpm.regression.language.complex.impl.ComplexTypeImpl ;
+
 }
 
 
@@ -66,23 +67,35 @@ return msg;
 }
 
 
+start :( '\n'| ' ' ) { System.out.println("Type HELP or help for usage of commands");}
+      |
+      sigmax
+      ;
 
-start   
+sigmax  
 @init { paraphrases.push("\n"+"USAGE :sigmax(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
-  : ('sigmax') '(' INT ')' '<<' input   { n=Integer.parseInt($INT.text);
-                        
+  : ('sigmax') '(' INT ')' '<<' input   { 
+                                    
+                                    try {
+                                    n=Integer.parseInt($INT.text);
+                                    }
+                                     catch(Exception e)
+                                   {
+                                   }
                       
                         
-                     primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                     Future<Double> value=primitiveImpl.sigmax(ip,n);
+                    
                                     
                               try
                               {
+                               primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                     Future<Double> value=primitiveImpl.sigmax(ip,n);
                                    System.out.println("Sigmax is "+value.get());
                                    }
-                                   catch(Exception e)
+                                   catch(ExecutionException e)
                                    {
+                                    System.out.println("Job terminated due to exception :"+e.getMessage());
                                    }
                              }
                 
@@ -95,13 +108,20 @@ sigmaxsquare
 @init { paraphrases.push("\n"+"USAGE :sigmaxsquare(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
 
-  :('sigmaxsquare') '(' INT ')' '<<' input  {    n=Integer.parseInt($INT.text);
+  :('sigmaxsquare') '(' INT ')' '<<' input  {    
+                                 try {
+                                    n=Integer.parseInt($INT.text);
+                                    }
+                                     catch(Exception e)
+                                   {
+                                   }
                     
                 
-                             primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
+                             
                        try
                               {
+                              primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
                                     System.out.println("Sigmax square is "+value.get());  
                                    }
                                    catch(Exception e)
@@ -115,12 +135,20 @@ sigmaxy
 @init { paraphrases.push("\n"+"USAGE :sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
 
-  :('sigmaxy') '(' INT      {   x=Integer.parseInt($INT.text);}
+  :('sigmaxy') '(' INT      {   
+                              
+                            try {
+                            x=Integer.parseInt($INT.text);
+                            }
+                            catch(Exception e) {
+                            }
+                            }
             xypart    {
-                         primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                  Future<Double> value=primitiveImpl.sigmaxy(ip,x,y); 
+                          
                        try
-                              {
+                              { 
+                              primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                  Future<Double> value=primitiveImpl.sigmaxy(ip,x,y);
                                     System.out.println("Sigmaxy is "+value.get());  
                                    }
                                    catch(Exception e)
@@ -134,13 +162,14 @@ mean
 @init { paraphrases.push("\n"+"USAGE :mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
 
-  : ('mean') '(' INT         {   cn=Integer.parseInt($INT.text);}
+  : ('mean') '(' INT         {  try { cn=Integer.parseInt($INT.text);} catch(Exception e) { } }
          ')' 
           idpart                  {
-                           primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                    Future<Double> value=primitiveImpl.mean(ip,cn,n);
+                           
                                try
-                              {
+                              {     
+                                primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                    Future<Double> value=primitiveImpl.mean(ip,cn,n);
                                     System.out.println("mean is "+value.get());  
                                    }
                                    catch(Exception e)
@@ -156,14 +185,14 @@ corr
 @init { paraphrases.push("\n"+"USAGE :corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
 
-  :( 'corr') '(' INT    { x=Integer.parseInt($INT.text);}
+  :( 'corr') '(' INT    { try {x=Integer.parseInt($INT.text);} catch(Exception e) { }}
           xypart        
         '(' npart ')'     {
           
           
-                                 Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn); 
+                                 
                        try
-                              {
+                              {  Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn);
                                    System.out.println("correlation is "+value.get());  
                                    }
                                    catch(Exception e)
@@ -182,7 +211,7 @@ corrmatrix
 
   :( 'corrmatrix' )       
       
-              '('   INT         { list.add(Integer.parseInt($INT.text));   }
+              '('   INT         { try { list.add(Integer.parseInt($INT.text));   } catch(Exception e) { } }
           
                ','
       
@@ -199,7 +228,7 @@ multiplereg
 
   : ( 'multiplereg')     
             
-            '('  INT            { list.add(Integer.parseInt($INT.text));   }
+            '('  INT            { try { list.add(Integer.parseInt($INT.text));   } catch(Exception e) { } }
           
           ','
           
@@ -215,7 +244,7 @@ forwardselection
 
 
   :( 'forwardselection')
-            '(' INT            { list.add(Integer.parseInt($INT.text));   }
+            '(' INT            { try { list.add(Integer.parseInt($INT.text));   } catch(Exception e) { } }
               ','
           forwardpart
       |
@@ -229,22 +258,23 @@ help
   
 
   :  ('HELP' |'help')    {
-    System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n \n"); 
+    System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n"); 
             } 
   ;         
           
 
 
-ofpart :        INT   {  list.add(Integer.parseInt($INT.text));}
+ofpart :        INT   { try { list.add(Integer.parseInt($INT.text));} catch(Exception e) { } }
         
               morecol
         
               idpart               { 
                                           
-                          Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n); 
+                           
                        try
                               {
-                         
+                                
+                                Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n);
                               
                                 Double[][] matrix=value.get(); 
                                
@@ -267,14 +297,15 @@ ofpart :        INT   {  list.add(Integer.parseInt($INT.text));}
             ;    
           
            
-mulregpart  :     INT   {  list.add(Integer.parseInt($INT.text));}
+mulregpart  :     INT    { try { list.add(Integer.parseInt($INT.text));} catch(Exception e) { } }
         
               morecol
         
               idpart             {
                                   
-                                  Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
+                                  
                           try{
+                          Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
                           System.out.print(value.get().values());
                           }
                           catch(Exception e)
@@ -287,7 +318,7 @@ mulregpart  :     INT   {  list.add(Integer.parseInt($INT.text));}
               ;
           
            
-forwardpart :     INT   {  list.add(Integer.parseInt($INT.text));}
+forwardpart :     INT    { try { list.add(Integer.parseInt($INT.text));} catch(Exception e) { } }
                   
                         morecol
                   
@@ -307,44 +338,44 @@ morecol   : ')'
         
         ','
         
-        INT     { list.add(Integer.parseInt($INT.text)); }
+        INT      { try { list.add(Integer.parseInt($INT.text));} catch(Exception e) { } }
         
         morecol
         ;        
       
       
-xypart  :  ',' INT  ')' '<<' input      {   y=Integer.parseInt($INT.text);
+xypart  :  ',' INT  ')' '<<' input      { try {  y=Integer.parseInt($INT.text); } catch(Exception e) { }
                   
                 }
   ;
   
   
-npart : INT         {  nn=Integer.parseInt($INT.text); }
+npart : INT         { try { nn=Integer.parseInt($INT.text); } catch(Exception e) { }}
   ;             
           
           
-idpart  :  '<<' input  '(' INT ')'          {  n=Integer.parseInt($INT.text);
+idpart  :  '<<' input  '(' INT ')'          { try { n=Integer.parseInt($INT.text); } catch(Exception e) { }
                     
         }
         ;
   
-levelofsignificance : '<<' input  '(' INT  ','          {  n=Integer.parseInt($INT.text); }
-         DOUBLE  ')'        { level = Double.parseDouble($DOUBLE.text);  }
+levelofsignificance : '<<' input  '(' INT  ','          { try { n=Integer.parseInt($INT.text); }catch(Exception e) { } }
+         DOUBLE  ')'        {try { level = Double.parseDouble($DOUBLE.text);  } catch(Exception e) { } }
          ;
 
-out   : '>>'  ID      {     op= $ID.text;  }
+out   : '>>'  ID      {    try { op= $ID.text;  } catch(Exception e) { } }
     ;
   
   
 
 
-ext   :    ID       {  extn = $ID.text; }
+ext   :    ID       { try { extn = $ID.text; } catch(Exception e) { } }
     ;
     
     
-input     : ID     {    ip=$ID.text;}
+input     : ID     {  try {  ip=$ID.text;} catch(Exception e) { } }
       |
-      ID   '.'    {  ip=$ID.text;}
+      ID   '.'    {  try {ip=$ID.text;}catch(Exception e) { } }
       
       ext
       ;
