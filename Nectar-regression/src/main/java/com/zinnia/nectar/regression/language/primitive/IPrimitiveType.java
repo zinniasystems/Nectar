@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
  */
 public interface IPrimitiveType
 {
-	Future<Double> sigmax(String inputFilePath,int column);
+	Future<Double> sigmax(String inputFilePath,int column)throws Exception;
 	Future<Double> sigmaxSquare(String inputFilePath,int column);
 	Future<Double> sigmaxy(String inputFilePath,int x,int y);
 	Future<Double> mean(String inputFilePath,int column,int n);

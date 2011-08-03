@@ -16,10 +16,8 @@
 
 package com.zinnia.nectar.regression.language.shell;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import jline.ConsoleReader;
@@ -38,8 +36,6 @@ import com.zinnia.nectar.regression.antlr.language.parser.PrimitiveGrammarParser
 public class CommandShell {
 	public static void main(String args[]) throws IOException
 	{
-		
-		//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		ConsoleReader consoleReader = new ConsoleReader();
 		consoleReader.setDefaultPrompt("nectar>");
 		String command;
@@ -52,10 +48,6 @@ public class CommandShell {
 				{
 					System.exit(0);
 				}
-//				else if(command.equals("help"))
-//				{
-//					System.out.println("See command shell manual for available functions");
-//				}
 				else if(command.equals("version"))
 				{
 					System.out.println("Nectar version 0.0.1");

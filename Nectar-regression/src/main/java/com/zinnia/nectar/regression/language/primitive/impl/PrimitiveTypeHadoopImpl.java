@@ -25,6 +25,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
@@ -35,6 +38,7 @@ import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 
 
 public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
+	public static Log logger = LogFactory.getLog(PrimitiveTypeHadoopImpl.class);
 	Random random = new Random(400);
 	private int MAX_THREADS;
 	final String inputDirectory = "input/";
@@ -48,7 +52,7 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		
 		
 	}
-	public Future<Double> sigmax(String inputFilePath, int column) {
+	public Future<Double> sigmax(String inputFilePath, int column)throws Exception {
 		// TODO Auto-generated method stub
 		String completeInputFilePath = inputDirectory+inputFilePath;
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();

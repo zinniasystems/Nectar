@@ -42,10 +42,22 @@ public class CorrelationImpl implements Callable<Double> {
 		this.n = n;
 	}
 
-	public Double call(){
+	public Double call() throws Exception{
 		IPrimitiveType primitiveImpl=PrimitiveTypeImplFactory.getInstance(inputFilePath);
-		Future<Double> sigmaxFuture = primitiveImpl.sigmax(inputFilePath, xColumn);
-		Future<Double> sigmayFuture = primitiveImpl.sigmax(inputFilePath, yColumn);
+		Future<Double> sigmaxFuture = null;
+		try {
+			sigmaxFuture = primitiveImpl.sigmax(inputFilePath, xColumn);
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		Future<Double> sigmayFuture = null;
+		try {
+			sigmayFuture = primitiveImpl.sigmax(inputFilePath, yColumn);
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		Future<Double> sigmaxyFuture= primitiveImpl.sigmaxy(inputFilePath, xColumn, yColumn);
 		Future<Double> sigmaxsqFuture = primitiveImpl.sigmaxSquare(inputFilePath, xColumn);
 		Future<Double> sigmaysqFuture = primitiveImpl.sigmaxSquare(inputFilePath, yColumn);

@@ -155,15 +155,16 @@ public class PrimitiveGrammarParser extends Parser {
                                           
                                             
                                          primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                         Future<Double> value=primitiveImpl.sigmax(ip,n);
+                                         Future<Double> value;
+										try {
+											value = primitiveImpl.sigmax(ip,n);
+											System.out.println("Sigmax is "+value.get());
+										} catch (Exception e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
                                                         
-                                                  try
-                                                  {
-                                                       System.out.println("Sigmax is "+value.get());
-                                                       }
-                                                       catch(Exception e)
-                                                       {
-                                                       }
+                                                 
                                                  
 
                     }
