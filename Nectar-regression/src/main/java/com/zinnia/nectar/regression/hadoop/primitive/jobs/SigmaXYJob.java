@@ -17,10 +17,13 @@
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -42,6 +45,10 @@ import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
 public class SigmaXYJob implements Callable<Double>{
 
+	static ControlledJob controlledJob;
+	static Job job;
+	static FileSystem fs;
+	Log log=LogFactory.getLog(SigmaXYJob.class);
 	private String inputFilePath;
 	private String outputFilePath; 
 	private int x,y;
@@ -52,47 +59,95 @@ public class SigmaXYJob implements Callable<Double>{
 		this.x=x;
 		this.y=y;
 	}
-	
-	
 	@Override
-	public Double call() throws Exception {
+	public Double call() throws FileNotFoundException {
+		double value=0;
 		JobControl jobControl = new JobControl("sigmajob");
-
-		Job job = new Job();
+		try {
+			job = new Job();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		job.setJarByClass(SigmaXYJob.class);
+		log.info("SigmaXY Job initialized");
+		log.warn("SigmaXY job: Processing...Do not terminate/close");
+		log.debug("SigmaXY job: Mapping process started");
 		
+		try {
+			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,LongWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
+			ChainMapper.addMapper(job, SigmaXYMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,LongWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
-		
-		ChainMapper.addMapper(job, SigmaXYMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
 		
 		job.getConfiguration().set("fields.spec",x + "," +y);
 		
 		job.setReducerClass(DoubleSumReducer.class);
-		FileInputFormat.addInputPath(job, new Path(inputFilePath));
+		try {
+			FileInputFormat.addInputPath(job, new Path(inputFilePath));
+			fs = FileSystem.get(job.getConfiguration());
+			if(!fs.exists(new Path(inputFilePath)))
+			{
+				throw new FileNotFoundException("Exception occured:File "+inputFilePath+" not found ");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			String trace =new String();
+			log.error(e.getMessage());
+			for(StackTraceElement s:e.getStackTrace()){
+				trace+="at "+s.toString()+"\n\t";
+			}
+			log.debug(trace);
+			log.debug("SigmaXY Job terminated abruptly\n");
+			throw new FileNotFoundException();
+		}
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(DoubleWritable.class);
 		job.setInputFormatClass(TextInputFormat.class);
-		
-		ControlledJob controlledJob = new ControlledJob(job.getConfiguration());
+		log.debug("SigmaXY job: Mapping process completed");
+
+		log.debug("SigmaXY job: Reducing process started");
+		try {
+			controlledJob = new ControlledJob(job.getConfiguration());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		jobControl.addJob(controlledJob);
 		Thread thread = new Thread(jobControl);
 		thread.start();
 		while(!jobControl.allFinished())
 		{
-			Thread.sleep(10000);
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		jobControl.stop();
-		FileSystem fs = FileSystem.get(job.getConfiguration());
-		FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-		String valueLine = bufferedReader.readLine();
-		String [] fields = valueLine.split("\t");
-		double value = Double.parseDouble(fields[1]);
-		bufferedReader.close();
-		in.close();
+		FileSystem fs;
+		try {
+			fs = FileSystem.get(job.getConfiguration());
+			FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+			String valueLine = bufferedReader.readLine();
+			String [] fields = valueLine.split("\t");
+			value = Double.parseDouble(fields[1]);
+			bufferedReader.close();
+			in.close();
+		} catch (IOException e) {
+			log.error("Exception occured: Output file cannot be read.");
+			log.debug(e.getMessage());
+			log.debug("SigmaXY Job terminated abruptly\n");
+			throw new FileNotFoundException();
+		}
+		log.debug("SigmaXY job: Reducing process completed");
+		log.info("SigmaXY Job completed\n");
 		return value;
-		
 	}
 }

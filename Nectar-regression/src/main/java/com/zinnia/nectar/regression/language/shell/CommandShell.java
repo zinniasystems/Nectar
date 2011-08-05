@@ -48,6 +48,10 @@ public class CommandShell {
 				{
 					System.exit(0);
 				}
+				else if(command.equals(""))
+                {
+                    System.out.println("Type help or HELP for the usage of commands");
+                }
 				else if(command.equals("version"))
 				{
 					System.out.println("Nectar version 0.0.1");

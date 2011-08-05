@@ -38,7 +38,7 @@ import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 
 
 public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
-	public static Log logger = LogFactory.getLog(PrimitiveTypeHadoopImpl.class);
+	
 	Random random = new Random(400);
 	private int MAX_THREADS;
 	final String inputDirectory = "input/";

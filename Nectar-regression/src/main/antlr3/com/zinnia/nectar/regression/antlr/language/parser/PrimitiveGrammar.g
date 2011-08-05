@@ -20,15 +20,14 @@ grammar PrimitiveGrammar;
 
 @header {
 
-
 package com.zinnia.nectar.regression.antlr.language.parser;
+
 import com.zinnia.nectar.regression.language.primitive.PrimitiveTypeImplFactory;
 import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 import java.util.concurrent.Future;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import com.zinnia.nectar.regression.language.complex.impl.ComplexTypeImpl ;
 
 }
@@ -66,13 +65,12 @@ return msg;
 
 }
 
-
-start :( '\n'| ' ' ) { System.out.println("Type HELP or help for usage of commands");}
+start : ('\n'|'\t'|'\r'|' '+) EOF {System.out.println("Type HELP or help for usage of all commands");}
       |
       sigmax
       ;
 
-sigmax  
+sigmax
 @init { paraphrases.push("\n"+"USAGE :sigmax(column_no)<<input_file"+"\n"+"Type HELP or help for usage of all commands"); }
 @after { paraphrases.pop(); }
   : ('sigmax') '(' INT ')' '<<' input   { 
@@ -85,17 +83,16 @@ sigmax
                                    }
                       
                         
-                    
+                     primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                     Future<Double> value=primitiveImpl.sigmax(ip,n);
                                     
                               try
                               {
-                               primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                     Future<Double> value=primitiveImpl.sigmax(ip,n);
                                    System.out.println("Sigmax is "+value.get());
                                    }
-                                   catch(ExecutionException e)
+                                   catch(Exception e)
                                    {
-                                    System.out.println("Job terminated due to exception :"+e.getMessage());
+                                    System.out.println("Sigma Job terminated due to exception. Check nectar logs for more information");
                                    }
                              }
                 
@@ -117,15 +114,15 @@ sigmaxsquare
                                    }
                     
                 
-                             
+                             primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
                        try
                               {
-                              primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                             Future<Double> value=primitiveImpl.sigmaxSquare(ip,n); 
                                     System.out.println("Sigmax square is "+value.get());  
                                    }
                                    catch(Exception e)
                                    {
+                                      System.out.println("Sigma square Job terminated due to exception. Check nectar logs for more information");
                                    }
                              }
                 
@@ -144,15 +141,15 @@ sigmaxy
                             }
                             }
             xypart    {
-                          
+                         primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                                  Future<Double> value=primitiveImpl.sigmaxy(ip,x,y); 
                        try
-                              { 
-                              primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
-                                  Future<Double> value=primitiveImpl.sigmaxy(ip,x,y);
+                              {
                                     System.out.println("Sigmaxy is "+value.get());  
                                    }
                                    catch(Exception e)
                                    {
+                                      System.out.println("SigmaXY Job terminated due to exception. Check nectar logs for more information");
                                    }
                              }
                   
@@ -165,15 +162,15 @@ mean
   : ('mean') '(' INT         {  try { cn=Integer.parseInt($INT.text);} catch(Exception e) { } }
          ')' 
           idpart                  {
-                           
-                               try
-                              {     
-                                primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
+                           primitiveImpl=PrimitiveTypeImplFactory.getInstance(ip);
                                     Future<Double> value=primitiveImpl.mean(ip,cn,n);
+                               try
+                              {
                                     System.out.println("mean is "+value.get());  
                                    }
                                    catch(Exception e)
                                    {
+                                      System.out.println("Mean Job terminated due to exception. Check nectar logs for more information");
                                    }
                              }
           
@@ -190,9 +187,9 @@ corr
         '(' npart ')'     {
           
           
-                                 
+                                 Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn); 
                        try
-                              {  Future<Double> value=complexTypeImpl.correlation(ip,x,y,nn);
+                              {
                                    System.out.println("correlation is "+value.get());  
                                    }
                                    catch(Exception e)
@@ -258,7 +255,7 @@ help
   
 
   :  ('HELP' |'help')    {
-    System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n"); 
+    System.out.println("\n"+"Usage of the commands are as follows:"+"\n"+"1.sigmax"+"\n"+"sigmax(column_no)<<input_file"+"\n"+"2.sigmaxsquare"+"\n"+"sigmaxsquare(column_no)<<input_file"+"\n"+"3.sigmaxy"+"\n"+"sigmaxy(column_no1,column_no2)<<input_file"+"\n"+"4.mean"+"\n"+"mean(column_no)<<input_file(total_no_of_rows)"+"\n"+"5.correlation"+"\n"+"corr(column_no1,column_no2)<<input_file(total_no_of_rows)"+"\n"+"6.correlation matrix"+"\n"+"corrmatrix(column_nos)<<input_file(total_no_of_rows)"+"\n"+"7.multiple regression"+"\n"+"multiplereg(column_nos)<<input_file(total_no_of_rows)"+"\n"+"8.forward selection"+"\n"+"forwardselection(column_nos)<<input_file(total_no_of_rows,level_of_significance)"+"\n"+"NOTE: The tab separated input_file must be in hdfs"+"\n \n"); 
             } 
   ;         
           
@@ -270,11 +267,10 @@ ofpart :        INT   { try { list.add(Integer.parseInt($INT.text));} catch(Exce
         
               idpart               { 
                                           
-                           
+                          Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n); 
                        try
                               {
-                                
-                                Future<Double[][]> value=complexTypeImpl.correlationmatrix(ip,list,n);
+                         
                               
                                 Double[][] matrix=value.get(); 
                                
@@ -303,9 +299,8 @@ mulregpart  :     INT    { try { list.add(Integer.parseInt($INT.text));} catch(E
         
               idpart             {
                                   
-                                  
+                                  Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
                           try{
-                          Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression(ip,list,n);
                           System.out.print(value.get().values());
                           }
                           catch(Exception e)
@@ -390,12 +385,12 @@ INT : '0'..'9'+
       
 DOUBLE : ('0'..'9')* '.' ('0'..'9')+ | ('0'..'9')+
     ;
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {$channel=HIDDEN;}
-    ;
+//WS  :   ( ' '
+//        | '\t'
+//        | '\r'
+//        | '\n'
+//        ) {$channel=HIDDEN;}
+//    ;
 
 STRING
     :  '\'' ( ESC_SEQ | ~('\\'|'\'') )* '\''
