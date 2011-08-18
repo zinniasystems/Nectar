@@ -38,6 +38,7 @@ import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import com.zinnia.nectar.config.NectarException;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
@@ -59,7 +60,7 @@ public class SigmaJob implements Callable<Double>{
 	}
 
 	@Override
-	public Double call() throws FileNotFoundException  {
+	public Double call() throws NectarException  {
 		double value = 0;
 		JobControl jobControl = new JobControl("sigmajob");
 		try {
@@ -88,18 +89,18 @@ public class SigmaJob implements Callable<Double>{
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
-				throw new FileNotFoundException("Exception occured:File "+inputFilePath+" not found ");
+				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			String trace =new String();
-			log.error(e2.getMessage());
+			log.error(e2.toString());
 			for(StackTraceElement s:e2.getStackTrace()){
-				trace+="at "+s.toString()+"\n\t";
+				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
 			log.debug("Sigma Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setMapOutputValueClass(DoubleWritable.class);
@@ -140,7 +141,7 @@ public class SigmaJob implements Callable<Double>{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("Sigma Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		log.debug("Sigma job: Reducing process completed");
 		log.info("Sigma Job completed\n");

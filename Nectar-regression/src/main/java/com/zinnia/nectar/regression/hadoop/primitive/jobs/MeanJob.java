@@ -37,6 +37,8 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import com.zinnia.nectar.config.NectarException;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.MeanMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
@@ -52,17 +54,17 @@ public class MeanJob implements Callable<Double>{
 	private int n;
 	private String outputFilePath; 
 	public MeanJob(String inputFilePath ,String outputFilePath,int column,int n) {
-		
+
 		super();
-		
+
 		this.column=column;
 		this.outputFilePath= outputFilePath;
 		this.n=n;		
 		this.inputFilePath = inputFilePath;
 	}
-	
+
 	@Override
-	public Double call() throws FileNotFoundException {
+	public Double call() throws NectarException {
 		double value = 0;
 		JobControl jobControl = new JobControl("mean job");
 		try {
@@ -75,7 +77,7 @@ public class MeanJob implements Callable<Double>{
 		log.info("Mean Job initialized");
 		log.warn("Mean job: Processing...Do not terminate/close");
 		log.debug("Mean job: Mapping process started");
-		
+
 		try {
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, MeanMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
@@ -83,28 +85,28 @@ public class MeanJob implements Callable<Double>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-		
+
 		job.getConfiguration().set("fields.spec", ""+column);
 		job.getConfiguration().setInt("n",n);
-		
+
 		job.setReducerClass(DoubleSumReducer.class);
 		try {
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
-				throw new FileNotFoundException("Exception occured:File "+inputFilePath+" not found ");
+				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			String trace =new String();
-			log.error(e.getMessage());
+			log.error(e.toString());
 			for(StackTraceElement s:e.getStackTrace()){
-				trace+="at "+s.toString()+"\n\t";
+				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
 			log.debug("Mean Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setOutputKeyClass(Text.class);
@@ -144,12 +146,12 @@ public class MeanJob implements Callable<Double>{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("Mean Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		log.debug("Mean job: Reducing process completed");
 		log.info("Mean Job completed\n");
 		return value;
 	}
-	
-	}
+
+}
 

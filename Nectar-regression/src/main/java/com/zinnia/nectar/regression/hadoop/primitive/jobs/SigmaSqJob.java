@@ -38,6 +38,7 @@ import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import com.zinnia.nectar.config.NectarException;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaSqMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
@@ -52,16 +53,16 @@ public class SigmaSqJob implements Callable<Double>{
 	private int column;
 	private String outputFilePath; 
 	public SigmaSqJob(String inputFilePath,String outputFilePath ,int column) {
-		
+
 		super();
-		
+
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath= outputFilePath;
 		this.column=column;
 	}
-	
+
 	@Override
-	public Double call() throws FileNotFoundException {
+	public Double call() throws NectarException {
 		// TODO Auto-generated method stub
 		double value=0;
 		JobControl jobControl = new JobControl("sigmajob");
@@ -75,7 +76,7 @@ public class SigmaSqJob implements Callable<Double>{
 		log.info("Sigma square Job initialized");
 		log.warn("Sigma square job: Processing...Do not terminate/close");
 		log.debug("Sigma square job: Mapping process started");
-		
+
 		try {
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, SigmaSqMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
@@ -90,18 +91,18 @@ public class SigmaSqJob implements Callable<Double>{
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
-				throw new FileNotFoundException("Exception occured:File "+inputFilePath+" not found ");
+				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			String trace =new String();
-			log.error(e.getMessage());
+			log.error(e.toString());
 			for(StackTraceElement s:e.getStackTrace()){
-				trace+="at "+s.toString()+"\n\t";
+				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
 			log.debug("Sigma square Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setOutputKeyClass(Text.class);
@@ -142,7 +143,7 @@ public class SigmaSqJob implements Callable<Double>{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("Sigma square Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		log.debug("Sigma square job: Reducing process completed");
 		log.info("Sigma square Job completed\n");

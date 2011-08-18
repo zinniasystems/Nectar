@@ -39,6 +39,7 @@ import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
 import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import com.zinnia.nectar.config.NectarException;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaXYMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
@@ -60,7 +61,7 @@ public class SigmaXYJob implements Callable<Double>{
 		this.y=y;
 	}
 	@Override
-	public Double call() throws FileNotFoundException {
+	public Double call() throws NectarException {
 		double value=0;
 		JobControl jobControl = new JobControl("sigmajob");
 		try {
@@ -73,7 +74,7 @@ public class SigmaXYJob implements Callable<Double>{
 		log.info("SigmaXY Job initialized");
 		log.warn("SigmaXY job: Processing...Do not terminate/close");
 		log.debug("SigmaXY job: Mapping process started");
-		
+
 		try {
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,LongWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, SigmaXYMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
@@ -81,28 +82,28 @@ public class SigmaXYJob implements Callable<Double>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		job.getConfiguration().set("fields.spec",x + "," +y);
-		
+
 		job.setReducerClass(DoubleSumReducer.class);
 		try {
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
-				throw new FileNotFoundException("Exception occured:File "+inputFilePath+" not found ");
+				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			String trace =new String();
-			log.error(e.getMessage());
+			log.error(e.toString());
 			for(StackTraceElement s:e.getStackTrace()){
-				trace+="at "+s.toString()+"\n\t";
+				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
 			log.debug("SigmaXY Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		FileOutputFormat.setOutputPath(job,new Path(outputFilePath));
 		job.setOutputKeyClass(Text.class);
@@ -144,7 +145,7 @@ public class SigmaXYJob implements Callable<Double>{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("SigmaXY Job terminated abruptly\n");
-			throw new FileNotFoundException();
+			throw new NectarException();
 		}
 		log.debug("SigmaXY job: Reducing process completed");
 		log.info("SigmaXY Job completed\n");
