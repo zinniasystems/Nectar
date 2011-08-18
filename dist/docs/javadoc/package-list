@@ -1,0 +1,12 @@
+com.zinnia.nectar.regression.antlr.language.parser
+com.zinnia.nectar.regression.hadoop.primitive.jobs
+com.zinnia.nectar.regression.hadoop.primitive.mapreduce
+com.zinnia.nectar.regression.language.complex
+com.zinnia.nectar.regression.language.complex.impl
+com.zinnia.nectar.regression.language.primitive
+com.zinnia.nectar.regression.language.primitive.impl
+com.zinnia.nectar.regression.language.shell
+com.zinnia.nectar.util.hadoop
+com.zinnia.nectar.util.hadoop.inputformat
+com.zinnia.nectar.util.math
+com.zinnia.nectar.util.tables

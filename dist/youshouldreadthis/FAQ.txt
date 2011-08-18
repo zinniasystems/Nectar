@@ -1,0 +1,31 @@
+FAQs
+ 
+The official FAQ:
+ 
+1. What is Nectar?
+Nectar is a framework for predictive modeling and machine learning algorithms on Apache Hadoop.
+
+2. What does the name mean?
+Nectar is a sugar-rich liquid produced by plants. The framework is developed at Zinnia Systems and since Zinnia stands for a flower name, we thought it would be a great name for a powerful open source framework.
+ 
+3. Why Hadoop in Nectar?
+We use Hadoop for distributed processing of the data. Since our framework solves all the modeling problems of Big Data, Apache Hadoop finds the best fit.
+
+4. Which distribution of Hadoop is Nectar compatible with?
+Nectar is targeted for Apache Hadoop version 0.21.0. Though we tested Nectar on Apache distribution, we are pretty confident that it will work fine with other distribution like Cloudera.
+ 
+5. Why there is only few functions supported in API and command shell?
+This is because we want you to write new functions!! ;) 
+The command shell is just the beginning. It is to show the user friendliness of the framework, to build your own modeling algorithm. We have many great plans for both the language and API where you are going to find more and more sophisticated functions getting added.
+ 
+6. Who are behind Nectar?
+Nectar is developed at Zinnia Systems. We use this framework for our own Business Analytics products. The framework is open sourced to promote and encourage innovation.
+ 
+7. Where will I send the suggestions/comments/request for some specific functionality to?
+There is google group http://groups.google.com/group/nectar-user-group for Nectar users. Please feel free to provide your suggestions/comments/queries over there. We are eager to hear from you. 
+
+8. How Nectar relates with other frameworks like Apache Mahout?
+The team at Apache mahout doing great job. But Nectar differs from Mahout fundamentally how we go about modeling. Mahout is a collection of algorithms implemented on Hadoop. But in Nectar we are trying to create an abstraction over Hadoop where new algorithms can be added without writing the map/reduce code.
+
+9. Can I use Nectar source code for my projects / products?
+Nectar is provided under Apache license which is highly permissive open source license. So, please feel free to use Nectar in your projects / products.

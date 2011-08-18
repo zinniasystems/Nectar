@@ -1,0 +1,2 @@
+HADOOP_HOME=/home/hadoop/hadoop-for-nectar/hadoop-0.21.0/
+NO_OF_PARALLEL_JOBS=4

@@ -1,0 +1,43 @@
+Installing Nectar
+ 
+Nectar is a framework which enables you to write predictive modeling and machine learning algorithms on Apache Hadoop. This guide helps you to setup the Nectar.
+ 
+P.S: Please refer to Hadoop cluster setup document provided with the distribution you have not yet configured the Hadoop cluster.
+ 
+We refer to the hadoop installation directory as HADOOP_HOME in this document.
+
+Download the Nectar from here https://github.com/downloads/zinnia-phatak-dev/Nectar/Nectar.tar.gz (If you are reading this after downloading the distribution, then skip this)
+ 
+Extract the downloaded tar.gz. Please note that you extract the tar.gz in the user account in which you installed Hadoop. (ex: user is hadoop if you set up the cluster using the cluster setup document provided with the distribution). The extracted directory is referred as NECTAR_HOME
+ 
+Configurations:
+
+All the binary for the API and the command shell can be found inside folder dist.  The steps for the configuration of Nectar are as follows.
+
+1. Copy Nectar-analytics-0.0.1-SNAPSHOT.jar from dist to HADOOP_HOME.
+
+2. Open the configuration.cfg and set the Hadoop home directory there.
+
+Carry out the following steps in HDFS:
+
+ // create a directory where Nectar tries to find the input files.
+$HADOOP_HOME/bin/hdfs dfs -mkdir input  
+
+//Copy the example file in NECTAR_HOME to input directory in hdfs.
+HADOOP_HOME/bin/hdfs  dfs -put NECTAR_HOME/samples/files/book.csv input/
+
+Please note all the input data files you use with Nectar API should be present in this directory of HDFS and all the columns in the files should be tab separated.
+
+Nectar can be used as Java API or can be run interactively using command shell.
+
+Using the command shell
+Command shell allows you to play with the Nectar API’s. Start Nectar command shell from dist.
+
+$ cd NECTAR_HOME/dist
+$ ./modeler.sh
+
+Ex : sigmax(1)<<book.csv this computes the sigmax (sum) of first column in the file book.csv . You can refer to the GUI of Hadoop job tracker to see the no.of jobs created and how much they are completed . Please refer command shell manual for all the available functions.
+
+Using Java API
+
+Please refer Javadocs and samples provided with the distribution for information on using these APIs.
