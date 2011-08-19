@@ -1,0 +1,20 @@
+**************************************************************************************************************
+**************Some improvements are being done in this version of "Nectar" project.***************************
+**************************************************************************************************************
+
+The project version is "0.0.1", which is mentioned as Nectar-0.0.1.tar.gz
+
+The main changes/improvements in 0.0.1 version of nectar are:
+
+ 
+	1. Easy command line interface for the hadoop jobs to be run.
+
+	2. Includes better exception handling by the parser.
+
+	3. Includes better exception handling in the nectar API's.
+
+	4. Provides good log information during hadoop job execution for the user.
+
+**********************************Get the ball rolling by using Nectar***************************************** 
+
+
