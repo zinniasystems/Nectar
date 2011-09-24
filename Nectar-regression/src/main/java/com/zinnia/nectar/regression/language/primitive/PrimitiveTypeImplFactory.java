@@ -35,12 +35,4 @@ public class PrimitiveTypeImplFactory  {
 		}
 		return primitiveImplInstance;
 	}
-
-
-
-
-
-
-
-
 }

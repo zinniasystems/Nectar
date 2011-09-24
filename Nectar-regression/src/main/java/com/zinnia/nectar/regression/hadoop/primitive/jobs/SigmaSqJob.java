@@ -17,7 +17,6 @@
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
@@ -43,32 +42,36 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaSqMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class SigmaSqJob implements Callable<Double>{
-
-	static Job job;
-	static FileSystem fs;
-	static ControlledJob controlledJob;
+public class SigmaSqJob implements Callable<Double>
+{
+	private Job job;
+	private FileSystem fs;
+	private ControlledJob controlledJob;
 	Log log=LogFactory.getLog(SigmaSqJob.class);
+	
 	private String inputFilePath;
 	private int column;
 	private String outputFilePath; 
-	public SigmaSqJob(String inputFilePath,String outputFilePath ,int column) {
-
+	
+	public SigmaSqJob(String inputFilePath,String outputFilePath ,int column) 
+	{
 		super();
-
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath= outputFilePath;
 		this.column=column;
 	}
 
-	@Override
-	public Double call() throws NectarException {
+	public Double call() throws NectarException 
+	{
 		// TODO Auto-generated method stub
 		double value=0;
 		JobControl jobControl = new JobControl("sigmajob");
-		try {
+		try 
+		{
 			job = new Job();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -77,27 +80,34 @@ public class SigmaSqJob implements Callable<Double>{
 		log.warn("Sigma square job: Processing...Do not terminate/close");
 		log.debug("Sigma square job: Mapping process started");
 
-		try {
+		try 
+		{
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, SigmaSqMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		job.getConfiguration().set("fields.spec", ""+column);
 		job.setReducerClass(DoubleSumReducer.class);
-		try {
+		try 
+		{
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
 				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			// TODO Auto-generated catch block
 			String trace =new String();
 			log.error(e.toString());
-			for(StackTraceElement s:e.getStackTrace()){
+			for(StackTraceElement s:e.getStackTrace())
+			{
 				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
@@ -111,9 +121,12 @@ public class SigmaSqJob implements Callable<Double>{
 		log.debug("Sigma square job: Mapping process completed");
 
 		log.debug("Sigma square job: Reducing process started");
-		try {
+		try 
+		{
 			controlledJob = new ControlledJob(job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -122,15 +135,19 @@ public class SigmaSqJob implements Callable<Double>{
 		thread.start();
 		while(!jobControl.allFinished())
 		{
-			try {
+			try 
+			{
 				Thread.sleep(10000);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		jobControl.stop();
-		try {
+		try 
+		{
 			fs = FileSystem.get(job.getConfiguration());
 			FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -139,7 +156,9 @@ public class SigmaSqJob implements Callable<Double>{
 			value = Double.parseDouble(fields[1]);
 			bufferedReader.close();
 			in.close();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("Sigma square Job terminated abruptly\n");

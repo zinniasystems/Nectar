@@ -26,9 +26,37 @@ import java.util.concurrent.Future;
  */
 public interface IPrimitiveType
 {
+	/**
+	 * @param inputFilePath
+	 * @param column
+	 * @return summation of a column
+	 */
 	Future<Double> sigmax(String inputFilePath,int column);
+	/**
+	 * @param inputFilePath
+	 * @param column
+	 * @return sum of the squares of a column
+	 */
 	Future<Double> sigmaxSquare(String inputFilePath,int column);
+	/**
+	 * @param inputFilePath
+	 * @param x
+	 * @param y
+	 * @return sum of the product of two column values
+	 */
 	Future<Double> sigmaxy(String inputFilePath,int x,int y);
+	/**
+	 * @param inputFilePath
+	 * @param column
+	 * @return a sorted array
+	 */
+	Future<Double[]> sort(String inputFilePath,int column);
+	/**
+	 * @param inputFilePath
+	 * @param column
+	 * @param n
+	 * @return mean of a column
+	 */
 	Future<Double> mean(String inputFilePath,int column,int n);
 	/**
 	 * Experimental API to run the different equation on a single row in map reduce. As of now its only useful for forward selection . But in future 

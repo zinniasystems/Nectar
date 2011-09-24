@@ -25,14 +25,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaSqJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaXYJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.SortJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.YDiffJob;
 import com.zinnia.nectar.regression.language.primitive.IPrimitiveType;
 
@@ -48,9 +46,7 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 	{
 		Preferences.init();
 		MAX_THREADS=Preferences.NO_OF_PARALLEL_JOBS;
-		executorService = Executors.newFixedThreadPool(MAX_THREADS);
-		
-		
+		executorService = Executors.newFixedThreadPool(MAX_THREADS);	
 	}
 	public Future<Double> sigmax(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
@@ -92,6 +88,15 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		Future<Double> value = executorService.submit(sigmaxyJob);
 		return value;
 	}
+	
+	public Future<Double[]> sort(String inputFilePath, int column) {
+		// TODO Auto-generated method stub
+		String completeInputFilePath=inputDirectory+inputFilePath;
+		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
+		SortJob sortJob=new SortJob(completeInputFilePath, outputFilePath, column);
+		Future<Double[]> value=executorService.submit(sortJob);
+		return value;
+	}
 	public Future<Double> ydiffjob(String inputFilePath, List<Integer> columns,
 			Map<Integer,Double> paramValues) {
 		String completeInputFilePath = inputDirectory+inputFilePath;
@@ -99,14 +104,17 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		/* Prepare column list */
 		String [] columnStringArray = new String[columns.size()]; 
 		List<String> paramValueStringList = new ArrayList<String>();
+		paramValueStringList.add(""+paramValues.get(0));
 		for(int i=0;i<columns.size();i++)
 		{
 			int column = columns.get(i);
 			columnStringArray[i]=""+column;
 			
+			System.out.println("column added is "+column);
 			if(column!=columns.get(columns.size()-1)) //last column will be output column
 			{
 				paramValueStringList.add(""+paramValues.get(column));
+				System.out.println("column is"+column+" param value is "+paramValues.get(column));
 				
 			}
 		}
@@ -116,8 +124,4 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		
 		return value;
 	}
-
-
-
-
 }

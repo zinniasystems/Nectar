@@ -22,16 +22,14 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class SigmaSqMapper<K> extends Mapper<K,Text,Text,DoubleWritable> {
-
-
-	protected void map(K key, Text value,
-			Context context)
-			throws IOException, InterruptedException {
+public class SigmaSqMapper<K> extends Mapper<K,Text,Text,DoubleWritable> 
+{
+	protected void map(K key, Text value,Context context)
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		double doubleValue = Double.parseDouble(value.toString());
 		double square= doubleValue * doubleValue ;
 		context.write(new Text("SigmaxSquare"),new DoubleWritable(square));
 	}
-
 }

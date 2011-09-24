@@ -82,15 +82,17 @@ public class ComplexTypeImpl implements IComplexType {
 		return null;
 
 	}
-
-
-
-
-
-
-
-
-
-
-
+	
+	public Future<Double> covariance(String inputFilePath,int xColumn,int yColumn,int n) {
+		// TODO Auto-generated method stub
+		CovarianceImpl covarianceImpl=new CovarianceImpl(inputFilePath, xColumn, yColumn, n);
+		return executorService.submit(covarianceImpl);
+	}
+	
+	public Future<Double[][]> covariancematrix(String inputFilePath,
+			List<Integer> columns, int n) {
+		// TODO Auto-generated method stub
+		CovarianceMatrixImpl covarianceMatrixImpl=new CovarianceMatrixImpl(inputFilePath, columns, n);
+		return executorService.submit(covarianceMatrixImpl);
+	}
 }

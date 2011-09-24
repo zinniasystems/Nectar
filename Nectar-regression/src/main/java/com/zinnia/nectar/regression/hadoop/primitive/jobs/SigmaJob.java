@@ -17,7 +17,6 @@
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
@@ -28,6 +27,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -43,29 +43,35 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class SigmaJob implements Callable<Double>{
-
-	static Job job;
-	static ControlledJob controlledJob;
-	static FileSystem fs;
+public class SigmaJob implements Callable<Double>
+{
+	private Job job;
+	private ControlledJob controlledJob;
+	private FileSystem fs;
 	Log log=LogFactory.getLog(SigmaJob.class);
+	
 	private String inputFilePath;
 	private int column;
 	private String outputFilePath;				
-	public SigmaJob(String inputFilePath,String outputFilePath,int column) {
+	
+	public SigmaJob(String inputFilePath,String outputFilePath,int column) 
+	{
 		super();
 		this.column=column;
 		this.inputFilePath = inputFilePath;
 		this.outputFilePath=outputFilePath;
 	}
 
-	@Override
-	public Double call() throws NectarException  {
+	public Double call() throws NectarException  
+	{
 		double value = 0;
 		JobControl jobControl = new JobControl("sigmajob");
-		try {
+		try 
+		{
 			job = new Job();
-		} catch (IOException e1) {
+		} 
+		catch (IOException e1) 
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -73,29 +79,35 @@ public class SigmaJob implements Callable<Double>{
 		log.info("Sigma Job initialized");
 		log.warn("Sigma job: Processing...Do not terminate/close");
 		log.debug("Sigma job: Mapping process started");
-		try {
-			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
+		try 
+		{
+			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,LongWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, SigmaMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
-		} catch (IOException e1) {
+		} 
+		catch (IOException e1) 
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		job.getConfiguration().set("fields.spec", ""+column);
 
 		job.setReducerClass(DoubleSumReducer.class);
-
-		try {
+		try 
+		{
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
 				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (Exception e2) {
+		} 
+		catch (Exception e2) 
+		{
 			// TODO Auto-generated catch block
 			String trace =new String();
 			log.error(e2.toString());
-			for(StackTraceElement s:e2.getStackTrace()){
+			for(StackTraceElement s:e2.getStackTrace())
+			{
 				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
@@ -109,9 +121,12 @@ public class SigmaJob implements Callable<Double>{
 		log.debug("Sigma job: Mapping process completed");
 
 		log.debug("Sigma job: Reducing process started");
-		try {
+		try 
+		{
 			controlledJob = new ControlledJob(job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -120,15 +135,18 @@ public class SigmaJob implements Callable<Double>{
 		thread.start();
 		while(!jobControl.allFinished())
 		{
-			try {
+			try 
+			{
 				Thread.sleep(10000);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		jobControl.stop();
-		try {
+		try 
+		{
 			FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 			String valueLine = bufferedReader.readLine();
@@ -136,7 +154,9 @@ public class SigmaJob implements Callable<Double>{
 			value = Double.parseDouble(fields[1]);
 			bufferedReader.close();
 			in.close();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());

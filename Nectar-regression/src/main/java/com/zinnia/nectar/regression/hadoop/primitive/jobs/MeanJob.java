@@ -17,7 +17,6 @@
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
@@ -43,33 +42,37 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.MeanMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class MeanJob implements Callable<Double>{
-
-	static Job job;
-	static FileSystem fs;
-	static ControlledJob controlledJob;
+public class MeanJob implements Callable<Double>
+{
+	private Job job;
+	private FileSystem fs;
+	private ControlledJob controlledJob;
 	Log log=LogFactory.getLog(MeanJob.class);
+	
 	private String inputFilePath;
 	private int column;
 	private int n;
 	private String outputFilePath; 
-	public MeanJob(String inputFilePath ,String outputFilePath,int column,int n) {
-
+	
+	public MeanJob(String inputFilePath ,String outputFilePath,int column,int n) 
+	{
 		super();
-
 		this.column=column;
 		this.outputFilePath= outputFilePath;
 		this.n=n;		
 		this.inputFilePath = inputFilePath;
 	}
 
-	@Override
-	public Double call() throws NectarException {
+	public Double call() throws NectarException 
+	{
 		double value = 0;
 		JobControl jobControl = new JobControl("mean job");
-		try {
+		try 
+		{
 			job = new Job();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,10 +81,13 @@ public class MeanJob implements Callable<Double>{
 		log.warn("Mean job: Processing...Do not terminate/close");
 		log.debug("Mean job: Mapping process started");
 
-		try {
+		try 
+		{
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, MeanMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
@@ -90,18 +96,22 @@ public class MeanJob implements Callable<Double>{
 		job.getConfiguration().setInt("n",n);
 
 		job.setReducerClass(DoubleSumReducer.class);
-		try {
+		try 
+		{
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
 				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			// TODO Auto-generated catch block
 			String trace =new String();
 			log.error(e.toString());
-			for(StackTraceElement s:e.getStackTrace()){
+			for(StackTraceElement s:e.getStackTrace())
+			{
 				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
@@ -115,9 +125,12 @@ public class MeanJob implements Callable<Double>{
 		log.debug("Mean job: Mapping process completed");
 
 		log.debug("Mean job: Reducing process started");
-		try {
+		try 
+		{
 			controlledJob = new ControlledJob(job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -126,15 +139,19 @@ public class MeanJob implements Callable<Double>{
 		thread.start();
 		while(!jobControl.allFinished())
 		{
-			try {
+			try 
+			{
 				Thread.sleep(10000);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		jobControl.stop();
-		try {
+		try 
+		{
 			FSDataInputStream in = fs.open(new Path(outputFilePath+"/part-r-00000"));
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 			String valueLine = bufferedReader.readLine();
@@ -142,7 +159,9 @@ public class MeanJob implements Callable<Double>{
 			value = Double.parseDouble(fields[1]);
 			bufferedReader.close();
 			in.close();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("Mean Job terminated abruptly\n");
@@ -152,6 +171,5 @@ public class MeanJob implements Callable<Double>{
 		log.info("Mean Job completed\n");
 		return value;
 	}
-
 }
 

@@ -23,6 +23,10 @@ import java.util.concurrent.Future;
 /**
  * Its interface which tells the complex functions implemented in Nectar using the basic API . 
  */
+/**
+ * @author hadoop
+ *
+ */
 public interface IComplexType {
 	/**
 	 * 
@@ -58,5 +62,19 @@ public interface IComplexType {
 	 * @return Multiple Regression equation after forward selection
 	 */
 	public Map<Integer,Double> forwardSelection(String inputFilePath,List<Integer> columns,int n,double levelOfSignificance);
-	
+	/**
+	 * @param inputFilePath
+	 * @param xColumn
+	 * @param yColumn
+	 * @param n - no.of rows
+	 * @return covariance between two columns
+	 */
+	public Future<Double> covariance(String inputFilePath,int xColumn,int yColumn,int n);
+	/**
+	 * @param inputFilePath
+	 * @param columns
+	 * @param n
+	 * @return covariance matrix
+	 */
+	public Future<Double[][]> covariancematrix(String inputFilePath,List<Integer> columns,int n);
 }

@@ -22,16 +22,13 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-
-
-
-
-public class YDiffMapper<K,V> extends Mapper<K,V,Text,DoubleWritable>{
+public class YDiffMapper<K,V> extends Mapper<K,V,Text,DoubleWritable>
+{
 	private String[] paramValues;
-	@Override
-	protected void map(K key, V value,
-			Context context)
-			throws IOException, InterruptedException {
+	
+	protected void map(K key, V value,Context context)
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		 String columnValues [] = value.toString().split("\t");
 		 double yCapValue = 0;
@@ -49,12 +46,10 @@ public class YDiffMapper<K,V> extends Mapper<K,V,Text,DoubleWritable>{
 		 context.write(new Text("ydiff"),new DoubleWritable(yDiffSquare));
 	}
 
-	@Override
 	protected void setup(Context context)
-			throws IOException, InterruptedException {
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		paramValues = context.getConfiguration().getStrings("paramValues");
 	}
-	
-
 }

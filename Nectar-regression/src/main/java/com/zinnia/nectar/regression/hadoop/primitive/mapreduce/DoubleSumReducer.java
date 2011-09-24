@@ -23,19 +23,18 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class DoubleSumReducer extends Reducer<Text,DoubleWritable,Text,DoubleWritable> {
-
-	protected void reduce(Text key, Iterable<DoubleWritable> valueSet,
-			Context context)
-			throws IOException, InterruptedException {
+public class DoubleSumReducer extends Reducer<Text,DoubleWritable,Text,DoubleWritable> 
+{
+	protected void reduce(Text key, Iterable<DoubleWritable> valueSet,Context context)
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		Iterator<DoubleWritable> values = valueSet.iterator();
 		double sum=0;
-		 while(values.hasNext())
-		 {
-			 sum+=values.next().get();
-		 }
-		 context.write(key, new DoubleWritable(sum));
+		while(values.hasNext())
+		{
+			sum+=values.next().get();
+		}
+		context.write(key, new DoubleWritable(sum));		
 	}
-
 }

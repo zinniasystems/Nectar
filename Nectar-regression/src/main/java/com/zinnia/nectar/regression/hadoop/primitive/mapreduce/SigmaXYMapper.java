@@ -20,12 +20,11 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class SigmaXYMapper <K> extends Mapper<K,Text,Text,DoubleWritable> {
-
-	@Override
-	protected void map(K key, Text value,
-			Context context)
-	throws IOException, InterruptedException {
+public class SigmaXYMapper <K> extends Mapper<K,Text,Text,DoubleWritable> 
+{
+	protected void map(K key, Text value,Context context)
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		String[] values = value.toString().split("\t");
 
@@ -35,7 +34,6 @@ public class SigmaXYMapper <K> extends Mapper<K,Text,Text,DoubleWritable> {
 		double longValue= x*y;
 		context.write(new Text("sigmaxy"),new DoubleWritable(longValue));
 	}
-
 }
 
 

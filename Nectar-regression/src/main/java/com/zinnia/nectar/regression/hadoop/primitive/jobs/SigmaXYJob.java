@@ -17,7 +17,6 @@
 package com.zinnia.nectar.regression.hadoop.primitive.jobs;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
@@ -44,29 +43,36 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.SigmaXYMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class SigmaXYJob implements Callable<Double>{
-
-	static ControlledJob controlledJob;
-	static Job job;
-	static FileSystem fs;
+public class SigmaXYJob implements Callable<Double>
+{
+	private ControlledJob controlledJob;
+	private Job job;
+	private FileSystem fs;
 	Log log=LogFactory.getLog(SigmaXYJob.class);
+	
 	private String inputFilePath;
 	private String outputFilePath; 
 	private int x,y;
-	public SigmaXYJob(String inputFilePath,String outputFilePath,int x,int y) {
+	
+	public SigmaXYJob(String inputFilePath,String outputFilePath,int x,int y) 
+	{
 		super();
 		this.outputFilePath=outputFilePath;
 		this.inputFilePath = inputFilePath;
 		this.x=x;
 		this.y=y;
 	}
-	@Override
-	public Double call() throws NectarException {
+	
+	public Double call() throws NectarException 
+	{
 		double value=0;
 		JobControl jobControl = new JobControl("sigmajob");
-		try {
+		try 
+		{
 			job = new Job();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -75,30 +81,35 @@ public class SigmaXYJob implements Callable<Double>{
 		log.warn("SigmaXY job: Processing...Do not terminate/close");
 		log.debug("SigmaXY job: Mapping process started");
 
-		try {
+		try 
+		{
 			ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,LongWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
 			ChainMapper.addMapper(job, SigmaXYMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 		job.getConfiguration().set("fields.spec",x + "," +y);
 
 		job.setReducerClass(DoubleSumReducer.class);
-		try {
+		try 
+		{
 			FileInputFormat.addInputPath(job, new Path(inputFilePath));
 			fs = FileSystem.get(job.getConfiguration());
 			if(!fs.exists(new Path(inputFilePath)))
 			{
 				throw new NectarException("Exception occured:File "+inputFilePath+" not found ");
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			// TODO Auto-generated catch block
 			String trace =new String();
 			log.error(e.toString());
-			for(StackTraceElement s:e.getStackTrace()){
+			for(StackTraceElement s:e.getStackTrace())
+			{
 				trace+="\n\t at "+s.toString();
 			}
 			log.debug(trace);
@@ -112,9 +123,12 @@ public class SigmaXYJob implements Callable<Double>{
 		log.debug("SigmaXY job: Mapping process completed");
 
 		log.debug("SigmaXY job: Reducing process started");
-		try {
+		try 
+		{
 			controlledJob = new ControlledJob(job.getConfiguration());
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -123,16 +137,20 @@ public class SigmaXYJob implements Callable<Double>{
 		thread.start();
 		while(!jobControl.allFinished())
 		{
-			try {
+			try 
+			{
 				Thread.sleep(10000);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		jobControl.stop();
 		FileSystem fs;
-		try {
+		try 
+		{
 			fs = FileSystem.get(job.getConfiguration());
 			FSDataInputStream in =fs.open(new Path(outputFilePath+"/part-r-00000"));
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -141,7 +159,9 @@ public class SigmaXYJob implements Callable<Double>{
 			value = Double.parseDouble(fields[1]);
 			bufferedReader.close();
 			in.close();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			log.error("Exception occured: Output file cannot be read.");
 			log.debug(e.getMessage());
 			log.debug("SigmaXY Job terminated abruptly\n");

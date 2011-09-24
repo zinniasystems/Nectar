@@ -22,27 +22,24 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class MeanMapper<K> extends Mapper<K,Text,Text,DoubleWritable> {
-
+public class MeanMapper<K> extends Mapper<K,Text,Text,DoubleWritable> 
+{
 	private int n;
 
-	protected void map(K key, Text value,
-			Context context)
-			throws IOException, InterruptedException {
+	protected void map(K key, Text value,Context context)
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		double doubleValue = Double.parseDouble(value.toString());
-		double divValue = doubleValue/n; 
-		
+		double divValue = doubleValue/n; 	
 		context.write(new Text("Mean"),new DoubleWritable(divValue));
 	}
 
-	@Override
 	protected void setup(Context context)
-			throws IOException, InterruptedException {
+	throws IOException, InterruptedException 
+	{
 		// TODO Auto-generated method stub
 		super.setup(context);
-		n=context.getConfiguration().getInt("n",1);
-		
+		n=context.getConfiguration().getInt("n",1);	
 	}
-
 }

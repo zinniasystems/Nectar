@@ -65,18 +65,11 @@ public class CorrelationMatrixImpl  implements Callable<Double[][]> {
 				else
 				{
 					Future<Double> corr=(Future<Double>)correlationFutureMatrix[i][j];
-					correlationMatrix[i][j]=corr.get();
-					
-				}
-				
+					correlationMatrix[i][j]=corr.get();	
+				}	
 			}
-		  
-		
-		
 		return correlationMatrix;
 	}
-	
-		
 }
 
 

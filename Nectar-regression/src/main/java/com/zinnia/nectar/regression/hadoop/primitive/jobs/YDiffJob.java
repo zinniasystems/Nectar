@@ -38,48 +38,43 @@ import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.DoubleSumReducer;
 import com.zinnia.nectar.regression.hadoop.primitive.mapreduce.YDiffMapper;
 import com.zinnia.nectar.util.hadoop.FieldSeperator;
 
-public class YDiffJob implements Callable<Double>{
-
+public class YDiffJob implements Callable<Double>
+{
 	private String inputFilePath;
 	private String[] columns;
 	private String[] paramValues;
 	private String outputFilePath; //="output/result";
-	public YDiffJob(String inputFilePath ,String outputFilePath,String[] columns,String [] paramValues) {
-		
+	public YDiffJob(String inputFilePath ,String outputFilePath,String[] columns,String [] paramValues) 
+	{	
 		super();
 		this.paramValues=paramValues;
 		this.columns=columns;
 		this.outputFilePath= outputFilePath;		
 		this.inputFilePath = inputFilePath;
 	}
-	
-	 private String getFieldSpecForColumns()
-	 {
-		 StringBuilder fieldSpec = new StringBuilder();
-		  for(String column : columns)
-		  {
-			  fieldSpec.append(column);
-			  fieldSpec.append(",");
-		  }
-		  fieldSpec.deleteCharAt(fieldSpec.lastIndexOf(","));
+
+	private String getFieldSpecForColumns()
+	{
+		StringBuilder fieldSpec = new StringBuilder();
+		for(String column : columns)
+		{
+			fieldSpec.append(column);
+			fieldSpec.append(",");
+		}
+		fieldSpec.deleteCharAt(fieldSpec.lastIndexOf(","));
 		return fieldSpec.toString();
-	 }
+	}
 	
-
-
-	@Override
-	public Double call() throws Exception {
+	public Double call() throws Exception 
+	{
 		JobControl jobControl = new JobControl("YDiff job");
 
 		Job job = new Job();
 		job.setJarByClass(YDiffJob.class);
 		
-	
-		
 		ChainMapper.addMapper(job, FieldSeperator.FieldSeperationMapper.class,DoubleWritable.class,Text.class,NullWritable.class,Text.class,job.getConfiguration());
-		
 		ChainMapper.addMapper(job, YDiffMapper.class,NullWritable.class,Text.class,Text.class,DoubleWritable.class,job.getConfiguration());
-		
+
 		String fieldSpec = getFieldSpecForColumns();
 		job.getConfiguration().set("fields.spec",fieldSpec);
 		job.getConfiguration().setStrings("paramValues",paramValues);
@@ -89,7 +84,7 @@ public class YDiffJob implements Callable<Double>{
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(DoubleWritable.class);
 		job.setInputFormatClass(TextInputFormat.class);
-		
+
 		ControlledJob controlledJob = new ControlledJob(job.getConfiguration());
 		jobControl.addJob(controlledJob);
 		Thread thread = new Thread(jobControl);
