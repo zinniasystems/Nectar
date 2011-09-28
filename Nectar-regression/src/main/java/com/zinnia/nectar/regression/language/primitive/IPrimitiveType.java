@@ -60,7 +60,7 @@ public interface IPrimitiveType
 	Future<Double> mean(String inputFilePath,int column,int n);
 	/**
 	 * Experimental API to run the different equation on a single row in map reduce. As of now its only useful for forward selection . But in future 
-	 * will be generalized for all kind of scenarios.
+	 * will be generalised for all kind of scenarios.
 	 * @param inputFilePath
 	 * @param columns
 	 * @param paramValues

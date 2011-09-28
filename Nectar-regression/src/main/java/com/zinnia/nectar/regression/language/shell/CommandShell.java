@@ -25,16 +25,23 @@ import jline.ConsoleReader;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.antlr.runtime.tree.DOTTreeGenerator;
+import org.antlr.runtime.tree.TreeIterator;
+import org.antlr.stringtemplate.StringTemplate;
 
-import com.zinnia.nectar.regression.antlr.language.parser.PrimitiveGrammarLexer;
-import com.zinnia.nectar.regression.antlr.language.parser.PrimitiveGrammarParser;
+import com.zinnia.nectar.regression.antlr.language.parser.NectarLexer;
+import com.zinnia.nectar.regression.antlr.language.parser.NectarParser;
+import com.zinnia.nectar.regression.antlr.language.parser.NectarTree;
+
 /**
  * 
  * Command line interface for the Nectar
  *
  */
 public class CommandShell {
-	public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws Exception
 	{
 		ConsoleReader consoleReader = new ConsoleReader();
 		consoleReader.setDefaultPrompt("nectar>");
@@ -42,16 +49,16 @@ public class CommandShell {
 		while(true)
 		{
 			try {
-				
+
 				command=consoleReader.readLine();
 				if(command.equals("exit"))
 				{
 					System.exit(0);
 				}
 				else if(command.equals(""))
-                {
-                    System.out.println("Type help or HELP for the usage of commands");
-                }
+				{
+					System.out.println("Type [HELP|help|?] for the usage of commands");
+				}
 				else if(command.equals("version"))
 				{
 					System.out.println("Nectar version 0.0.1");
@@ -59,21 +66,36 @@ public class CommandShell {
 				else{
 					ByteArrayInputStream byteArray = new ByteArrayInputStream(command.getBytes(Charset.defaultCharset()));
 
-					PrimitiveGrammarLexer lex = new PrimitiveGrammarLexer(new ANTLRInputStream(byteArray));
-					CommonTokenStream tokens = new CommonTokenStream(lex);
-
-					PrimitiveGrammarParser g = new PrimitiveGrammarParser(tokens);
-					try {
-						g.start();		
-					} catch (RecognitionException e) {
-						e.printStackTrace();
-					}
+					
+					NectarLexer lexer = new NectarLexer(new ANTLRInputStream(byteArray));
+					CommonTokenStream tokens = new CommonTokenStream(lexer);
+					NectarParser parser = new NectarParser(tokens); 
+					NectarParser.start_return r = parser.start(); 
+					CommonTree commonTree = (CommonTree)r.getTree();
+					//System.out.println(commonTree.toStringTree());
+					
+					if ( parser.getNumberOfSyntaxErrors()<=0 ) {
+						CommonTreeNodeStream nodes = new CommonTreeNodeStream(commonTree);
+						TreeIterator treeIter = new TreeIterator(commonTree);
+						NectarTree walker = new NectarTree(nodes);
+						walker.start();
+						}
+//					System.out.println();
+//					System.out.println("...............................");
+//					DOTTreeGenerator dotTreeGenerator = new DOTTreeGenerator();
+//					StringTemplate stringTemplate = dotTreeGenerator.toDOT(commonTree);
+//					System.out.println(stringTemplate);
+//					System.out.println("...............................");
 				}
+			}
 
-			} catch (IOException e) {
+
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
 }
+
+
+
