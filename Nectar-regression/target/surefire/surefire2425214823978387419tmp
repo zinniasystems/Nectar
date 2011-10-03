@@ -1,5 +1,5 @@
 #surefire
-#Wed Sep 28 13:48:09 IST 2011
+#Mon Oct 03 15:18:55 IST 2011
 dirscanner.0.params=/home/hadoop/git-hadoop/Nectar/Nectar-regression/target/test-classes|[**/Test*.java, **/*Test.java, **/*TestCase.java]|[**/*$*]
 enableAssertions=true
 testSuiteDefinitionTestSourceDirectory=/home/hadoop/git-hadoop/Nectar/Nectar-regression/src/test/java

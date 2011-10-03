@@ -1,5 +1,5 @@
 #surefire
-#Wed Sep 28 13:48:11 IST 2011
+#Mon Oct 03 15:18:57 IST 2011
 testClassesDirectory=/home/hadoop/git-hadoop/Nectar/Nectar-analytics/target/test-classes
 classPathUrl.4=/home/swathi/.m2/repository/org/antlr/stringtemplate/3.2/stringtemplate-3.2.jar
 classPathUrl.3=/home/swathi/.m2/repository/org/antlr/antlr-runtime/3.1.3/antlr-runtime-3.1.3.jar

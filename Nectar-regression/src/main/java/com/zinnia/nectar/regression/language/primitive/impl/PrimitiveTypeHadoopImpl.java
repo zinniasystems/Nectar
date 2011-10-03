@@ -41,6 +41,7 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 	private int MAX_THREADS;
 	final String inputDirectory = "input/";
 	private ExecutorService executorService;
+	private String completeInputFilePath;
 
 	public PrimitiveTypeHadoopImpl()
 	{
@@ -50,7 +51,14 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 	}
 	public Future<Double> sigmax(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
-		String completeInputFilePath = inputDirectory+inputFilePath;
+		
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
+		
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		SigmaJob sigmaJob = new SigmaJob(completeInputFilePath,outputFilePath,column);
 		Future<Double> value;
@@ -61,7 +69,12 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 
 	public Future<Double> sigmaxSquare(String inputFilePath,
 			int column) {
-		String completeInputFilePath = inputDirectory+inputFilePath;
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		SigmaSqJob sigmaSqJob = new SigmaSqJob(completeInputFilePath,outputFilePath,column);
 		Future<Double> value = executorService.submit(sigmaSqJob);
@@ -72,7 +85,12 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 
 	public Future<Double> mean(String inputFilePath, int column,
 			int n) {
-		String completeInputFilePath = inputDirectory+inputFilePath;
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		MeanJob meanJob = new MeanJob(completeInputFilePath,outputFilePath,column,n);
 		Future<Double> value = executorService.submit(meanJob);
@@ -82,7 +100,12 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 
 	public Future<Double> sigmaxy(String inputFilePath,int x,
 			int y) {
-		String completeInputFilePath = inputDirectory+inputFilePath;
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		SigmaXYJob sigmaxyJob = new SigmaXYJob(completeInputFilePath,outputFilePath,x,y);
 		Future<Double> value = executorService.submit(sigmaxyJob);
@@ -91,7 +114,12 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 	
 	public Future<Double[]> sort(String inputFilePath, int column) {
 		// TODO Auto-generated method stub
-		String completeInputFilePath=inputDirectory+inputFilePath;
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		SortJob sortJob=new SortJob(completeInputFilePath, outputFilePath, column);
 		Future<Double[]> value=executorService.submit(sortJob);
@@ -99,7 +127,12 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 	}
 	public Future<Double> ydiffjob(String inputFilePath, List<Integer> columns,
 			Map<Integer,Double> paramValues) {
-		String completeInputFilePath = inputDirectory+inputFilePath;
+		if(inputFilePath.contains("/")) {
+			completeInputFilePath= inputFilePath;
+		}
+		else {
+		 completeInputFilePath = inputDirectory+inputFilePath;
+		 }
 		String outputFilePath = "output/output"+System.currentTimeMillis()+random.nextInt()+UUID.randomUUID();
 		/* Prepare column list */
 		String [] columnStringArray = new String[columns.size()]; 

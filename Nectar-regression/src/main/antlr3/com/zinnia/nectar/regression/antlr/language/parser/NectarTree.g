@@ -39,7 +39,6 @@ TOK_HELP;
 }
 
 @header {
-//package com.zinnia.nectar.ast.test;
 package com.zinnia.nectar.regression.antlr.language.parser;
 
 import com.zinnia.nectar.regression.language.primitive.PrimitiveTypeImplFactory;
@@ -56,13 +55,12 @@ import com.zinnia.nectar.regression.language.complex.impl.ComplexTypeImpl ;
 @members { 
 
 List<Integer> list = new ArrayList<Integer>();
+String completePath="";
 IPrimitiveType primitiveImpl; 
 ComplexTypeImpl complexTypeImpl = new ComplexTypeImpl();  
-
   private static void outln(Object obj) {
     System.out.println(obj);
   }
- 
 }
 
 start : statement  
@@ -71,7 +69,8 @@ statement : sigmax | sigmaxy | sigmaxsquare| mean  |correlation | correlationmat
           ;
           
 sigmax 
-:  ^(TOK_SIGMAX column_no=INT ip=ID )  { 
+:  ^(TOK_SIGMAX column_no=INT ip=ID) { 
+                       
                        primitiveImpl=PrimitiveTypeImplFactory.getInstance($ip.text);
                         Future<Double> value=primitiveImpl.sigmax($ip.text,Integer.parseInt($column_no.text));
                            try
@@ -80,38 +79,96 @@ sigmax
                                    }
                                    catch(Exception e)
                                    {
-                                    System.out.println("Sigma Job terminated due to exception. Check nectar logs for more information");
+                                    outln("Sigma Job terminated due to exception. Check nectar logs for more information");
                                    }
-                             
-                       }     
+                             } 
+    |
+   ^(TOK_SIGMAX column_no=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+)  {
+                      
+                     
+                      for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                        primitiveImpl=PrimitiveTypeImplFactory.getInstance($directory.text+completePath);
+                        Future<Double> value=primitiveImpl.sigmax($directory.text+completePath,Integer.parseInt($column_no.text));
+                           try
+                              {
+                                   outln("Sigmax:"+value.get());
+                                   }
+                                   catch(Exception e)
+                                   {
+                                    outln("Sigma Job terminated due to exception. Check nectar logs for more information");
+                                    }
+                                    }   
       ;
 sigmaxy : ^(TOK_SIGMAXY column_x=INT column_y=INT ip=ID) { 
                          primitiveImpl=PrimitiveTypeImplFactory.getInstance($ip.text);
                          Future<Double> value=primitiveImpl.sigmaxy($ip.text,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text)); 
                        try
                               {
-                                    System.out.println("Sigmaxy:"+value.get());  
+                                    outln("Sigmaxy:"+value.get());  
                                    }
                                    catch(Exception e)
                                    {
-                                      System.out.println("SigmaXY Job terminated due to exception. Check nectar logs for more information");
+                                      outln("SigmaXY Job terminated due to exception. Check nectar logs for more information");
                                    }
                          }
+      |
+      ^(TOK_SIGMAXY column_x=INT column_y=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+)  {
+                           for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }                         
+                         primitiveImpl=PrimitiveTypeImplFactory.getInstance($directory.text+completePath);
+                         Future<Double> value=primitiveImpl.sigmaxy($directory.text+completePath,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text)); 
+                       try
+                              {
+                                    outln("Sigmaxy:"+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                     outln("SigmaXY Job terminated due to exception. Check nectar logs for more information");
+                                   }
+                         }
+              
       ;   
 sigmaxsquare : ^(TOK_SIGMAXSQUARE column_x=INT ip=ID) {
                            primitiveImpl=PrimitiveTypeImplFactory.getInstance($ip.text);
                            Future<Double> value=primitiveImpl.sigmaxSquare($ip.text,Integer.parseInt($column_x.text)); 
                            try
                               {
-                                    System.out.println("Sigmaxsquare:"+value.get());  
+                                    outln("Sigmaxsquare:"+value.get());  
                                    }
                                    catch(Exception e)
                                    {
-                                      System.out.println("Sigmaxsquare Job terminated due to exception. Check nectar logs for more information");
+                                      outln("Sigmaxsquare Job terminated due to exception. Check nectar logs for more information");
                                    }
-
-
                           }
+      |
+    ^(TOK_SIGMAXSQUARE column_x=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+)  {
+                           for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                           primitiveImpl=PrimitiveTypeImplFactory.getInstance($directory.text+completePath);
+                           Future<Double> value=primitiveImpl.sigmaxSquare($directory.text+completePath,Integer.parseInt($column_x.text)); 
+                           try
+                              {
+                                    outln("Sigmaxsquare:"+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                      outln("Sigmaxsquare Job terminated due to exception. Check nectar logs for more information");
+                                   }
+                          }   
+    
       ;   
       
 mean :  ^(TOK_MEAN column_x=INT ip=ID total_rows=INT)  {
@@ -119,33 +176,67 @@ mean :  ^(TOK_MEAN column_x=INT ip=ID total_rows=INT)  {
                              Future<Double> value=primitiveImpl.mean($ip.text,Integer.parseInt($column_x.text),Integer.parseInt($total_rows.text));
                                try
                               {
-                                    System.out.println("Mean:"+value.get());  
+                                    outln("Mean:"+value.get());  
                                    }
                                    catch(Exception e)
                                    {
-                                      System.out.println("Mean Job terminated due to exception. Check nectar logs for more information");
+                                      outln("Mean Job terminated due to exception. Check nectar logs for more information");
                                    }
 
             }
+|
+ ^(TOK_MEAN column_x=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT) {
+                             for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                      primitiveImpl=PrimitiveTypeImplFactory.getInstance($directory.text+completePath);
+                             Future<Double> value=primitiveImpl.mean($directory.text+completePath,Integer.parseInt($column_x.text),Integer.parseInt($total_rows.text));
+                               try
+                              {
+                                    outln("Mean:"+value.get());  
+                                   }
+                                   catch(Exception e)
+                                   {
+                                      outln("Mean Job terminated due to exception. Check nectar logs for more information");
+                                   }
+ 
+ }           
       ;
 
 correlation : ^(TOK_CORR column_x=INT column_y=INT ip=ID total_rows=INT) {
                    Future<Double> value=complexTypeImpl.correlation($ip.text,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text),Integer.parseInt($total_rows.text)); 
                     try  {
-                                   System.out.println("correlation:"+value.get());  
+                                   outln("correlation:"+value.get());  
                            }
                     catch(Exception e)
                                    {
                                    }
                     }
-      ;
+|
+ ^(TOK_CORR column_x=INT column_y=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT) {
+                     for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                      Future<Double> value=complexTypeImpl.correlation($directory.text+completePath,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text),Integer.parseInt($total_rows.text)); 
+                    try  {
+                                   outln("correlation:"+value.get());  
+                           }
+                    catch(Exception e)
+                                   {
+                                   }
+                    }
+    ;
 
 correlationmatrix: ^(TOK_CORRMATRIX col=INT morecol+=INT* ip=ID total_rows=INT) {
                     list.add(Integer.parseInt($col.text));
                       for(Object object : $morecol)
-                      {
-                       
-                        CommonTree commonTree = (CommonTree) object;
+                      {   CommonTree commonTree = (CommonTree) object;
                           String colValue = commonTree.token.getText();
                           list.add(Integer.parseInt(colValue));
                    
@@ -155,7 +246,7 @@ correlationmatrix: ^(TOK_CORRMATRIX col=INT morecol+=INT* ip=ID total_rows=INT) 
                        try 
                               {
                                   Double[][] matrix=value.get(); 
-                                  System.out.println("Correlation matrix:"); 
+                                  outln("Correlation matrix:"); 
                                   for(int i=0;i<list.size();i++)
                                    {
                                    for(int j=0;j<list.size();j++)
@@ -169,11 +260,46 @@ correlationmatrix: ^(TOK_CORRMATRIX col=INT morecol+=INT* ip=ID total_rows=INT) 
                                    { 
                                    e.printStackTrace();
                                    }
- 
- }    
-    ;
+ }
+ |
+ ^(TOK_CORRMATRIX col=INT morecol+=INT* directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT) {
+                    for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                      
+                    list.add(Integer.parseInt($col.text));
+                      for(Object object : $morecol)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String colValue = commonTree.token.getText();
+                          list.add(Integer.parseInt(colValue));
+                   
+                      }
+                        Future<Double[][]> value=complexTypeImpl.correlationmatrix($directory.text+completePath,list,Integer.parseInt($total_rows.text)); 
+                       try 
+                              {
+                                  Double[][] matrix=value.get(); 
+                                  outln("Correlation matrix:"); 
+                                  for(int i=0;i<list.size();i++)
+                                   {
+                                   for(int j=0;j<list.size();j++)
+                                   {
+                                       System.out.print(matrix[i][j] + "\t");
+                                   }
+                                    System.out.println();
+                                   }  
+                                   }
+                                   catch(Exception e)
+                                   { 
+                                   e.printStackTrace();
+                                   }
+ } 
+ ;
     
 multiplereg : ^(TOK_MULTIPLEREG col=INT morecol+=INT* ip=ID total_rows=INT)       {
+                  
                   list.add(Integer.parseInt($col.text));
                       for(Object object : $morecol)
                       {
@@ -185,7 +311,33 @@ multiplereg : ^(TOK_MULTIPLEREG col=INT morecol+=INT* ip=ID total_rows=INT)     
                       }
                         Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression($ip.text,list,Integer.parseInt($total_rows.text));
                           try{
-                          System.out.print(value.get().values());
+                          outln(value.get().values());
+                          }
+                          catch(Exception e)
+                          {
+                           e.printStackTrace();
+                          }
+  }   
+ |
+ ^(TOK_MULTIPLEREG col=INT morecol+=INT* directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT)       {
+                   for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                      list.add(Integer.parseInt($col.text));
+                      for(Object object : $morecol)
+                      {
+                       
+                        CommonTree commonTree = (CommonTree) object;
+                          String colValue = commonTree.token.getText();
+                          list.add(Integer.parseInt(colValue));
+                   
+                      }
+                        Future<Map<Integer,Double>> value=complexTypeImpl.multipleregression($directory.text+completePath,list,Integer.parseInt($total_rows.text));
+                          try{
+                          outln(value.get().values());
                           }
                           catch(Exception e)
                           {
@@ -204,12 +356,27 @@ multiplereg : ^(TOK_MULTIPLEREG col=INT morecol+=INT* ip=ID total_rows=INT)     
                           list.add(Integer.parseInt(colValue));
                    
                       }
-                      
-                       complexTypeImpl.forwardSelection($ip.text,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+               complexTypeImpl.forwardSelection($ip.text,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+}
+|
+^(TOK_FORWARDSELECTION col=INT morecol+=INT* directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+  total_rows=INT levelofsignificance=DOUBLE ) {
+                         for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                           list.add(Integer.parseInt($col.text));
+                      for(Object object : $morecol)
+                      {
                        
-        
-        
-        }
+                        CommonTree commonTree = (CommonTree) object;
+                          String colValue = commonTree.token.getText();
+                          list.add(Integer.parseInt(colValue));
+                   
+                      }
+               complexTypeImpl.forwardSelection($directory.text+completePath,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+}
  ; 
  
 sort :^(TOK_SORT column_no=INT ip=ID )  {
@@ -217,7 +384,7 @@ sort :^(TOK_SORT column_no=INT ip=ID )  {
                          primitiveImpl=PrimitiveTypeImplFactory.getInstance($ip.text);
                         Future<Double[]> value=primitiveImpl.sort($ip.text,Integer.parseInt($column_no.text));
                                    try {Double[] sortArray=value.get(); 
-                                  System.out.println("Sort:"); 
+                                  outln("Sort:"); 
                                   for(int i=0;i<sortArray.length;i++) {
                                   outln(sortArray[i]);
                                   }
@@ -228,20 +395,57 @@ sort :^(TOK_SORT column_no=INT ip=ID )  {
                                   }
                         
                        }     
+|
+^(TOK_SORT column_no=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+)  {
+                      
+                     
+                      for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                        primitiveImpl=PrimitiveTypeImplFactory.getInstance($directory.text+completePath);
+                        Future<Double[]> value=primitiveImpl.sort($directory.text+completePath,Integer.parseInt($column_no.text));
+                                   try {Double[] sortArray=value.get(); 
+                                  outln("Sort:"); 
+                                  for(int i=0;i<sortArray.length;i++) {
+                                  outln(sortArray[i]);
+                                  }
+                                  }
+                                   catch(Exception e)
+                                   { 
+                                   outln("Sort Job terminated due to exception. Check nectar logs for more information");
+                                  }
+                        
+                       }                      
       ;
  
  cov : ^(TOK_COV column_x=INT column_y=INT ip=ID total_rows=INT) {
             Future<Double> value=complexTypeImpl.covariance($ip.text,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text),Integer.parseInt($total_rows.text)); 
                     try  {
-                                   System.out.println("Covariance:"+value.get());  
+                                   outln("Covariance:"+value.get());  
                            }
                     catch(Exception e)
                                    {
                                    }
- 
-      
-      
-      }
+         }
+|
+ ^(TOK_COV column_x=INT column_y=INT directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT) {
+             for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+            Future<Double> value=complexTypeImpl.covariance($directory.text+completePath,Integer.parseInt($column_x.text),Integer.parseInt($column_y.text),Integer.parseInt($total_rows.text)); 
+                    try  {
+                                   outln("Covariance:"+value.get());  
+                           }
+                    catch(Exception e)
+                                   {
+                                   }
+         }       
       ;     
         
 covmatrix : ^(TOK_COVMATRIX  col=INT morecol+=INT* ip=ID total_rows=INT)  {
@@ -259,7 +463,7 @@ covmatrix : ^(TOK_COVMATRIX  col=INT morecol+=INT* ip=ID total_rows=INT)  {
                        try 
                               {
                                   Double[][] matrix=value.get(); 
-                                  System.out.println("Covariance matrix:"); 
+                                  outln("Covariance matrix:"); 
                                   for(int i=0;i<list.size();i++)
                                    {
                                    for(int j=0;j<list.size();j++)
@@ -274,6 +478,44 @@ covmatrix : ^(TOK_COVMATRIX  col=INT morecol+=INT* ip=ID total_rows=INT)  {
                                    e.printStackTrace();
                                    }
          }
+|
+ ^(TOK_COVMATRIX  col=INT morecol+=INT* directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+ total_rows=INT)  {
+                         for(Object object : $filenameList)
+                      {   CommonTree commonTree = (CommonTree) object;
+                          String filePathName = commonTree.token.getText();
+                          completePath+=filePathName.toString();
+                   
+                      }
+                         list.add(Integer.parseInt($col.text));
+                      for(Object object : $morecol)
+                      {
+                       
+                        CommonTree commonTree = (CommonTree) object;
+                          String colValue = commonTree.token.getText();
+                          list.add(Integer.parseInt(colValue));
+                   
+                      }
+                      
+                        Future<Double[][]> value=complexTypeImpl.covariancematrix($directory.text+completePath,list,Integer.parseInt($total_rows.text)); 
+                       try 
+                              {
+                                  Double[][] matrix=value.get(); 
+                                  outln("Covariance matrix:"); 
+                                  for(int i=0;i<list.size();i++)
+                                   {
+                                   for(int j=0;j<list.size();j++)
+                                   {
+                                       System.out.print(matrix[i][j] + "\t");
+                                   }
+                                    System.out.println();
+                                   }  
+                                   }
+                                   catch(Exception e)
+                                   { 
+                                   e.printStackTrace();
+                                   }
+         }
+
       ;
  
       

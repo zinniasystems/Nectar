@@ -19,17 +19,11 @@ lexer grammar NectarLexer;
 @lexer::header  {
 package com.zinnia.nectar.regression.antlr.language.parser;
 }
-//
-//@lexer::members {
-////  @Override
-//  public void reportError(RecognitionException e) {
-//    throw new IllegalArgumentException(e);
-//  }
-//}
-
 LEFT_PAREN  : '(';
 
 RIGHT_PAREN : ')';
+
+FORWARDSLASH : '/';
 
 HELP  : '?' | 'help'| 'HELP';
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g 2011-09-28 13:48:05
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g 2011-10-03 15:18:48
 
 package com.zinnia.nectar.regression.antlr.language.parser;
 
@@ -24,34 +24,35 @@ import java.util.ArrayList;
  * limitations under the License.
  */
 public class NectarLexer extends Lexer {
-    public static final int HELP=6;
-    public static final int EXTN=21;
-    public static final int COVMATRIX=17;
-    public static final int CORRMATRIX=12;
-    public static final int SIGMAX=7;
-    public static final int MEAN=10;
-    public static final int MULTI_COMMENT=29;
-    public static final int MULTIPLEREG=13;
-    public static final int WHITESPACE=27;
-    public static final int SORT=15;
-    public static final int FLOAT=25;
-    public static final int INT=24;
-    public static final int ID=23;
-    public static final int SPACE=26;
+    public static final int HELP=7;
+    public static final int EXTN=22;
+    public static final int COVMATRIX=18;
+    public static final int FORWARDSLASH=6;
+    public static final int CORRMATRIX=13;
+    public static final int SIGMAX=8;
+    public static final int MEAN=11;
+    public static final int MULTI_COMMENT=30;
+    public static final int MULTIPLEREG=14;
+    public static final int WHITESPACE=28;
+    public static final int SORT=16;
+    public static final int FLOAT=26;
+    public static final int INT=25;
+    public static final int ID=24;
+    public static final int SPACE=27;
     public static final int EOF=-1;
-    public static final int SIGMAXY=8;
+    public static final int SIGMAXY=9;
     public static final int RIGHT_PAREN=5;
-    public static final int STDIN_OP=18;
-    public static final int NEWLINE=22;
-    public static final int COV=16;
-    public static final int COMMA=20;
-    public static final int FORWARDSELECTION=14;
-    public static final int DOUBLE=30;
+    public static final int STDIN_OP=19;
+    public static final int NEWLINE=23;
+    public static final int COV=17;
+    public static final int COMMA=21;
+    public static final int FORWARDSELECTION=15;
+    public static final int DOUBLE=31;
     public static final int LEFT_PAREN=4;
-    public static final int SINGLE_COMMENT=28;
-    public static final int SIGMAXSQUARE=9;
-    public static final int DOT=19;
-    public static final int CORR=11;
+    public static final int SINGLE_COMMENT=29;
+    public static final int SIGMAXSQUARE=10;
+    public static final int DOT=20;
+    public static final int CORR=12;
 
     // delegates
     // delegators
@@ -71,8 +72,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = LEFT_PAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:30:13: ( '(' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:30:15: '('
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:22:13: ( '(' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:22:15: '('
             {
             match('('); 
 
@@ -91,8 +92,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = RIGHT_PAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:32:13: ( ')' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:32:15: ')'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:24:13: ( ')' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:24:15: ')'
             {
             match(')'); 
 
@@ -106,12 +107,32 @@ public class NectarLexer extends Lexer {
     }
     // $ANTLR end "RIGHT_PAREN"
 
+    // $ANTLR start "FORWARDSLASH"
+    public final void mFORWARDSLASH() throws RecognitionException {
+        try {
+            int _type = FORWARDSLASH;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:26:14: ( '/' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:26:16: '/'
+            {
+            match('/'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "FORWARDSLASH"
+
     // $ANTLR start "HELP"
     public final void mHELP() throws RecognitionException {
         try {
             int _type = HELP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:7: ( '?' | 'help' | 'HELP' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:28:7: ( '?' | 'help' | 'HELP' )
             int alt1=3;
             switch ( input.LA(1) ) {
             case '?':
@@ -138,14 +159,14 @@ public class NectarLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:9: '?'
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:28:9: '?'
                     {
                     match('?'); 
 
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:15: 'help'
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:28:15: 'help'
                     {
                     match("help"); 
 
@@ -153,7 +174,7 @@ public class NectarLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:23: 'HELP'
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:28:23: 'HELP'
                     {
                     match("HELP"); 
 
@@ -175,8 +196,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = SIGMAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:36:9: ( 'sigmax' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:36:11: 'sigmax'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:30:9: ( 'sigmax' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:30:11: 'sigmax'
             {
             match("sigmax"); 
 
@@ -196,8 +217,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = SIGMAXY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:38:9: ( 'sigmaxy' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:38:11: 'sigmaxy'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:32:9: ( 'sigmaxy' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:32:11: 'sigmaxy'
             {
             match("sigmaxy"); 
 
@@ -217,8 +238,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = SIGMAXSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:40:14: ( 'sigmaxsquare' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:40:16: 'sigmaxsquare'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:14: ( 'sigmaxsquare' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:34:16: 'sigmaxsquare'
             {
             match("sigmaxsquare"); 
 
@@ -238,8 +259,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = MEAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:42:6: ( 'mean' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:42:8: 'mean'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:36:6: ( 'mean' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:36:8: 'mean'
             {
             match("mean"); 
 
@@ -259,8 +280,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = CORR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:44:6: ( 'corr' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:44:8: 'corr'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:38:6: ( 'corr' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:38:8: 'corr'
             {
             match("corr"); 
 
@@ -280,8 +301,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = CORRMATRIX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:46:12: ( 'corrmatrix' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:46:13: 'corrmatrix'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:40:12: ( 'corrmatrix' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:40:13: 'corrmatrix'
             {
             match("corrmatrix"); 
 
@@ -301,8 +322,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = MULTIPLEREG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:48:13: ( 'multiplereg' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:48:15: 'multiplereg'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:42:13: ( 'multiplereg' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:42:15: 'multiplereg'
             {
             match("multiplereg"); 
 
@@ -322,8 +343,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = FORWARDSELECTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:50:18: ( 'forwardselection' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:50:20: 'forwardselection'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:44:18: ( 'forwardselection' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:44:20: 'forwardselection'
             {
             match("forwardselection"); 
 
@@ -343,8 +364,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = SORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:52:6: ( 'sort' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:52:8: 'sort'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:46:6: ( 'sort' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:46:8: 'sort'
             {
             match("sort"); 
 
@@ -364,8 +385,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = COV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:54:4: ( 'cov' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:54:6: 'cov'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:48:4: ( 'cov' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:48:6: 'cov'
             {
             match("cov"); 
 
@@ -385,8 +406,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = COVMATRIX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:56:11: ( 'covmatrix' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:56:13: 'covmatrix'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:50:11: ( 'covmatrix' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:50:13: 'covmatrix'
             {
             match("covmatrix"); 
 
@@ -406,8 +427,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = STDIN_OP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:10: ( '<<' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:13: '<<'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:52:10: ( '<<' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:52:13: '<<'
             {
             match("<<"); 
 
@@ -427,8 +448,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:5: ( '.' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:7: '.'
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:54:5: ( '.' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:54:7: '.'
             {
             match('.'); 
 
@@ -447,8 +468,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:62:7: ( ',' )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:62:9: ','
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:56:7: ( ',' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:56:9: ','
             {
             match(','); 
 
@@ -467,10 +488,10 @@ public class NectarLexer extends Lexer {
         try {
             int _type = EXTN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:64:7: ( ( 'csv' | 'txt' ) )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:64:9: ( 'csv' | 'txt' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:7: ( ( 'csv' | 'txt' ) )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:9: ( 'csv' | 'txt' )
             {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:64:9: ( 'csv' | 'txt' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:9: ( 'csv' | 'txt' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -488,7 +509,7 @@ public class NectarLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:64:10: 'csv'
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:10: 'csv'
                     {
                     match("csv"); 
 
@@ -496,7 +517,7 @@ public class NectarLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:64:18: 'txt'
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:58:18: 'txt'
                     {
                     match("txt"); 
 
@@ -522,10 +543,10 @@ public class NectarLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:9: ( ( ( '\\r' )? '\\n' )+ )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:11: ( ( '\\r' )? '\\n' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:9: ( ( ( '\\r' )? '\\n' )+ )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:11: ( ( '\\r' )? '\\n' )+
             {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:11: ( ( '\\r' )? '\\n' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:11: ( ( '\\r' )? '\\n' )+
             int cnt4=0;
             loop4:
             do {
@@ -539,9 +560,9 @@ public class NectarLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:12: ( '\\r' )? '\\n'
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:12: ( '\\r' )? '\\n'
             	    {
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:12: ( '\\r' )?
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:12: ( '\\r' )?
             	    int alt3=2;
             	    int LA3_0 = input.LA(1);
 
@@ -550,7 +571,7 @@ public class NectarLexer extends Lexer {
             	    }
             	    switch (alt3) {
             	        case 1 :
-            	            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:12: '\\r'
+            	            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:60:12: '\\r'
             	            {
             	            match('\r'); 
 
@@ -589,8 +610,8 @@ public class NectarLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:68:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )* )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:68:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )*
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:62:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )* )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:62:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -601,7 +622,7 @@ public class NectarLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:68:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )*
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:62:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | 'a' .. 'z' | 'A' .. 'Z' )*
             loop5:
             do {
                 int alt5=2;
@@ -648,12 +669,12 @@ public class NectarLexer extends Lexer {
     // $ANTLR start "FLOAT"
     public final void mFLOAT() throws RecognitionException {
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:17: ( INT '.' ( '0' .. '9' )+ )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:19: INT '.' ( '0' .. '9' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:17: ( INT '.' ( '0' .. '9' )+ )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:19: INT '.' ( '0' .. '9' )+
             {
             mINT(); 
             match('.'); 
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:27: ( '0' .. '9' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:27: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -667,7 +688,7 @@ public class NectarLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:27: '0' .. '9'
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:66:27: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -695,7 +716,7 @@ public class NectarLexer extends Lexer {
     // $ANTLR start "SPACE"
     public final void mSPACE() throws RecognitionException {
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:74:17: ( ' ' | '\\t' )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:68:17: ( ' ' | '\\t' )
             // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
@@ -721,10 +742,10 @@ public class NectarLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:76:13: ( ( SPACE )+ )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:76:15: ( SPACE )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:70:13: ( ( SPACE )+ )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:70:15: ( SPACE )+
             {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:76:15: ( SPACE )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:70:15: ( SPACE )+
             int cnt7=0;
             loop7:
             do {
@@ -738,7 +759,7 @@ public class NectarLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:76:15: SPACE
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:70:15: SPACE
             	    {
             	    mSPACE(); 
 
@@ -771,12 +792,12 @@ public class NectarLexer extends Lexer {
         try {
             int _type = SINGLE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:78:17: ( '//' (~ ( '\\r' | '\\n' ) )* NEWLINE )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:78:19: '//' (~ ( '\\r' | '\\n' ) )* NEWLINE
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:17: ( '//' (~ ( '\\r' | '\\n' ) )* NEWLINE )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:19: '//' (~ ( '\\r' | '\\n' ) )* NEWLINE
             {
             match("//"); 
 
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:78:24: (~ ( '\\r' | '\\n' ) )*
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:24: (~ ( '\\r' | '\\n' ) )*
             loop8:
             do {
                 int alt8=2;
@@ -789,7 +810,7 @@ public class NectarLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:78:24: ~ ( '\\r' | '\\n' )
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:72:24: ~ ( '\\r' | '\\n' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -827,12 +848,12 @@ public class NectarLexer extends Lexer {
         try {
             int _type = MULTI_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:5: ( '/*' ( . )* '*/' ( NEWLINE )? )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:7: '/*' ( . )* '*/' ( NEWLINE )?
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:5: ( '/*' ( . )* '*/' ( NEWLINE )? )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:7: '/*' ( . )* '*/' ( NEWLINE )?
             {
             match("/*"); 
 
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:12: ( . )*
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:12: ( . )*
             loop9:
             do {
                 int alt9=2;
@@ -857,7 +878,7 @@ public class NectarLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:12: .
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:12: .
             	    {
             	    matchAny(); 
 
@@ -871,7 +892,7 @@ public class NectarLexer extends Lexer {
 
             match("*/"); 
 
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:20: ( NEWLINE )?
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:20: ( NEWLINE )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -880,7 +901,7 @@ public class NectarLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:83:20: NEWLINE
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:77:20: NEWLINE
                     {
                     mNEWLINE(); 
 
@@ -906,10 +927,10 @@ public class NectarLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:85:5: ( ( '0' .. '9' )+ )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:85:7: ( '0' .. '9' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:79:5: ( ( '0' .. '9' )+ )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:79:7: ( '0' .. '9' )+
             {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:85:7: ( '0' .. '9' )+
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:79:7: ( '0' .. '9' )+
             int cnt11=0;
             loop11:
             do {
@@ -923,7 +944,7 @@ public class NectarLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:85:7: '0' .. '9'
+            	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:79:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -955,14 +976,14 @@ public class NectarLexer extends Lexer {
         try {
             int _type = DOUBLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:8: ( ( '0' .. '9' )* '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:8: ( ( '0' .. '9' )* '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ )
             int alt15=2;
             alt15 = dfa15.predict(input);
             switch (alt15) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:10: ( '0' .. '9' )* '.' ( '0' .. '9' )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:10: ( '0' .. '9' )* '.' ( '0' .. '9' )+
                     {
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:10: ( '0' .. '9' )*
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:10: ( '0' .. '9' )*
                     loop12:
                     do {
                         int alt12=2;
@@ -975,7 +996,7 @@ public class NectarLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:11: '0' .. '9'
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:11: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -988,7 +1009,7 @@ public class NectarLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:26: ( '0' .. '9' )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:26: ( '0' .. '9' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1002,7 +1023,7 @@ public class NectarLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:27: '0' .. '9'
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:27: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1022,9 +1043,9 @@ public class NectarLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:40: ( '0' .. '9' )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:40: ( '0' .. '9' )+
                     {
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:40: ( '0' .. '9' )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:40: ( '0' .. '9' )+
                     int cnt14=0;
                     loop14:
                     do {
@@ -1038,7 +1059,7 @@ public class NectarLexer extends Lexer {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:88:41: '0' .. '9'
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:82:41: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1068,8 +1089,8 @@ public class NectarLexer extends Lexer {
     // $ANTLR end "DOUBLE"
 
     public void mTokens() throws RecognitionException {
-        // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:8: ( LEFT_PAREN | RIGHT_PAREN | HELP | SIGMAX | SIGMAXY | SIGMAXSQUARE | MEAN | CORR | CORRMATRIX | MULTIPLEREG | FORWARDSELECTION | SORT | COV | COVMATRIX | STDIN_OP | DOT | COMMA | EXTN | NEWLINE | ID | WHITESPACE | SINGLE_COMMENT | MULTI_COMMENT | INT | DOUBLE )
-        int alt16=25;
+        // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:8: ( LEFT_PAREN | RIGHT_PAREN | FORWARDSLASH | HELP | SIGMAX | SIGMAXY | SIGMAXSQUARE | MEAN | CORR | CORRMATRIX | MULTIPLEREG | FORWARDSELECTION | SORT | COV | COVMATRIX | STDIN_OP | DOT | COMMA | EXTN | NEWLINE | ID | WHITESPACE | SINGLE_COMMENT | MULTI_COMMENT | INT | DOUBLE )
+        int alt16=26;
         alt16 = dfa16.predict(input);
         switch (alt16) {
             case 1 :
@@ -1087,161 +1108,168 @@ public class NectarLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:33: HELP
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:33: FORWARDSLASH
+                {
+                mFORWARDSLASH(); 
+
+                }
+                break;
+            case 4 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:46: HELP
                 {
                 mHELP(); 
 
                 }
                 break;
-            case 4 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:38: SIGMAX
+            case 5 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:51: SIGMAX
                 {
                 mSIGMAX(); 
 
                 }
                 break;
-            case 5 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:45: SIGMAXY
+            case 6 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:58: SIGMAXY
                 {
                 mSIGMAXY(); 
 
                 }
                 break;
-            case 6 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:53: SIGMAXSQUARE
+            case 7 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:66: SIGMAXSQUARE
                 {
                 mSIGMAXSQUARE(); 
 
                 }
                 break;
-            case 7 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:66: MEAN
+            case 8 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:79: MEAN
                 {
                 mMEAN(); 
 
                 }
                 break;
-            case 8 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:71: CORR
+            case 9 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:84: CORR
                 {
                 mCORR(); 
 
                 }
                 break;
-            case 9 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:76: CORRMATRIX
+            case 10 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:89: CORRMATRIX
                 {
                 mCORRMATRIX(); 
 
                 }
                 break;
-            case 10 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:87: MULTIPLEREG
+            case 11 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:100: MULTIPLEREG
                 {
                 mMULTIPLEREG(); 
 
                 }
                 break;
-            case 11 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:99: FORWARDSELECTION
+            case 12 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:112: FORWARDSELECTION
                 {
                 mFORWARDSELECTION(); 
 
                 }
                 break;
-            case 12 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:116: SORT
+            case 13 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:129: SORT
                 {
                 mSORT(); 
 
                 }
                 break;
-            case 13 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:121: COV
+            case 14 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:134: COV
                 {
                 mCOV(); 
 
                 }
                 break;
-            case 14 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:125: COVMATRIX
+            case 15 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:138: COVMATRIX
                 {
                 mCOVMATRIX(); 
 
                 }
                 break;
-            case 15 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:135: STDIN_OP
+            case 16 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:148: STDIN_OP
                 {
                 mSTDIN_OP(); 
 
                 }
                 break;
-            case 16 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:144: DOT
+            case 17 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:157: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
-            case 17 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:148: COMMA
+            case 18 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:161: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
-            case 18 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:154: EXTN
+            case 19 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:167: EXTN
                 {
                 mEXTN(); 
 
                 }
                 break;
-            case 19 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:159: NEWLINE
+            case 20 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:172: NEWLINE
                 {
                 mNEWLINE(); 
 
                 }
                 break;
-            case 20 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:167: ID
+            case 21 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:180: ID
                 {
                 mID(); 
 
                 }
                 break;
-            case 21 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:170: WHITESPACE
+            case 22 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:183: WHITESPACE
                 {
                 mWHITESPACE(); 
 
                 }
                 break;
-            case 22 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:181: SINGLE_COMMENT
+            case 23 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:194: SINGLE_COMMENT
                 {
                 mSINGLE_COMMENT(); 
 
                 }
                 break;
-            case 23 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:196: MULTI_COMMENT
+            case 24 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:209: MULTI_COMMENT
                 {
                 mMULTI_COMMENT(); 
 
                 }
                 break;
-            case 24 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:210: INT
+            case 25 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:223: INT
                 {
                 mINT(); 
 
                 }
                 break;
-            case 25 :
-                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:214: DOUBLE
+            case 26 :
+                // com/zinnia/nectar/regression/antlr/language/parser/NectarLexer.g:1:227: DOUBLE
                 {
                 mDOUBLE(); 
 
@@ -1304,129 +1332,131 @@ public class NectarLexer extends Lexer {
             this.transition = DFA15_transition;
         }
         public String getDescription() {
-            return "88:1: DOUBLE : ( ( '0' .. '9' )* '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ );";
+            return "82:1: DOUBLE : ( ( '0' .. '9' )* '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ );";
         }
     }
     static final String DFA16_eotS =
-        "\4\uffff\6\17\1\uffff\1\34\1\uffff\1\17\4\uffff\1\41\11\17\2\uffff"+
-        "\1\17\3\uffff\7\17\1\65\1\66\1\17\1\66\2\3\1\17\1\71\1\72\1\17\1"+
-        "\75\1\17\2\uffff\2\17\2\uffff\2\17\1\uffff\2\17\1\107\4\17\1\114"+
-        "\1\17\1\uffff\4\17\1\uffff\10\17\1\132\3\17\1\136\1\uffff\2\17\1"+
-        "\141\1\uffff\1\17\1\143\1\uffff\1\17\1\uffff\3\17\1\150\1\uffff";
+        "\3\uffff\1\25\1\uffff\6\20\1\uffff\1\37\1\uffff\1\20\3\uffff\1\42"+
+        "\3\uffff\11\20\2\uffff\1\20\1\uffff\7\20\1\66\1\67\1\20\1\67\2\4"+
+        "\1\20\1\72\1\73\1\20\1\76\1\20\2\uffff\2\20\2\uffff\2\20\1\uffff"+
+        "\2\20\1\110\4\20\1\115\1\20\1\uffff\4\20\1\uffff\10\20\1\133\3\20"+
+        "\1\137\1\uffff\2\20\1\142\1\uffff\1\20\1\144\1\uffff\1\20\1\uffff"+
+        "\3\20\1\151\1\uffff";
     static final String DFA16_eofS =
-        "\151\uffff";
+        "\152\uffff";
     static final String DFA16_minS =
-        "\1\11\3\uffff\1\145\1\105\1\151\1\145\2\157\1\uffff\1\60\1\uffff"+
-        "\1\170\3\uffff\1\52\1\56\1\154\1\114\1\147\1\162\1\141\1\154\1\162"+
-        "\1\166\1\162\2\uffff\1\164\3\uffff\1\160\1\120\1\155\1\164\1\156"+
-        "\1\164\1\162\2\56\1\167\3\56\1\141\2\56\1\151\1\56\1\141\2\uffff"+
-        "\1\141\1\170\2\uffff\1\160\1\141\1\uffff\1\164\1\162\1\56\1\154"+
-        "\1\164\1\162\1\144\1\56\1\161\1\uffff\1\145\1\162\1\151\1\163\1"+
-        "\uffff\1\165\1\162\1\151\1\170\1\145\1\141\1\145\1\170\1\56\1\154"+
-        "\1\162\1\147\1\56\1\uffff\2\145\1\56\1\uffff\1\143\1\56\1\uffff"+
-        "\1\164\1\uffff\1\151\1\157\1\156\1\56\1\uffff";
+        "\1\11\2\uffff\1\52\1\uffff\1\145\1\105\1\151\1\145\2\157\1\uffff"+
+        "\1\60\1\uffff\1\170\3\uffff\1\56\3\uffff\1\154\1\114\1\147\1\162"+
+        "\1\141\1\154\1\162\1\166\1\162\2\uffff\1\164\1\uffff\1\160\1\120"+
+        "\1\155\1\164\1\156\1\164\1\162\2\56\1\167\3\56\1\141\2\56\1\151"+
+        "\1\56\1\141\2\uffff\1\141\1\170\2\uffff\1\160\1\141\1\uffff\1\164"+
+        "\1\162\1\56\1\154\1\164\1\162\1\144\1\56\1\161\1\uffff\1\145\1\162"+
+        "\1\151\1\163\1\uffff\1\165\1\162\1\151\1\170\1\145\1\141\1\145\1"+
+        "\170\1\56\1\154\1\162\1\147\1\56\1\uffff\2\145\1\56\1\uffff\1\143"+
+        "\1\56\1\uffff\1\164\1\uffff\1\151\1\157\1\156\1\56\1\uffff";
     static final String DFA16_maxS =
-        "\1\172\3\uffff\1\145\1\105\1\157\1\165\1\163\1\157\1\uffff\1\71"+
-        "\1\uffff\1\170\3\uffff\1\57\1\71\1\154\1\114\1\147\1\162\1\141\1"+
-        "\154\2\166\1\162\2\uffff\1\164\3\uffff\1\160\1\120\1\155\1\164\1"+
-        "\156\1\164\1\162\2\172\1\167\3\172\1\141\2\172\1\151\1\172\1\141"+
-        "\2\uffff\1\141\1\170\2\uffff\1\160\1\141\1\uffff\1\164\1\162\1\172"+
-        "\1\154\1\164\1\162\1\144\1\172\1\161\1\uffff\1\145\1\162\1\151\1"+
-        "\163\1\uffff\1\165\1\162\1\151\1\170\1\145\1\141\1\145\1\170\1\172"+
-        "\1\154\1\162\1\147\1\172\1\uffff\2\145\1\172\1\uffff\1\143\1\172"+
-        "\1\uffff\1\164\1\uffff\1\151\1\157\1\156\1\172\1\uffff";
+        "\1\172\2\uffff\1\57\1\uffff\1\145\1\105\1\157\1\165\1\163\1\157"+
+        "\1\uffff\1\71\1\uffff\1\170\3\uffff\1\71\3\uffff\1\154\1\114\1\147"+
+        "\1\162\1\141\1\154\2\166\1\162\2\uffff\1\164\1\uffff\1\160\1\120"+
+        "\1\155\1\164\1\156\1\164\1\162\2\172\1\167\3\172\1\141\2\172\1\151"+
+        "\1\172\1\141\2\uffff\1\141\1\170\2\uffff\1\160\1\141\1\uffff\1\164"+
+        "\1\162\1\172\1\154\1\164\1\162\1\144\1\172\1\161\1\uffff\1\145\1"+
+        "\162\1\151\1\163\1\uffff\1\165\1\162\1\151\1\170\1\145\1\141\1\145"+
+        "\1\170\1\172\1\154\1\162\1\147\1\172\1\uffff\2\145\1\172\1\uffff"+
+        "\1\143\1\172\1\uffff\1\164\1\uffff\1\151\1\157\1\156\1\172\1\uffff";
     static final String DFA16_acceptS =
-        "\1\uffff\1\1\1\2\1\3\6\uffff\1\17\1\uffff\1\21\1\uffff\1\23\1\24"+
-        "\1\25\13\uffff\1\20\1\31\1\uffff\1\26\1\27\1\30\23\uffff\1\15\1"+
-        "\22\2\uffff\1\14\1\7\2\uffff\1\10\11\uffff\1\4\4\uffff\1\5\15\uffff"+
-        "\1\16\3\uffff\1\11\2\uffff\1\12\1\uffff\1\6\4\uffff\1\13";
+        "\1\uffff\1\1\1\2\1\uffff\1\4\6\uffff\1\20\1\uffff\1\22\1\uffff\1"+
+        "\24\1\25\1\26\1\uffff\1\27\1\30\1\3\11\uffff\1\21\1\32\1\uffff\1"+
+        "\31\23\uffff\1\16\1\23\2\uffff\1\15\1\10\2\uffff\1\11\11\uffff\1"+
+        "\5\4\uffff\1\6\15\uffff\1\17\3\uffff\1\12\2\uffff\1\13\1\uffff\1"+
+        "\7\4\uffff\1\14";
     static final String DFA16_specialS =
-        "\151\uffff}>";
+        "\152\uffff}>";
     static final String[] DFA16_transitionS = {
-            "\1\20\1\16\2\uffff\1\16\22\uffff\1\20\7\uffff\1\1\1\2\2\uffff"+
-            "\1\14\1\uffff\1\13\1\21\12\22\2\uffff\1\12\2\uffff\1\3\1\uffff"+
-            "\7\17\1\5\22\17\4\uffff\1\17\1\uffff\2\17\1\10\2\17\1\11\1\17"+
-            "\1\4\4\17\1\7\5\17\1\6\1\15\6\17",
+            "\1\21\1\17\2\uffff\1\17\22\uffff\1\21\7\uffff\1\1\1\2\2\uffff"+
+            "\1\15\1\uffff\1\14\1\3\12\22\2\uffff\1\13\2\uffff\1\4\1\uffff"+
+            "\7\20\1\6\22\20\4\uffff\1\20\1\uffff\2\20\1\11\2\20\1\12\1\20"+
+            "\1\5\4\20\1\10\5\20\1\7\1\16\6\20",
             "",
             "",
+            "\1\24\4\uffff\1\23",
             "",
-            "\1\23",
-            "\1\24",
-            "\1\25\5\uffff\1\26",
-            "\1\27\17\uffff\1\30",
-            "\1\31\3\uffff\1\32",
-            "\1\33",
-            "",
-            "\12\35",
-            "",
+            "\1\26",
+            "\1\27",
+            "\1\30\5\uffff\1\31",
+            "\1\32\17\uffff\1\33",
+            "\1\34\3\uffff\1\35",
             "\1\36",
             "",
+            "\12\40",
+            "",
+            "\1\41",
             "",
             "",
-            "\1\40\4\uffff\1\37",
-            "\1\35\1\uffff\12\22",
-            "\1\42",
+            "",
+            "\1\40\1\uffff\12\22",
+            "",
+            "",
+            "",
             "\1\43",
             "\1\44",
             "\1\45",
             "\1\46",
             "\1\47",
-            "\1\50\3\uffff\1\51",
-            "\1\52",
+            "\1\50",
+            "\1\51\3\uffff\1\52",
             "\1\53",
-            "",
-            "",
             "\1\54",
             "",
             "",
-            "",
             "\1\55",
+            "",
             "\1\56",
             "\1\57",
             "\1\60",
             "\1\61",
             "\1\62",
             "\1\63",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\14\17"+
-            "\1\64\15\17",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\67",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
+            "\1\64",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\14\20"+
+            "\1\65\15\20",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "\1\70",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\73",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\14\17"+
-            "\1\74\15\17",
-            "\1\76",
-            "",
-            "",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\71",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\74",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\14\20"+
+            "\1\75\15\20",
             "\1\77",
+            "",
+            "",
             "\1\100",
-            "",
-            "",
             "\1\101",
-            "\1\102",
             "",
+            "",
+            "\1\102",
             "\1\103",
+            "",
             "\1\104",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\22\17"+
-            "\1\106\5\17\1\105\1\17",
-            "\1\110",
+            "\1\105",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\22\20"+
+            "\1\107\5\20\1\106\1\20",
             "\1\111",
             "\1\112",
             "\1\113",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\115",
-            "",
+            "\1\114",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "\1\116",
+            "",
             "\1\117",
             "\1\120",
             "\1\121",
-            "",
             "\1\122",
+            "",
             "\1\123",
             "\1\124",
             "\1\125",
@@ -1434,25 +1464,26 @@ public class NectarLexer extends Lexer {
             "\1\127",
             "\1\130",
             "\1\131",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "\1\133",
+            "\1\132",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "\1\134",
             "\1\135",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
+            "\1\136",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "",
-            "\1\137",
             "\1\140",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
+            "\1\141",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "",
-            "\1\142",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
-            "",
-            "\1\144",
+            "\1\143",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             "",
             "\1\145",
+            "",
             "\1\146",
             "\1\147",
-            "\1\17\1\uffff\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
+            "\1\150",
+            "\1\20\1\uffff\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
             ""
     };
 
@@ -1486,7 +1517,7 @@ public class NectarLexer extends Lexer {
             this.transition = DFA16_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( LEFT_PAREN | RIGHT_PAREN | HELP | SIGMAX | SIGMAXY | SIGMAXSQUARE | MEAN | CORR | CORRMATRIX | MULTIPLEREG | FORWARDSELECTION | SORT | COV | COVMATRIX | STDIN_OP | DOT | COMMA | EXTN | NEWLINE | ID | WHITESPACE | SINGLE_COMMENT | MULTI_COMMENT | INT | DOUBLE );";
+            return "1:1: Tokens : ( LEFT_PAREN | RIGHT_PAREN | FORWARDSLASH | HELP | SIGMAX | SIGMAXY | SIGMAXSQUARE | MEAN | CORR | CORRMATRIX | MULTIPLEREG | FORWARDSELECTION | SORT | COV | COVMATRIX | STDIN_OP | DOT | COMMA | EXTN | NEWLINE | ID | WHITESPACE | SINGLE_COMMENT | MULTI_COMMENT | INT | DOUBLE );";
         }
     }
  
