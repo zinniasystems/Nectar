@@ -5,6 +5,9 @@
 	<classpathentry kind="src" path="Nectar-common/src/main/java"/>
 	<classpathentry kind="src" path="Nectar-regression/src/main/antlr3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jars"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AntlrJar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hadoop"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JLine"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Math"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

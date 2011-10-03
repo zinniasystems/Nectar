@@ -40,7 +40,7 @@ public class Preferences {
 				}
 				else
 				{
-					NO_OF_PARALLEL_JOBS=10;
+					NO_OF_PARALLEL_JOBS=4;
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -51,5 +51,4 @@ public class Preferences {
 			e.printStackTrace();
 		}
 	}
-
 }
