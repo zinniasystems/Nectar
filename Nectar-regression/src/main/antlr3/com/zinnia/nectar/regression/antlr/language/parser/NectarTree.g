@@ -356,7 +356,14 @@ multiplereg : ^(TOK_MULTIPLEREG col=INT morecol+=INT* ip=ID total_rows=INT)     
                           list.add(Integer.parseInt(colValue));
                    
                       }
-               complexTypeImpl.forwardSelection($ip.text,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+               Map<Integer,Double> value = complexTypeImpl.forwardSelection($ip.text,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+try{
+                         outln(value.values());
+                         }
+                         catch(Exception e)
+                         {
+                          e.printStackTrace();
+                         }
 }
 |
 ^(TOK_FORWARDSELECTION col=INT morecol+=INT* directory=ID (filenameList+=FORWARDSLASH filenameList+=ID)+  total_rows=INT levelofsignificance=DOUBLE ) {
@@ -375,7 +382,14 @@ multiplereg : ^(TOK_MULTIPLEREG col=INT morecol+=INT* ip=ID total_rows=INT)     
                           list.add(Integer.parseInt(colValue));
                    
                       }
-               complexTypeImpl.forwardSelection($directory.text+completePath,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+               Map<Integer,Double> value = complexTypeImpl.forwardSelection($directory.text+completePath,list,Integer.parseInt($total_rows.text),Double.parseDouble($levelofsignificance.text));
+try{
+                         outln(value.values());
+                         }
+                         catch(Exception e)
+                         {
+                          e.printStackTrace();
+                         }
 }
  ; 
  

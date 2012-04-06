@@ -68,5 +68,16 @@ public interface IPrimitiveType
 	 */
 	Future<Double> ydiffjob(String inputFilePath, List<Integer> columns,
 			Map<Integer,Double> paramValues); 
-
+	/**
+	 * @param matrixPath
+	 * @param index
+	 * @return
+	 */
+	Future<String> separateMatrixColumns(String matrixPath,int index);
+	/**
+	 * @param matrixPathA
+	 * @param matrixPathB
+	 * @return
+	 */
+	Future<String> multiplyMatrices(String matrixPathA,List<String> outPaths,int numColsB);
 }

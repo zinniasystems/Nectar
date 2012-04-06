@@ -95,4 +95,11 @@ public class ComplexTypeImpl implements IComplexType {
 		CovarianceMatrixImpl covarianceMatrixImpl=new CovarianceMatrixImpl(inputFilePath, columns, n);
 		return executorService.submit(covarianceMatrixImpl);
 	}
+	@Override
+	public Future<String> matrixmultiply(String matrixPathA, String matrixPathB) {
+		// TODO Auto-generated method stub
+		MatrixMultiplyImpl matrixMultiplyImpl=new MatrixMultiplyImpl(matrixPathA, matrixPathB);
+		Future<String> value=executorService.submit(matrixMultiplyImpl);
+		return value;
+	}
 }

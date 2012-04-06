@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g 2011-10-03 15:18:49
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g 2012-04-03 15:10:46
 
 package com.zinnia.nectar.regression.antlr.language.parser;
 
@@ -2571,13 +2571,20 @@ public class NectarTree extends TreeParser {
                                               list.add(Integer.parseInt(colValue));
                                        
                                           }
-                                   complexTypeImpl.forwardSelection((ip!=null?ip.getText():null),list,Integer.parseInt((total_rows!=null?total_rows.getText():null)),Double.parseDouble((levelofsignificance!=null?levelofsignificance.getText():null)));
+                                   Map<Integer,Double> value = complexTypeImpl.forwardSelection((ip!=null?ip.getText():null),list,Integer.parseInt((total_rows!=null?total_rows.getText():null)),Double.parseDouble((levelofsignificance!=null?levelofsignificance.getText():null)));
+                    try{
+                                             outln(value.values());
+                                             }
+                                             catch(Exception e)
+                                             {
+                                              e.printStackTrace();
+                                             }
 
 
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:362:1: ^( TOK_FORWARDSELECTION col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT levelofsignificance= DOUBLE )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:369:1: ^( TOK_FORWARDSELECTION col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT levelofsignificance= DOUBLE )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2600,7 +2607,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, col_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:362:39: (morecol+= INT )*
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:369:39: (morecol+= INT )*
                     loop21:
                     do {
                         int alt21=2;
@@ -2613,7 +2620,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt21) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:362:39: morecol+= INT
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:369:39: morecol+= INT
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    morecol=(CommonTree)match(input,INT,FOLLOW_INT_in_forwardselection786); 
@@ -2639,7 +2646,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, directory_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:362:59: (filenameList+= FORWARDSLASH filenameList+= ID )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:369:59: (filenameList+= FORWARDSLASH filenameList+= ID )+
                     int cnt22=0;
                     loop22:
                     do {
@@ -2653,7 +2660,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt22) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:362:60: filenameList+= FORWARDSLASH filenameList+= ID
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:369:60: filenameList+= FORWARDSLASH filenameList+= ID
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    filenameList=(CommonTree)match(input,FORWARDSLASH,FOLLOW_FORWARDSLASH_in_forwardselection796); 
@@ -2718,7 +2725,14 @@ public class NectarTree extends TreeParser {
                                               list.add(Integer.parseInt(colValue));
                                        
                                           }
-                                   complexTypeImpl.forwardSelection((directory!=null?directory.getText():null)+completePath,list,Integer.parseInt((total_rows!=null?total_rows.getText():null)),Double.parseDouble((levelofsignificance!=null?levelofsignificance.getText():null)));
+                                   Map<Integer,Double> value = complexTypeImpl.forwardSelection((directory!=null?directory.getText():null)+completePath,list,Integer.parseInt((total_rows!=null?total_rows.getText():null)),Double.parseDouble((levelofsignificance!=null?levelofsignificance.getText():null)));
+                    try{
+                                             outln(value.values());
+                                             }
+                                             catch(Exception e)
+                                             {
+                                              e.printStackTrace();
+                                             }
 
 
                     }
@@ -2744,7 +2758,7 @@ public class NectarTree extends TreeParser {
     };
 
     // $ANTLR start "sort"
-    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:382:1: sort : ( ^( TOK_SORT column_no= INT ip= ID ) | ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ ) );
+    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:396:1: sort : ( ^( TOK_SORT column_no= INT ip= ID ) | ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ ) );
     public final NectarTree.sort_return sort() throws RecognitionException {
         NectarTree.sort_return retval = new NectarTree.sort_return();
         retval.start = input.LT(1);
@@ -2770,7 +2784,7 @@ public class NectarTree extends TreeParser {
         CommonTree filenameList_tree=null;
 
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:382:6: ( ^( TOK_SORT column_no= INT ip= ID ) | ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ ) )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:396:6: ( ^( TOK_SORT column_no= INT ip= ID ) | ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ ) )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2828,7 +2842,7 @@ public class NectarTree extends TreeParser {
             }
             switch (alt25) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:382:7: ^( TOK_SORT column_no= INT ip= ID )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:396:7: ^( TOK_SORT column_no= INT ip= ID )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2881,7 +2895,7 @@ public class NectarTree extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:399:1: ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:413:1: ^( TOK_SORT column_no= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2910,7 +2924,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, directory_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:399:39: (filenameList+= FORWARDSLASH filenameList+= ID )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:413:39: (filenameList+= FORWARDSLASH filenameList+= ID )+
                     int cnt24=0;
                     loop24:
                     do {
@@ -2924,7 +2938,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt24) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:399:40: filenameList+= FORWARDSLASH filenameList+= ID
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:413:40: filenameList+= FORWARDSLASH filenameList+= ID
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    filenameList=(CommonTree)match(input,FORWARDSLASH,FOLLOW_FORWARDSLASH_in_sort863); 
@@ -3008,7 +3022,7 @@ public class NectarTree extends TreeParser {
     };
 
     // $ANTLR start "cov"
-    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:424:2: cov : ( ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT ) | ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );
+    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:438:2: cov : ( ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT ) | ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );
     public final NectarTree.cov_return cov() throws RecognitionException {
         NectarTree.cov_return retval = new NectarTree.cov_return();
         retval.start = input.LT(1);
@@ -3038,7 +3052,7 @@ public class NectarTree extends TreeParser {
         CommonTree filenameList_tree=null;
 
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:424:6: ( ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT ) | ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:438:6: ( ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT ) | ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) )
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -3106,7 +3120,7 @@ public class NectarTree extends TreeParser {
             }
             switch (alt27) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:424:8: ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:438:8: ^( TOK_COV column_x= INT column_y= INT ip= ID total_rows= INT )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3164,7 +3178,7 @@ public class NectarTree extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:434:2: ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:448:2: ^( TOK_COV column_x= INT column_y= INT directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3199,7 +3213,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, directory_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:434:51: (filenameList+= FORWARDSLASH filenameList+= ID )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:448:51: (filenameList+= FORWARDSLASH filenameList+= ID )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -3213,7 +3227,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt26) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:434:52: filenameList+= FORWARDSLASH filenameList+= ID
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:448:52: filenameList+= FORWARDSLASH filenameList+= ID
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    filenameList=(CommonTree)match(input,FORWARDSLASH,FOLLOW_FORWARDSLASH_in_cov955); 
@@ -3295,7 +3309,7 @@ public class NectarTree extends TreeParser {
     };
 
     // $ANTLR start "covmatrix"
-    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:451:1: covmatrix : ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );
+    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:465:1: covmatrix : ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );
     public final NectarTree.covmatrix_return covmatrix() throws RecognitionException {
         NectarTree.covmatrix_return retval = new NectarTree.covmatrix_return();
         retval.start = input.LT(1);
@@ -3326,12 +3340,12 @@ public class NectarTree extends TreeParser {
         CommonTree filenameList_tree=null;
 
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:451:11: ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:465:11: ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) )
             int alt31=2;
             alt31 = dfa31.predict(input);
             switch (alt31) {
                 case 1 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:451:13: ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:465:13: ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3354,7 +3368,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, col_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:451:45: (morecol+= INT )*
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:465:45: (morecol+= INT )*
                     loop28:
                     do {
                         int alt28=2;
@@ -3367,7 +3381,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt28) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:451:45: morecol+= INT
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:465:45: morecol+= INT
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    morecol=(CommonTree)match(input,INT,FOLLOW_INT_in_covmatrix1013); 
@@ -3437,7 +3451,7 @@ public class NectarTree extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:482:2: ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT )
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:496:2: ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3460,7 +3474,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, col_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:482:34: (morecol+= INT )*
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:496:34: (morecol+= INT )*
                     loop29:
                     do {
                         int alt29=2;
@@ -3473,7 +3487,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:482:34: morecol+= INT
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:496:34: morecol+= INT
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    morecol=(CommonTree)match(input,INT,FOLLOW_INT_in_covmatrix1041); 
@@ -3499,7 +3513,7 @@ public class NectarTree extends TreeParser {
 
                     adaptor.addChild(root_1, directory_tree);
 
-                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:482:54: (filenameList+= FORWARDSLASH filenameList+= ID )+
+                    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:496:54: (filenameList+= FORWARDSLASH filenameList+= ID )+
                     int cnt30=0;
                     loop30:
                     do {
@@ -3513,7 +3527,7 @@ public class NectarTree extends TreeParser {
 
                         switch (alt30) {
                     	case 1 :
-                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:482:55: filenameList+= FORWARDSLASH filenameList+= ID
+                    	    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:496:55: filenameList+= FORWARDSLASH filenameList+= ID
                     	    {
                     	    _last = (CommonTree)input.LT(1);
                     	    filenameList=(CommonTree)match(input,FORWARDSLASH,FOLLOW_FORWARDSLASH_in_covmatrix1051); 
@@ -3616,7 +3630,7 @@ public class NectarTree extends TreeParser {
     };
 
     // $ANTLR start "help"
-    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:522:1: help : HELP terminator ;
+    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:536:1: help : HELP terminator ;
     public final NectarTree.help_return help() throws RecognitionException {
         NectarTree.help_return retval = new NectarTree.help_return();
         retval.start = input.LT(1);
@@ -3633,8 +3647,8 @@ public class NectarTree extends TreeParser {
         CommonTree HELP36_tree=null;
 
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:522:6: ( HELP terminator )
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:522:8: HELP terminator
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:536:6: ( HELP terminator )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:536:8: HELP terminator
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -3683,7 +3697,7 @@ public class NectarTree extends TreeParser {
     };
 
     // $ANTLR start "terminator"
-    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:533:1: terminator : ( NEWLINE | EOF );
+    // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:547:1: terminator : ( NEWLINE | EOF );
     public final NectarTree.terminator_return terminator() throws RecognitionException {
         NectarTree.terminator_return retval = new NectarTree.terminator_return();
         retval.start = input.LT(1);
@@ -3698,7 +3712,7 @@ public class NectarTree extends TreeParser {
         CommonTree set38_tree=null;
 
         try {
-            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:533:11: ( NEWLINE | EOF )
+            // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:547:11: ( NEWLINE | EOF )
             // com/zinnia/nectar/regression/antlr/language/parser/NectarTree.g:
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -3964,7 +3978,7 @@ public class NectarTree extends TreeParser {
             this.transition = DFA31_transition;
         }
         public String getDescription() {
-            return "451:1: covmatrix : ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );";
+            return "465:1: covmatrix : ( ^( TOK_COVMATRIX col= INT (morecol+= INT )* ip= ID total_rows= INT ) | ^( TOK_COVMATRIX col= INT (morecol+= INT )* directory= ID (filenameList+= FORWARDSLASH filenameList+= ID )+ total_rows= INT ) );";
         }
     }
  

@@ -77,4 +77,10 @@ public interface IComplexType {
 	 * @return covariance matrix
 	 */
 	public Future<Double[][]> covariancematrix(String inputFilePath,List<Integer> columns,int n);
+	/**
+	 * @param matrixPathA
+	 * @param matrixPathB
+	 * @return 
+	 */
+	public Future<String> matrixmultiply(String matrixPathA,String matrixPathB);
 }

@@ -26,7 +26,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.zinnia.nectar.config.Preferences;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.MatrixMultiplyJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.SeparateColumnsJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaSqJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaXYJob;
@@ -157,4 +159,21 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		
 		return value;
 	}
+	@Override
+	public Future<String> separateMatrixColumns(String matrixPath, int index) {
+		// TODO Auto-generated method stub
+		SeparateColumnsJob separateColumnsJob=new SeparateColumnsJob(matrixPath, index);
+		Future<String> value = executorService.submit(separateColumnsJob);
+		return value;
+	}
+	@Override
+	public Future<String> multiplyMatrices(String matrixPathA, List<String> outPaths,
+			int numColsB) {
+		// TODO Auto-generated method stub
+		MatrixMultiplyJob matrixMultiplyJob=new MatrixMultiplyJob(matrixPathA, outPaths, numColsB);
+		Future<String> value=executorService.submit(matrixMultiplyJob);
+		return value;
+	}
+	
+	
 }
