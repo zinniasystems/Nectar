@@ -27,6 +27,7 @@ import java.util.concurrent.Future;
 
 import com.zinnia.nectar.config.Preferences;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MatrixMultiplyJob;
+import com.zinnia.nectar.regression.hadoop.primitive.jobs.MatrixTransposeJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.MeanJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SeparateColumnsJob;
 import com.zinnia.nectar.regression.hadoop.primitive.jobs.SigmaJob;
@@ -160,18 +161,24 @@ public class PrimitiveTypeHadoopImpl implements IPrimitiveType {
 		return value;
 	}
 	@Override
-	public Future<String> separateMatrixColumns(String matrixPath, int index) {
+	public Future<String> separateMatrixColumns(String matrixPath, int index,String outPath) {
 		// TODO Auto-generated method stub
-		SeparateColumnsJob separateColumnsJob=new SeparateColumnsJob(matrixPath, index);
+		SeparateColumnsJob separateColumnsJob=new SeparateColumnsJob(matrixPath, index,outPath);
 		Future<String> value = executorService.submit(separateColumnsJob);
 		return value;
 	}
 	@Override
-	public Future<String> multiplyMatrices(String matrixPathA, List<String> outPaths,
-			int numColsB) {
+	public Future<String> multiplyMatrices(String matrixPathA, String outPath, int numColsB) {
 		// TODO Auto-generated method stub
-		MatrixMultiplyJob matrixMultiplyJob=new MatrixMultiplyJob(matrixPathA, outPaths, numColsB);
+		MatrixMultiplyJob matrixMultiplyJob=new MatrixMultiplyJob(matrixPathA, outPath, numColsB);
 		Future<String> value=executorService.submit(matrixMultiplyJob);
+		return value;
+	}
+	@Override
+	public Future<String> calculateTranspose(String path, int numCols) {
+		// TODO Auto-generated method stub
+		MatrixTransposeJob matrixTransposeJob=new MatrixTransposeJob(path, numCols);
+		Future<String> value=executorService.submit(matrixTransposeJob);
 		return value;
 	}
 	

@@ -1,0 +1,5 @@
+#surefire
+#Mon Apr 30 15:40:08 IST 2012
+user.dir=/home/naveen/NectarDev/Nectar/Nectar-common
+localRepository=/home/naveen/.m2/repository
+basedir=/home/naveen/NectarDev/Nectar/Nectar-common

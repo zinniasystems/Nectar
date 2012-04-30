@@ -1,20 +1,25 @@
 package com.zinnia.nectar.regression.hadoop.primitive.mapreduce;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+
+import com.zinnia.nectar.util.hadoop.writable.IndexPair;
+
 
 public class MatrixMultiplyMapper extends Mapper<LongWritable, Text, LongWritable, Text> 
 {
 	private String delim = "\t";
 	private int numRows;
+	private String matrixB="";
 	
 	@Override
 	protected void setup(Context context) throws IOException,
@@ -22,6 +27,7 @@ public class MatrixMultiplyMapper extends Mapper<LongWritable, Text, LongWritabl
 		// TODO Auto-generated method stub
 		Configuration configuration=context.getConfiguration();
 		numRows = configuration.getInt("numColsB", 0);
+		matrixB = configuration.get("matrixB");
 	}
 
 	@Override
@@ -31,16 +37,17 @@ public class MatrixMultiplyMapper extends Mapper<LongWritable, Text, LongWritabl
 		double sum = 0,x,y;
 		int count = 0;
 		StringBuffer buffer = new StringBuffer();
-		Path[] cacheFiles=context.getLocalCacheFiles();
 		
+		FileSystem fs=FileSystem.get(context.getConfiguration());
 		while(count <= numRows-1){
 			StringTokenizer tokenizer = new StringTokenizer(value.toString(), delim);
-			BufferedReader reader=new BufferedReader(new FileReader(cacheFiles[count].toString()));
-			String line = "";
-		
-			while(tokenizer.hasMoreTokens() && (line=reader.readLine()) != null){
+			
+			SequenceFile.Reader reader=new SequenceFile.Reader(fs, new Path(matrixB+"/"+count+"/part-m-00000"), context.getConfiguration());
+			IndexPair indexPair=new IndexPair();
+			DoubleWritable doubleWritable=new DoubleWritable();
+			while(tokenizer.hasMoreTokens() && reader.next(indexPair, doubleWritable)){
 				x = Double.parseDouble(tokenizer.nextToken());
-				y = Double.parseDouble(line);
+				y = doubleWritable.get();
 				sum += x*y;
 			}
 			

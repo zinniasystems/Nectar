@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class ColumnMapper extends Mapper<LongWritable, Text, NullWritable, DoubleWritable> 
+import com.zinnia.nectar.util.hadoop.writable.IndexPair;
+
+
+public class ColumnMapper extends Mapper<LongWritable, Text, IndexPair, DoubleWritable> 
 {
 	private String delim = "\t";
 	
@@ -19,7 +21,8 @@ public class ColumnMapper extends Mapper<LongWritable, Text, NullWritable, Doubl
 		int index = context.getConfiguration().getInt("index", 0);
 		String[] values = value.toString().split(delim);
 		double val = Double.parseDouble(values[index]);
-		context.write(NullWritable.get(), new DoubleWritable(val));
+		IndexPair indexPair=new IndexPair(key.get(), index);
+		context.write(indexPair, new DoubleWritable(val));
 	}
 	
 }

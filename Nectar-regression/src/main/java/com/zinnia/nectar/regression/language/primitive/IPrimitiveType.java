@@ -73,11 +73,17 @@ public interface IPrimitiveType
 	 * @param index
 	 * @return
 	 */
-	Future<String> separateMatrixColumns(String matrixPath,int index);
+	Future<String> separateMatrixColumns(String matrixPath,int index,String outPath);
 	/**
 	 * @param matrixPathA
 	 * @param matrixPathB
 	 * @return
 	 */
-	Future<String> multiplyMatrices(String matrixPathA,List<String> outPaths,int numColsB);
+	Future<String> multiplyMatrices(String matrixPathA,String outPath,int numColsB);
+	/**
+	 * @param path
+	 * @param numCols
+	 * @return
+	 */
+	Future<String> calculateTranspose(String path,int numCols);
 }

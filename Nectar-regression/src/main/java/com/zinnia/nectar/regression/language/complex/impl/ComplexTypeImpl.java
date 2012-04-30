@@ -102,4 +102,11 @@ public class ComplexTypeImpl implements IComplexType {
 		Future<String> value=executorService.submit(matrixMultiplyImpl);
 		return value;
 	}
+	@Override
+	public Future<String> matrixTranspose(String matrixPath) {
+		// TODO Auto-generated method stub
+		MatrixTransposeImpl matrixTransposeImpl=new MatrixTransposeImpl(matrixPath);
+		Future<String> value=executorService.submit(matrixTransposeImpl);
+		return value;
+	}
 }

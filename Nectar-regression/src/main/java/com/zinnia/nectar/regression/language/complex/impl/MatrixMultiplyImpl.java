@@ -31,25 +31,24 @@ public class MatrixMultiplyImpl implements Callable<String> {
 		int index=0;
 		String output=new String();
 		List<Future<String>> futureList=new ArrayList<Future<String>>();
-		List<String> outPaths=new ArrayList<String>();
 		int numRowsA = getNumRows(matrixPathA);
 		int numColsA = getNumCols(matrixPathA);
 		int numRowsB = getNumRows(matrixPathB);
 		int numColsB = getNumCols(matrixPathB);
 		if(numColsA==numRowsB){
-			String outpath="out"+UUID.randomUUID();
+			String outpath="output"+UUID.randomUUID();
 			IPrimitiveType primitiveType = PrimitiveTypeImplFactory.getInstance(matrixPathB); 
 			while(index<numColsB){
-				Future<String> future=primitiveType.separateMatrixColumns(matrixPathB, index);
+				Future<String> future=primitiveType.separateMatrixColumns(matrixPathB, index,outpath);
 				futureList.add(future);
 				index++;
 			}
 			index=0;
 			while(index<numColsB){
-				outPaths.add(futureList.get(index).get());
+				futureList.get(index).get();
 				index++;
 			}
-			Future<String> futureVal=primitiveType.multiplyMatrices(matrixPathA, outPaths, numColsB);
+			Future<String> futureVal=primitiveType.multiplyMatrices(matrixPathA, outpath, numColsB);
 			output=futureVal.get();
 		}
 		return output;

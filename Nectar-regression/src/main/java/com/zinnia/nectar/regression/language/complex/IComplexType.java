@@ -83,4 +83,9 @@ public interface IComplexType {
 	 * @return 
 	 */
 	public Future<String> matrixmultiply(String matrixPathA,String matrixPathB);
+	/**
+	 * @param matrixPath
+	 * @return
+	 */
+	public Future<String> matrixTranspose(String matrixPath);
 }
